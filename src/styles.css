@@ -1,3 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
-
+@import 'normalize-css/normalize.css';
 @import 'tailwindcss';
+
+@font-face {
+  font-family: 'DM-Sans';
+  src: url('fonts/DMSans-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --primary-color: #0A369D;
+  --secondary-color: #4472CA;
+  --text-color: #FFFFFF;
+  --background-color: #F5F5F5;
+  --border-color: #E0E0E0;
+  --hover-color: #0A369D;
+  --active-color: #3472CA;
+  --primary-font: 'DM-Sans';
+}
+
+* {
+  font-family: var(--primary-font), sans-serif;
+}
