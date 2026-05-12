@@ -8,26 +8,27 @@ import { NgmMotionDirective } from '@scripttype/ng-motion';
   styleUrl: './header.css',
 })
 export class Header {
-  schoolName: string;
-  campus: string;
-  userName: string; // TODO: Use UserService instead to get the current connected user
+  schoolName: string = 'Nova Campus';
+  campus: string = 'Campus de Strasbourg';
 
-  constructor() {
-    this.schoolName = "Nova Campus";
-    this.campus = 'Campus de Strasbourg';
-    this.userName = 'Jane Doezertyuiopzertyuiopertyuiop';
-  }
+  // TODO: (Placeholder) Use UserService instead to get the current connected user
+  userName: string = 'Burnice White 🔥🔥🔥';
+
+  // TODO: (Placeholder) Use UserService instead to check if the user is logged in
+  isUserLoggedIn: boolean | undefined = Math.random() < 0.5;
 
   // TODO: Handle signing out
   logout() {
-    window.alert('Deconnect');
+    window.alert('Logging out...');
   }
 
+  // TODO: Handle going to home page
   goHome() {
-    window.alert('Go Home');
+    window.alert('Going to Home...');
   }
 
+  // TODO: Handle going to profile page
   openProfile() {
-    window.alert('Open Profile');
+    window.alert('Opening profile...');
   }
 }

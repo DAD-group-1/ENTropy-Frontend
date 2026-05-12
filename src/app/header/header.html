@@ -9,18 +9,20 @@
             damping: 20
           }"
     >
-    <h1>{{ schoolName }} @if (campus) {
-      <!-- TODO: Check if token is present -->
+    <h1>{{ schoolName }} @if (isUserLoggedIn) {
         - {{ campus }}
     }</h1>
   </section>
-  <section class="user-section">
-    <section class="user-info" (click)="openProfile()">
-      <img src="assets/user-avatar.png" alt="User Avatar" class="user-avatar">
-      <span class="user-name">{{ userName }}</span>
+  @if (isUserLoggedIn) {
+    <section class="user-section">
+      <section class="user-info" (click)="openProfile()">
+        <img src="assets/user-avatar.png" alt="User Avatar" class="user-avatar">
+        <span class="user-name">{{ userName }}</span>
+      </section>
+      <section class="logout-part" (click)="logout()">
+        <span class="logout pi pi-sign-out"></span>
+      </section>
     </section>
-    <section class="logout-part" (click)="logout()">
-      <span class="logout pi pi-sign-out"></span>
-    </section>
-  </section>
+  }
+
 </header>
