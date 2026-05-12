@@ -17,10 +17,10 @@ header {
   }
 
   .user-section {
-    @apply flex justify-center items-center rounded-2xl border-2 h-15 border-white;
+    @apply flex justify-center gap-x-1 items-center rounded-2xl h-15;
 
     .user-info {
-      @apply flex justify-center gap-x-2 items-center flex-row px-2 hover:bg-black/50 p-2 rounded-2xl border-transparent cursor-pointer select-none;
+      @apply flex justify-center gap-x-2 items-center flex-row px-2 hover:bg-black/50 p-2 rounded-2xl cursor-pointer select-none border-2 border-white;
 
       img {
         @apply w-10 h-10 rounded-full;
@@ -28,7 +28,7 @@ header {
     }
 
     .logout-part {
-      @apply hover:bg-black/50 rounded-2xl h-full border-2 px-2 justify-center items-center border-transparent flex cursor-pointer text-white transition hover:text-red-500;
+      @apply hover:bg-black/50 h-12 w-12 rounded-full border-2 px-2 justify-center items-center border-transparent flex cursor-pointer text-white transition hover:text-red-500;
 
       .logout {
         @apply cursor-pointer text-xl text-center;
