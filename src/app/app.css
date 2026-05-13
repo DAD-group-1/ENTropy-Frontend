@@ -1,7 +1,11 @@
+@import "normalize-css/normalize.css";
+@import "primeicons/primeicons.css";
+@import "tailwindcss";
+
 :host {
-  @apply flex flex-col h-full;
+  @apply flex flex-col h-full w-full;
 }
 
 main.main {
-  @apply h-full;
+  @apply flex h-full w-full;
 }
