@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "primeicons/primeicons.css";
+@import "../../../../../node_modules/tailwindcss/dist/lib.d.mts";
+@import "../../../../../node_modules/primeicons/primeicons.css";
 
 header {
   @apply bg-linear-65 from-[var(--primary-color)] to-[var(--secondary-color)] text-white p-2 flex items-center justify-between z-1000 shadow-xl;
