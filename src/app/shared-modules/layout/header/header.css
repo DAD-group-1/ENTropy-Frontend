@@ -1,0 +1,39 @@
+@import "tailwindcss";
+@import "primeicons/primeicons.css";
+
+header {
+  @apply bg-linear-65 from-[var(--primary-color)] to-[var(--secondary-color)] text-white p-2 flex items-center justify-between z-1000 shadow-xl;
+
+  .logo-section {
+    @apply flex justify-center items-center gap-x-4;
+
+    h1 {
+      @apply text-2xl font-bold;
+    }
+
+    .logo {
+      @apply w-16 h-16 rounded-2xl cursor-pointer;
+    }
+  }
+
+  .user-section {
+    @apply flex justify-center gap-x-1 items-center rounded-2xl h-15;
+
+    .user-info {
+      @apply flex justify-center gap-x-2 items-center flex-row px-2 hover:bg-black/50 p-2 rounded-2xl cursor-pointer select-none border-2 border-white;
+
+      img {
+        @apply w-10 h-10 rounded-full;
+      }
+    }
+
+    .logout-part {
+      @apply hover:bg-black/50 h-12 w-12 rounded-full border-2 px-2 justify-center items-center border-transparent flex cursor-pointer text-white transition hover:text-red-500;
+
+      .logout {
+        @apply cursor-pointer text-xl text-center;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,28 @@
+<header class="header">
+  <section class="logo-section">
+    <img src="assets/logo.png" (click)="goHome()" alt="Logo" class="logo"
+         ngmMotion
+         [whileHover]="{ scale: 1.04, y: -2 }"
+         [transition]="{
+            type: 'spring',
+            stiffness: 400,
+            damping: 20
+          }"
+    >
+    <h1>{{ schoolName }} @if (isUserLoggedIn) {
+        - {{ campus }}
+    }</h1>
+  </section>
+  @if (isUserLoggedIn) {
+    <section class="user-section">
+      <section class="user-info" (click)="openProfile()">
+        <img src="assets/user-avatar.png" alt="User Avatar" class="user-avatar">
+        <span class="user-name">{{ userName }}</span>
+      </section>
+      <section class="logout-part" (click)="logout()">
+        <span class="logout pi pi-sign-out"></span>
+      </section>
+    </section>
+  }
+
+</header>
