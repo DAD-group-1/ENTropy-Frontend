@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
+import { InputTextModule } from 'primeng/inputtext';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -19,6 +21,8 @@ import { NgmMotionDirective } from '@scripttype/ng-motion';
     CardModule,
     ButtonModule,
     FormsModule,
+    MessageModule,
+    InputTextModule,
     ReactiveFormsModule,
     CommonModule,
     NgmMotionDirective,
@@ -42,8 +46,16 @@ export class LoginPage implements OnInit {
     return this.loginForm.get('email');
   }
 
+  get emailInvalid() {
+    return this.email?.invalid && this.email?.dirty;
+  }
+
   get password() {
     return this.loginForm.get('password');
+  }
+
+  get passwordInvalid() {
+    return this.password?.invalid && this.password?.dirty;
   }
 
   onSubmit(): void {

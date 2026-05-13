@@ -11,47 +11,41 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form" novalidate>
         <section class="email">
           <label for="email-input" id="email-label">Email Address</label>
-          <input
+          <input pInputText
             id="email-input"
             type="email"
             placeholder="you@example.com"
             class="p-inputtext p-component"
             formControlName="email"
+            [invalid]="emailInvalid"
             aria-labelledby="email-label"
-            [attr.aria-invalid]="email?.invalid && email?.touched"
-            [attr.aria-describedby]="email?.invalid && email?.touched ? 'email-error' : null"
+            [attr.aria-invalid]="emailInvalid"
+            [attr.aria-describedby]="emailInvalid ? 'email-error' : null"
           />
-          @if (email?.invalid && email?.touched) {
-            <output
-              id="email-error"
-              class="error-message"
-              role="alert"
-            >
+          @if (emailInvalid) {
+            <p-message severity="error" variant="simple" size="small">
               {{ getEmailErrorMessage() }}
-            </output>
+            </p-message>
           }
         </section>
 
         <section class="password">
           <label for="password-input" id="password-label">Password</label>
           <p-password
-            id="password-input"
+            inputId="password-input"
             formControlName="password"
             [toggleMask]="true"
             [feedback]="false"
+            [invalid]="passwordInvalid"
             placeholder="Enter your password"
             aria-labelledby="password-label"
-            [attr.aria-invalid]="password?.invalid && password?.touched"
-            [attr.aria-describedby]="password?.invalid && password?.touched ? 'password-error' : null"
+            [attr.aria-invalid]="passwordInvalid"
+            [attr.aria-describedby]="passwordInvalid ? 'password-error' : null"
           ></p-password>
-          @if (password?.invalid && password?.touched) {
-            <output
-              id="password-error"
-              class="error-message"
-              role="alert"
-            >
+          @if (passwordInvalid) {
+            <p-message severity="error" variant="simple" size="small">
               {{ getPasswordErrorMessage() }}
-            </output>
+            </p-message>
           }
         </section>
 
