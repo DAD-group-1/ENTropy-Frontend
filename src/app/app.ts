@@ -18,4 +18,7 @@ export class App implements OnInit {
   }
 
   protected readonly title = signal('ENTropy-Frontend');
+
+  // TODO: Use UserService to check if the user is logged in, or other checks
+  protected isSidebarVisible: boolean = Math.random() < 0.5;
 }

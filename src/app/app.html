@@ -1,5 +1,7 @@
-<app-header/>
+<app-header />
 <main class="main">
-  <app-sidebar/>
-  <router-outlet/>
+  <app-sidebar
+    [isVisible]="isSidebarVisible"
+  />
+  <router-outlet />
 </main>

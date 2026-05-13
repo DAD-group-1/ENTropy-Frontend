@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+nav.sidebar.sidebar-hidden {
+  @apply hidden;
+}
+
 nav.sidebar {
   @apply w-64 h-full bg-(--secondary-color) text-white flex flex-col p-2
   transition-all duration-300 ease-in-out -translate-x-full md:translate-x-0;
