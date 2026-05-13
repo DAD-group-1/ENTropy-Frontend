@@ -1,0 +1,103 @@
+@import "tailwindcss";
+@import "primeicons/primeicons.css";
+
+:host .center {
+  @apply min-w-full min-h-full flex items-center justify-center;
+  background: linear-gradient(to bottom right, var(--background-color), #e8e8e8);
+
+  .login-page {
+    @apply w-full max-w-7xl flex gap-12 items-center justify-center px-6;
+
+    .image {
+      @apply hidden lg:block shrink-0 max-w-md rounded-2xl shadow-2xl overflow-hidden;
+    }
+
+    .card-header {
+      @apply text-center mb-6;
+
+      h1 {
+        @apply text-3xl font-bold m-0;
+        color: var(--text-color);
+      }
+
+      p {
+        @apply text-sm mt-2;
+      }
+    }
+
+    p-card {
+      @apply max-w-md;
+
+      ::ng-deep .p-card {
+        @apply shadow-xl rounded-2xl border-0;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      ::ng-deep .p-card-body {
+        @apply p-8;
+      }
+    }
+
+    .login-form {
+      @apply flex flex-col gap-6;
+
+      section {
+        @apply flex flex-col gap-2;
+
+        label {
+          @apply text-sm font-semibold uppercase tracking-wide cursor-pointer;
+          color: var(--text-color);
+        }
+
+        input, p-password {
+          ::ng-deep input {
+            @apply w-full;
+          }
+          border-color: var(--border-color);
+        }
+
+        input[aria-invalid="true"] {
+          @apply border-2 border-solid;
+          border-color: var(--error-color);
+        }
+
+        p-password[aria-invalid="true"] {
+          ::ng-deep input {
+            @apply border-2 border-solid;
+            border-color: var(--error-color);
+          }
+        }
+
+        input:focus {
+          @apply outline-none ring-2 ring-offset-2;
+          --tw-ring-color: var(--primary-color);
+        }
+      }
+
+      .error-message {
+        @apply text-sm font-medium;
+        color: var(--error-color);
+      }
+
+      .motion-wrapper {
+        @apply w-full transition-transform duration-300 ease-out hover:scale-105;
+      }
+
+      p-button {
+        ::ng-deep button {
+          @apply w-full mt-4 py-3 font-semibold rounded-lg transition-all duration-300 ease-out;
+          @apply text-white shadow-lg;
+          background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+
+        ::ng-deep button:disabled {
+          @apply opacity-50 cursor-not-allowed;
+          background: linear-gradient(to right, var(--disabled-color), var(--disabled-color));
+        }
+      }
+    }
+  }
+}
+
+/*TODO Fix the style where the red border appears*/

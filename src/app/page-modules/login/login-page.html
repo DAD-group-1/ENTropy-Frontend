@@ -1,0 +1,70 @@
+<div class="center" role="main" aria-label="Login page">
+  <section class="login-page">
+    <img src="assets/nova-campus.jpg" alt="Nova campus marketing image" class="image">
+
+    <p-card>
+      <div class="card-header">
+        <h1>Welcome Back</h1>
+        <p>Sign in to your account</p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form" novalidate>
+        <section class="email">
+          <label for="email-input" id="email-label">Email Address</label>
+          <input
+            id="email-input"
+            type="email"
+            placeholder="you@example.com"
+            class="p-inputtext p-component"
+            formControlName="email"
+            aria-labelledby="email-label"
+            [attr.aria-invalid]="email?.invalid && email?.touched"
+            [attr.aria-describedby]="email?.invalid && email?.touched ? 'email-error' : null"
+          />
+          @if (email?.invalid && email?.touched) {
+            <output
+              id="email-error"
+              class="error-message"
+              role="alert"
+            >
+              {{ getEmailErrorMessage() }}
+            </output>
+          }
+        </section>
+
+        <section class="password">
+          <label for="password-input" id="password-label">Password</label>
+          <p-password
+            id="password-input"
+            formControlName="password"
+            [toggleMask]="true"
+            [feedback]="false"
+            placeholder="Enter your password"
+            aria-labelledby="password-label"
+            [attr.aria-invalid]="password?.invalid && password?.touched"
+            [attr.aria-describedby]="password?.invalid && password?.touched ? 'password-error' : null"
+          ></p-password>
+          @if (password?.invalid && password?.touched) {
+            <output
+              id="password-error"
+              class="error-message"
+              role="alert"
+            >
+              {{ getPasswordErrorMessage() }}
+            </output>
+          }
+        </section>
+
+        <div class="motion-wrapper" ngmMotion>
+          <p-button
+            label="Sign In"
+            [raised]="true"
+            [disabled]="loginForm.invalid"
+            type="submit"
+            [attr.aria-busy]="false"
+          ></p-button>
+        </div>
+      </form>
+    </p-card>
+  </section>
+</div>
