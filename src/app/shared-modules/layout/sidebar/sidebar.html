@@ -1,0 +1,49 @@
+<nav class="sidebar" [ngClass]="{ 'sidebar-collapsed': isSidebarCollapsed }">
+  <section class="sidebar-header">
+    <h2>Menu</h2>
+  </section>
+  <section class="sidebar-menu">
+    <ul class="sidebar-menu-list">
+      <ng-container>
+        @for (item of menuItems; track item) {
+          <li class="sidebar-menu-item" [ngClass]="currentPage === item.label ? 'menu-item-active' : ''">
+            <a
+              href="#"
+              class="sidebar-item"
+              [ngClass]="{
+              'has-children': item.children,
+              'menu-item-active': item.isOpen
+            }"
+              (click)="toggleMenuItem(item)"
+            >
+              <span [class]="item.icon"></span>
+              <span class="sidebar-item-text">{{ item.label }}</span>
+              @if (item.children && !isSidebarCollapsed) {
+                <i
+                  class="fas fa-chevron-down sidebar-item-arrow"
+                  [ngClass]="{ rotated: item.isOpen }"
+                ></i>
+              }
+            </a>
+            @if (item.children && !isSidebarCollapsed && item.isOpen) {
+              <ul class="sidebar-submenu-collapsed">
+                @for (child of item.children; track child) {
+                  <li>
+                    <a href="#" class="sidebar-item sidebar-subitem">
+                      <span [class]="child.icon"></span>
+                      <span class="sidebar-item-text">{{ child.label }}</span>
+                    </a>
+                  </li>
+                }
+              </ul>
+
+            }
+          </li>
+        }
+      </ng-container>
+    </ul>
+  </section>
+  <div class="sidebar-toggle" [ngClass]="isSidebarCollapsed ? 'mt-2' : 'mt-6'" (click)="toggleSidebar()">
+    <span [ngClass]="isSidebarCollapsed ? 'pi pi-code' : 'pi pi-times'"></span>
+  </div>
+</nav>

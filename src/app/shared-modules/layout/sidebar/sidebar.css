@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@import "primeicons/primeicons.css";
+
+nav.sidebar {
+  @apply w-64 h-full bg-[var(--secondary-color)] text-white flex flex-col p-2
+  transition-all duration-300 ease-in-out -translate-x-full md:translate-x-0;
+
+  .sidebar-header {
+    @apply text-2xl font-bold mb-4;
+  }
+
+  .sidebar-menu {
+
+    .sidebar-menu-list {
+      @apply flex flex-col gap-y-2;
+
+      .menu-item-active {
+        @apply bg-[var(--primary-color)];
+      }
+
+      .sidebar-menu-item {
+        @apply items-center p-2 rounded hover:bg-[var(--primary-color)] transition-colors duration-200;
+
+        .sidebar-item {
+          @apply flex gap-x-3 items-center;
+
+          span {
+            @apply text-2xl;
+          }
+
+          .sidebar-item-text {
+            @apply text-lg;
+          }
+        }
+      }
+    }
+  }
+
+  .sidebar-toggle {
+    @apply flex justify-center cursor-pointer;
+
+    span {
+      @apply text-2xl/6 h-10 w-10 hover:bg-[var(--primary-color)] transition-colors duration-200 p-2 rounded-full;
+    }
+  }
+
+  &.sidebar-collapsed {
+    @apply w-16
+    transition-all duration-300 ease-in-out
+    -translate-x-full md:translate-x-0;
+
+    .sidebar-header {
+      @apply hidden;
+    }
+
+    .sidebar-menu {
+      @apply hidden;
+    }
+
+    .sidebar-toggle {
+      @apply flex h-full items-start;
+    }
+  }
+}

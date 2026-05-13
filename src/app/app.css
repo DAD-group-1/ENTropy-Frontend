@@ -1,0 +1,7 @@
+:host {
+  @apply flex flex-col h-full;
+}
+
+main.main {
+  @apply h-full;
+}

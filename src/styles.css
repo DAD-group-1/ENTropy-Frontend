@@ -11,7 +11,7 @@
 :root {
   --primary-color: #0A369D;
   --secondary-color: #4472CA;
-  --text-color: #FFFFFF;
+  --text-color: #000000;
   --background-color: #F5F5F5;
   --border-color: #E0E0E0;
   --hover-color: #0A369D;
@@ -21,4 +21,12 @@
 
 * {
   font-family: var(--primary-font), sans-serif;
+}
+
+html, body {
+  @apply h-full;
+}
+
+main.main {
+  @apply flex flex-row;
 }
