@@ -6,7 +6,7 @@ nav.sidebar.sidebar-hidden {
 
 nav.sidebar {
   @apply w-64 h-full bg-(--secondary-color) text-white flex flex-col p-2
-  transition-all duration-300 ease-in-out -translate-x-full md:translate-x-0;
+  transition-all duration-300 ease-in-out;
 
   .sidebar-header {
     @apply text-2xl font-bold mb-4;
@@ -32,7 +32,7 @@ nav.sidebar {
           }
 
           .sidebar-item-text {
-            @apply text-lg;
+            @apply text-lg whitespace-nowrap overflow-hidden text-ellipsis;
           }
         }
       }
