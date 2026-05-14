@@ -1,0 +1,186 @@
+@import "tailwindcss";
+@import "primeicons/primeicons.css";
+
+:host .center {
+  @apply min-w-full min-h-full flex items-center justify-center;
+  background: linear-gradient(to bottom right, var(--background-color), #e8e8e8);
+
+  .login-page {
+    @apply w-full max-w-7xl flex gap-12 items-center justify-center px-6;
+
+    .image {
+      @apply hidden lg:block shrink-0 max-w-md rounded-2xl shadow-2xl overflow-hidden;
+    }
+
+    .card-header {
+      @apply text-center mb-6;
+
+      h1 {
+        @apply text-3xl font-bold m-0;
+        color: var(--text-color);
+      }
+
+      p {
+        @apply text-sm mt-2;
+      }
+    }
+
+    p-card {
+      @apply w-96 shrink-0 transition-all delay-150 duration-300 ease-in-out;
+
+      ::ng-deep .p-card {
+        @apply shadow-xl rounded-2xl border-0;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      ::ng-deep .p-card-body {
+        @apply p-8 overflow-hidden;
+      }
+    }
+
+    .login-form {
+      @apply flex flex-col gap-6;
+
+      section {
+        @apply flex flex-col gap-2;
+
+        label {
+          @apply text-sm font-semibold uppercase tracking-wide cursor-pointer;
+          color: var(--text-color);
+        }
+
+        input:focus {
+          @apply border-(--p-focus-ring-color)
+        }
+
+        p-password {
+          ::ng-deep input {
+            @apply w-full;
+          }
+        }
+      }
+
+      .motion-wrapper {
+        @apply w-full transition-transform duration-300 ease-out hover:scale-105;
+      }
+
+      p-button {
+        ::ng-deep button {
+          @apply w-full mt-4 py-3 font-semibold rounded-lg transition-all duration-300 ease-out;
+          @apply text-white shadow-lg;
+          background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+        ::ng-deep button:disabled {
+          @apply opacity-50 cursor-not-allowed;
+          background: linear-gradient(to right, var(--disabled-color), var(--disabled-color));
+        }
+      }
+    }
+  }
+}
+
+/* Very small phones (<=420px) — tiny padding, full-width card */
+@media (max-width: 420px) {
+  :host .center {
+    overflow-x: hidden;
+  }
+
+  :host .center .login-page {
+    @apply px-3 gap-4;
+  }
+
+  :host .center .login-page .image {
+    display: none; /* ensure image is hidden */
+  }
+
+  :host .center .login-page p-card {
+    @apply w-full max-w-full;
+  }
+
+  :host .center .login-page ::ng-deep .p-card-body {
+    @apply p-4;
+  }
+}
+
+/* Small devices (>=640px) */
+@media (min-width: 640px) {
+  :host .center .login-page {
+    @apply px-4 gap-6;
+  }
+
+  :host .center .login-page p-card {
+    @apply w-full max-w-sm;
+  }
+
+  :host .center .login-page ::ng-deep .p-card-body {
+    @apply p-6;
+  }
+}
+
+/* Medium devices / tablets (>=768px) */
+@media (min-width: 768px) {
+  :host .center .login-page {
+    @apply px-6 gap-8 lg:gap-12;
+    flex-direction: column; /* keep stacked on most tablets */
+  }
+
+  :host .center .login-page .image {
+    @apply hidden lg:block;
+  }
+
+  :host .center .login-page p-card {
+    @apply w-full max-w-md;
+  }
+
+  :host .center .login-page ::ng-deep .p-card-body {
+    @apply p-6 lg:p-8;
+  }
+}
+
+/* Large devices / small desktops (>=1024px) - restore side-by-side layout */
+@media (min-width: 1024px) {
+  :host .center .login-page {
+    @apply flex-row gap-12;
+  }
+
+  :host .center .login-page .image {
+    @apply block lg:block;
+    max-width: 40%;
+    min-width: 0;
+  }
+
+  :host .center .login-page p-card {
+    @apply w-96 max-w-md lg:shrink-0;
+  }
+
+  :host .center .login-page ::ng-deep .p-card-body {
+    @apply p-8;
+  }
+}
+
+/* Extra large (>=1280px) */
+@media (min-width: 1280px) {
+  :host .center .login-page {
+    @apply max-w-7xl px-8;
+  }
+
+  :host .center .login-page .image {
+    max-width: 44%;
+  }
+
+  :host .center .login-page p-card {
+    @apply w-96;
+  }
+}
+
+/* 2XL screens (>=1536px) */
+@media (min-width: 1536px) {
+  :host .center .login-page {
+    @apply gap-16;
+  }
+
+  :host .center .login-page .image {
+    max-width: 48%;
+  }
+}

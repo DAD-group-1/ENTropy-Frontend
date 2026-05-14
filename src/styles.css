@@ -13,6 +13,8 @@
   --text-color: #000000;
   --background-color: #F5F5F5;
   --border-color: #E0E0E0;
+  --disabled-color: #9CA3AF;
+  --error-color: #EF4444;
   --hover-color: #0A369D;
   --active-color: #3472CA;
   --primary-font: 'DM-Sans';

@@ -16,6 +16,7 @@ interface MenuItem {
 })
 export class Sidebar {
   @Input() isSidebarCollapsed = false;
+  @Input() isVisible = true;
 
   // TODO: This should be set based on the actual current page, possibly using Angular's Router
   protected currentPage: string | undefined = 'Home';
