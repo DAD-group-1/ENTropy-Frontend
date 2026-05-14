@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'DM-Sans';
-  src: url('fonts/DMSans-Medium.ttf') format('truetype');
+  src: url('/assets/fonts/DMSans-Medium.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
