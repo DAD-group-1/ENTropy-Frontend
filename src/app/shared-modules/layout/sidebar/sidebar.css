@@ -1,67 +1,129 @@
 @import "tailwindcss";
+@import "primeicons/primeicons.css";
 
-nav.sidebar.sidebar-hidden {
-  @apply hidden;
+/* =========================
+   BACKDROP
+========================= */
+
+.sidebar-backdrop {
+  @apply fixed inset-0 bg-black/0 opacity-0 invisible pointer-events-none transition-opacity duration-300 ease-in-out z-900;
 }
 
-nav.sidebar {
-  @apply w-64 h-full bg-(--secondary-color) text-white flex flex-col p-2
-  transition-all duration-300 ease-in-out;
+.sidebar-backdrop.active {
+  @apply bg-black/50 opacity-100 visible pointer-events-auto;
+}
 
-  .sidebar-header {
-    @apply text-2xl font-bold mb-4;
+/* =========================
+   SIDEBAR BASE (DESKTOP FIRST)
+========================= */
+
+.layout-sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  flex: 0 0 20rem;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--secondary-color, #1f2937);
+  color: #fff;
+  transition: width 300ms ease, flex-basis 300ms ease, transform 300ms ease;
+  will-change: width, transform;
+  z-index: 950;
+}
+
+/* Desktop collapsed state */
+.layout-sidebar.desktop-inactive {
+  @apply w-0 overflow-hidden;
+}
+
+.layout-menu {
+  @apply flex-1 overflow-y-auto;
+
+  li {
+    @apply whitespace-nowrap overflow-hidden text-ellipsis
+  }
+}
+
+/* Sidebar Header */
+.sidebar-header {
+  @apply flex items-center p-4 border-b border-gray-300;
+
+  p {
+    @apply whitespace-nowrap overflow-hidden text-ellipsis
+  }
+}
+
+.sidebar-avatar {
+  @apply w-10 h-10 rounded-full mr-2
+}
+
+.sidebar-student-name {
+  @apply text-sm font-semibold text-white truncate
+}
+
+.sidebar-entropy {
+  @apply text-xs text-white/60 truncate
+}
+
+.item-a {
+  @apply items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold transition-colors duration-150
+}
+
+.sidebar-item-text {
+  @apply truncate flex-1 ml-2;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+  @apply sticky flex justify-start border-t border-white/6;
+}
+
+.logout-button {
+  @apply w-full p-2 flex justify-between;
+}
+
+/* =========================
+   MOBILE BEHAVIOR
+========================= */
+
+@media (max-width: 991px) {
+  .layout-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100%;
+    transform: translateX(-100%);
+    transition: transform 300ms ease;
+    will-change: transform;
+    z-index: 950;
+    overflow-y: hidden;
   }
 
-  .sidebar-menu {
-
-    .sidebar-menu-list {
-      @apply flex flex-col gap-y-2;
-
-      .menu-item-active {
-        @apply bg-(--primary-color);
-      }
-
-      .sidebar-menu-item {
-        @apply items-center p-2 rounded hover:bg-(--primary-color) transition-colors duration-200;
-
-        .sidebar-item {
-          @apply flex gap-x-3 items-center;
-
-          span {
-            @apply text-2xl;
-          }
-
-          .sidebar-item-text {
-            @apply text-lg whitespace-nowrap overflow-hidden text-ellipsis;
-          }
-        }
-      }
-    }
+  /*TODO Faire en sorte que bouton logout soit tout le temps visible en bas à gauche*/
+  .layout-sidebar.mobile-active {
+    transform: translateX(0);
   }
 
-  .sidebar-toggle {
-    @apply flex justify-center cursor-pointer;
+  .layout-sidebar.desktop-inactive {
+    @apply flex-none w-4/5;
+  }
+}
 
-    span {
-      @apply text-2xl/6 h-10 w-10 hover:bg-(--primary-color) transition-colors duration-200 p-2 rounded-full;
-    }
+
+/* =========================
+   DESKTOP RULES ONLY
+========================= */
+
+@media (min-width: 992px) {
+  .layout-sidebar {
+    @apply relative;
+    transform: none !important;
   }
 
-  &.sidebar-collapsed {
-    @apply w-16
-    transition-all duration-300 ease-in-out
-    -translate-x-full md:translate-x-0;
-
-    .sidebar-header {
-      @apply hidden;
-    }
-
-    .sidebar-menu {
-      @apply hidden;
-    }
-
-    .sidebar-toggle {
-      @apply flex h-full items-start;
-    }
+  .sidebar-backdrop {
+    @apply hidden;
   }
 }

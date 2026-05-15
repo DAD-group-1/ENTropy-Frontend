@@ -1,49 +1,55 @@
-<nav class="sidebar" [ngClass]="{ 'sidebar-collapsed': isSidebarCollapsed, 'sidebar-hidden': !isVisible }">
-  <section class="sidebar-header">
-    <h2>Menu</h2>
-  </section>
-  <section class="sidebar-menu">
-    <ul class="sidebar-menu-list">
-      <ng-container>
-        @for (item of menuItems; track item) {
-          <li class="sidebar-menu-item" [ngClass]="currentPage === item.label ? 'menu-item-active' : ''">
-            <a
-              href="#"
-              class="sidebar-item"
-              [ngClass]="{
-              'has-children': item.children,
-              'menu-item-active': item.isOpen
-            }"
-              (click)="toggleMenuItem(item)"
-            >
-              <span [class]="item.icon"></span>
-              <span class="sidebar-item-text">{{ item.label }}</span>
-              @if (item.children && !isSidebarCollapsed) {
-                <i
-                  class="fas fa-chevron-down sidebar-item-arrow"
-                  [ngClass]="{ rotated: item.isOpen }"
-                ></i>
-              }
-            </a>
-            @if (item.children && !isSidebarCollapsed && item.isOpen) {
-              <ul class="sidebar-submenu-collapsed">
-                @for (child of item.children; track child) {
-                  <li>
-                    <a href="#" class="sidebar-item sidebar-subitem">
-                      <span [class]="child.icon"></span>
-                      <span class="sidebar-item-text">{{ child.label }}</span>
-                    </a>
-                  </li>
-                }
-              </ul>
+<div class="sidebar-backdrop" (click)="layoutService.onMenuToggle()"
+     [ngClass]="{ 'active': layoutService.layoutState().mobileMenuActive }"
+     aria-hidden="{{ !layoutService.layoutState().mobileMenuActive }}"></div>
 
-            }
-          </li>
-        }
-      </ng-container>
-    </ul>
-  </section>
-  <div class="sidebar-toggle" [ngClass]="isSidebarCollapsed ? 'mt-2' : 'mt-6'" (click)="toggleSidebar()">
-    <span [ngClass]="isSidebarCollapsed ? 'pi pi-chevron-right' : 'pi pi-times'"></span>
-  </div>
+<nav
+  class="layout-sidebar"
+  role="navigation"
+  aria-label="Main sidebar"
+  [ngClass]="{
+    'mobile-active': layoutService.layoutState().mobileMenuActive,
+    'desktop-inactive': layoutService.layoutState().staticMenuDesktopInactive && layoutService.isDesktop()
+  }"
+>
+  <!-- Avatar and Student Name (Tailwind classes) -->
+  <header class="flex items-center justify-between px-4 py-3 border-b border-white/6">
+    <div class="flex items-center gap-3 overflow-hidden">
+      <img src="assets/user-avatar.png" alt="Student Avatar"
+           class="w-12 h-12 rounded-full object-cover border-2 border-white/6" />
+      <div class="truncate">
+        <p class="sidebar-student-name">{{ studentName || 'Student Name' }}</p>
+        <p class="sidebar-entropy">{{ role }} · ENTropy</p>
+      </div>
+    </div>
+  </header>
+
+  <ul class="layout-menu p-2 space-y-1" role="menu">
+    <ng-container>
+      @for (item of menuItems; track item) {
+        <li class="sidebar-menu-item" role="none">
+          <a
+            href="#"
+            role="menuitem"
+            tabindex="0"
+            class="item-a"
+          >
+            <i [class]="item.icon + ' text-lg text-indigo-300 group-hover:text-indigo-200'"></i>
+
+            <span class="sidebar-item-text">{{ item.label }}</span>
+          </a>
+        </li>
+      }
+    </ng-container>
+  </ul>
+
+  <!-- Sticky Logout Button -->
+  <footer class="sidebar-footer">
+    <p-button (click)="onLogout()"
+              severity="danger"
+              aria-label="Log out"
+              class="logout-button">
+      <span>Logout</span>
+      <i class="pi pi-sign-out"></i>
+    </p-button>
+  </footer>
 </nav>
