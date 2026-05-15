@@ -6,7 +6,11 @@ export interface CalendarEvent {
   id: string;
   title: string;
   date: string; // YYYY-MM-DD
-  time?: string;
+  start_time: string;
+  end_time: string;
+  room?: string;
+  building?: string;
+  instructor?: string;
   description?: string;
   color: string;
 }
@@ -38,7 +42,11 @@ export class ENTCalendar implements OnInit {
       id: '1',
       title: 'Team standup',
       date: this.todayStr(),
-      time: '09:00',
+      start_time: '09:00',
+      end_time: '11:00',
+      room: 'S103',
+      building: 'Spider Building',
+      instructor: 'G. Ferrand',
       description: 'Daily sync with the engineering team.',
       color: '#6366f1',
     },
@@ -46,7 +54,8 @@ export class ENTCalendar implements OnInit {
       id: '2',
       title: 'Design review',
       date: this.offsetDate(2),
-      time: '14:00',
+      start_time: '14:00',
+      end_time: '16:00',
       description: 'Review new UI mockups with the product team.',
       color: '#10b981',
     },
@@ -54,6 +63,8 @@ export class ENTCalendar implements OnInit {
       id: '3',
       title: 'Release v3.0 🚀',
       date: this.offsetDate(5),
+      start_time: '17:00',
+      end_time: '19:00',
       description: 'Production deployment scheduled.',
       color: '#f59e0b',
     },
@@ -73,8 +84,10 @@ export class ENTCalendar implements OnInit {
     // TODO: Fetch events from backend here
   }
 
+  // TODO: Check with the backend if the user has permissions to modify events.
+  r: boolean = Math.random() < 0.5;
   canModify(): boolean {
-    return false;
+    return this.r; // Randomly allow modifications for demo purposes
   }
 
   // ── Computed ───────────────────────────────────────────────────────────────
@@ -188,7 +201,8 @@ export class ENTCalendar implements OnInit {
         id: crypto.randomUUID(),
         title: this.newEvent.title!.trim(),
         date: this.newEvent.date || this.addForDate,
-        time: this.newEvent.time,
+        start_time: this.newEvent.start_time!,
+        end_time: this.newEvent.end_time!,
         description: this.newEvent.description,
         color: this.newEvent.color || '#6366f1',
       },
