@@ -57,8 +57,8 @@
                   [style.background]="ev.color"
                   (click)="openEvent(ev, $event)"
                   [title]="ev.title">
-                  @if (ev.time) {
-                    <span class="ev-time">{{ ev.time }}</span>
+                  @if (ev.start_time) {
+                    <span class="ev-time">{{ ev.start_time }}</span>
                   }
                   <span class="ev-title">{{ ev.title }}</span>
                 </div>
@@ -100,11 +100,11 @@
               <div
                 class="week-event"
                 [style.background]="ev.color"
-                [style.top]="calculateEventPosition(ev.time)"
+                [style.top]="calculateEventPosition(ev.start_time)"
                 (click)="openEvent(ev, $event)">
                 <span class="week-event-title">{{ ev.title }}</span>
-                @if (ev.time) {
-                  <span class="week-event-time">{{ ev.time }}</span>
+                @if (ev.start_time) {
+                  <span class="week-event-time">{{ ev.start_time }}</span>
                 }
               </div>
             }
@@ -141,8 +141,8 @@
             <div class="day-card-dot" [style.background]="ev.color"></div>
             <div class="day-card-body">
               <span class="day-card-title">{{ ev.title }}</span>
-              @if (ev.time) {
-                <span class="day-card-time"><span class="pi pi-clock"></span> {{ ev.time }}</span>
+              @if (ev.start_time) {
+                <span class="day-card-time"><span class="pi pi-clock"></span> {{ ev.start_time }}</span>
               }
               @if (ev.description) {
                 <p class="day-card-desc">{{ ev.description }}</p>
@@ -171,14 +171,30 @@
 
         <div class="modal-body">
           <h2 class="modal-title">{{ selectedEvent()?.title }}</h2>
-          <div class="modal-row">
+          <div class="modal-row datetime-row">
             <span class="pi pi-calendar"></span>
             <span>{{ formatDate(selectedEvent()!.date) }}</span>
           </div>
-          @if (selectedEvent()?.time) {
-            <div class="modal-row">
+          @if (selectedEvent()?.start_time) {
+            <div class="modal-row datetime-row">
               <span class="pi pi-clock"></span>
-              <span>{{ selectedEvent()?.time }}</span>
+              <span>{{ selectedEvent()?.start_time }}</span>
+            </div>
+          }
+          @if(selectedEvent()?.building && selectedEvent()?.room) {
+            <section class="modal-row">
+              <span class="pi pi-building"></span>
+              <section>
+                <span>{{ selectedEvent()?.building }}</span>
+                @if(selectedEvent()?.building && selectedEvent()?.room) { <span> - </span> }
+                <span>{{ selectedEvent()?.room }}</span>
+              </section>
+            </section>
+          }
+          @if (selectedEvent()?.instructor) {
+            <div class="modal-row">
+              <span class="pi pi-user"></span>
+              <span>{{ selectedEvent()?.instructor }}</span>
             </div>
           }
           @if (selectedEvent()?.description) {
@@ -212,8 +228,17 @@
           <label class="form-label">Date</label>
           <input class="form-input" type="date" [(ngModel)]="newEvent.date" />
 
-          <label class="form-label">Time (optional)</label>
-          <input class="form-input" type="time" [(ngModel)]="newEvent.time" />
+          <label class="form-label">Start Time</label>
+          <input class="form-input" type="time" [(ngModel)]="newEvent.start_time" />
+
+          <label class="form-label">End Time</label>
+          <input class="form-input" type="time" [(ngModel)]="newEvent.end_time" />
+
+          <label class="form-label">Building</label>
+          <input class="form-input" [(ngModel)]="newEvent.building" placeholder="Building name…" />
+
+          <label class="form-label">Room</label>
+          <input class="form-input" [(ngModel)]="newEvent.room" placeholder="Room number/name…" />
 
           <label class="form-label">Description (optional)</label>
           <textarea class="form-input form-textarea" [(ngModel)]="newEvent.description"
