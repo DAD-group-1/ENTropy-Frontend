@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.calendar-page {
+  @apply w-full;
+}
