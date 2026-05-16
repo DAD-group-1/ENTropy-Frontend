@@ -17,6 +17,18 @@
    SIDEBAR BASE (DESKTOP FIRST)
 ========================= */
 
+header {
+  @apply flex items-center justify-between px-4 py-3 border-b border-white/6;
+
+  > .close-button {
+    @apply flex justify-center items-center cursor-pointer px-2 py-2 rounded-full;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.20);
+    }
+  }
+}
+
 .layout-sidebar {
   position: relative;
   display: flex;
@@ -89,6 +101,10 @@
 ========================= */
 
 @media (max-width: 991px) {
+  .sidebar-backdrop.active {
+    @apply z-1250
+  }
+
   .layout-sidebar {
     position: fixed;
     top: 0;
@@ -98,7 +114,7 @@
     transform: translateX(-100%);
     transition: transform 300ms ease;
     will-change: transform;
-    z-index: 950;
+    z-index: 1500;
     overflow-y: hidden;
   }
 

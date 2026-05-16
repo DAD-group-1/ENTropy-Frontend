@@ -12,7 +12,7 @@
   }"
 >
   <!-- Avatar and Student Name (Tailwind classes) -->
-  <header class="flex items-center justify-between px-4 py-3 border-b border-white/6">
+  <header>
     <div class="flex items-center gap-3 overflow-hidden">
       <img src="assets/user-avatar.png" alt="Student Avatar"
            class="w-12 h-12 rounded-full object-cover border-2 border-white/6" />
@@ -21,6 +21,9 @@
         <p class="sidebar-entropy">{{ role }} · ENTropy</p>
       </div>
     </div>
+    <button class="close-button" (click)="layoutService.onMenuToggle()">
+      <i class=" pi pi-times"></i>
+    </button>
   </header>
 
   <ul class="layout-menu p-2 space-y-1" role="menu">
