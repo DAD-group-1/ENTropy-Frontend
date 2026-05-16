@@ -1,65 +1,50 @@
 import { Injectable, signal, computed } from '@angular/core';
 
 export interface LayoutConfig {
-  preset: string;
-  primary: string;
-  surface: string | undefined | null;
-  darkTheme: boolean;
   menuMode: string;
 }
 
 interface LayoutState {
   staticMenuDesktopInactive: boolean;
   overlayMenuActive: boolean;
-  configSidebarVisible: boolean;
   mobileMenuActive: boolean;
-  menuHoverActive: boolean;
-  activePath: string | null;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class LayoutService {
+  constructor() {
+    this.handleResize();
+    window.addEventListener('resize', this.handleResize.bind(this));
+  }
+
+  handleResize() {
+    if (this.isDesktop()) {
+      this.layoutState.update((prev) => ({
+        ...prev,
+        mobileMenuActive: false, // ferme mobile
+        staticMenuDesktopInactive: false, // ouvre desktop
+      }));
+    } else {
+      this.layoutState.update((prev) => ({
+        ...prev,
+        mobileMenuActive: false, // fermé par défaut
+      }));
+    }
+  }
+
   layoutConfig = signal<LayoutConfig>({
-    preset: 'Aura',
-    primary: 'emerald',
-    surface: null,
-    darkTheme: false,
     menuMode: 'static',
   });
 
   layoutState = signal<LayoutState>({
     staticMenuDesktopInactive: false,
     overlayMenuActive: false,
-    configSidebarVisible: false,
     mobileMenuActive: false,
-    menuHoverActive: false,
-    activePath: null,
   });
 
-  theme = computed(() => (this.layoutConfig().darkTheme ? 'light' : 'dark'));
-
-  isSidebarActive = computed(
-    () => this.layoutState().overlayMenuActive || this.layoutState().mobileMenuActive,
-  );
-
-  isDarkTheme = computed(() => this.layoutConfig().darkTheme);
-
-  getPrimary = computed(() => this.layoutConfig().primary);
-
-  getSurface = computed(() => this.layoutConfig().surface);
-
   isOverlay = computed(() => this.layoutConfig().menuMode === 'overlay');
-
-  toggleDarkMode(config?: LayoutConfig): void {
-    const _config = config || this.layoutConfig();
-    if (_config.darkTheme) {
-      document.documentElement.classList.add('app-dark');
-    } else {
-      document.documentElement.classList.remove('app-dark');
-    }
-  }
 
   onMenuToggle() {
     if (this.isOverlay()) {
