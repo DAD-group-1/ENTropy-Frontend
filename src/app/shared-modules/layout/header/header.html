@@ -1,5 +1,17 @@
 <header class="header">
+  @if (showSidebar) {
+    <section class="menu-toggle-section">
+      <button class="layout-menu-button" (click)="layoutService.onMenuToggle()">
+        <i class="pi pi-bars"></i>
+      </button>
+    </section>
+  } @else {
+    <div class="header-placeholder"></div>
+  }
+
   <section class="logo-section">
+    <h1>{{ schoolName }}</h1>
+
     <img src="assets/logo_512x512.png" (click)="goHome()" alt="Logo" class="logo"
          ngmMotion
          [whileHover]="{ scale: 1.04, y: -2 }"
@@ -9,20 +21,5 @@
             damping: 20
           }"
     >
-    <h1>{{ schoolName }} @if (isUserLoggedIn) {
-        - {{ campus }}
-    }</h1>
   </section>
-  @if (isUserLoggedIn) {
-    <section class="user-section">
-      <section class="user-info" (click)="openProfile()">
-        <img src="assets/user-avatar.png" alt="User Avatar" class="user-avatar">
-        <span class="user-name">{{ userName }}</span>
-      </section>
-      <section class="logout-part" (click)="logout()">
-        <span class="logout pi pi-sign-out"></span>
-      </section>
-    </section>
-  }
-
 </header>

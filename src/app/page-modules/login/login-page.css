@@ -3,7 +3,6 @@
 
 :host .center {
   @apply min-w-full min-h-full flex items-center justify-center;
-  background: linear-gradient(to bottom right, var(--background-color), #e8e8e8);
 
   .login-page {
     @apply w-full max-w-7xl flex gap-12 items-center justify-center px-6;
