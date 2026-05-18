@@ -11,7 +11,10 @@ import { LayoutService } from '../../service/layout.service';
 export class Header {
   layoutService = inject(LayoutService);
 
-  schoolName: string = 'Nova Campus';
+  public schoolName: string = 'Nova Campus';
+
+  // TODO: Handle showing sidebar if not logged in
+  public showSidebar: boolean = false;
 
   // TODO: Handle going to home page
   goHome() {

@@ -1,5 +1,10 @@
 <app-header />
 <main class="main">
-  <app-sidebar />
-  <router-outlet />
+  @if (showSidebar) {
+    <app-sidebar />
+  }
+
+  <div class="content">
+    <router-outlet />
+  </div>
 </main>

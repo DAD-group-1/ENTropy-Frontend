@@ -7,5 +7,10 @@
 }
 
 main.main {
-  @apply flex flex-1 min-h-0 w-full overflow-hidden;
+  @apply flex flex-1 min-h-0 w-full overflow-hidden relative;
+}
+
+main.main .content {
+  @apply flex flex-1 min-h-0 h-full w-full overflow-auto relative;
+  background: linear-gradient(to bottom right, var(--background-color), #e8e8e8);
 }

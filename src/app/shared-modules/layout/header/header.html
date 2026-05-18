@@ -1,9 +1,13 @@
 <header class="header">
-  <section class="menu-toggle-section">
-    <button class="layout-menu-button" (click)="layoutService.onMenuToggle()">
-      <i class="pi pi-bars"></i>
-    </button>
-  </section>
+  @if (showSidebar) {
+    <section class="menu-toggle-section">
+      <button class="layout-menu-button" (click)="layoutService.onMenuToggle()">
+        <i class="pi pi-bars"></i>
+      </button>
+    </section>
+  } @else {
+    <div class="header-placeholder"></div>
+  }
 
   <section class="logo-section">
     <h1>{{ schoolName }}</h1>
