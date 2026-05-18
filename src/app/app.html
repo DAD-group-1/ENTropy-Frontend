@@ -1,7 +1,10 @@
 <app-header />
 <main class="main">
-  <app-sidebar
-    [isVisible]="isSidebarVisible"
-  />
-  <router-outlet />
+  @if (showSidebar) {
+    <app-sidebar />
+  }
+
+  <div class="content">
+    <router-outlet />
+  </div>
 </main>

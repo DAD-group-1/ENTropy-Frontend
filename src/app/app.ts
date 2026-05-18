@@ -13,12 +13,12 @@ import { Sidebar } from './shared-modules/layout/sidebar/sidebar';
 export class App implements OnInit {
   constructor(private primeng: PrimeNG) {}
 
+  // TODO: Handle showing the sidebar if not logged in
+  public showSidebar: boolean = false;
+
   ngOnInit() {
     this.primeng.ripple.set(true);
   }
 
   protected readonly title = signal('ENTropy-Frontend');
-
-  // TODO: Use UserService to check if the user is logged in, or other checks
-  protected isSidebarVisible: boolean = Math.random() < 0.5;
 }
