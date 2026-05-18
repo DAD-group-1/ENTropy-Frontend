@@ -14,7 +14,7 @@ export class App implements OnInit {
   constructor(private primeng: PrimeNG) {}
 
   // TODO: Handle showing the sidebar if not logged in
-  public showSidebar: boolean = false;
+  public showSidebar: boolean = true;
 
   ngOnInit() {
     this.primeng.ripple.set(true);

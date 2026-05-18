@@ -14,7 +14,7 @@ export class Header {
   public schoolName: string = 'Nova Campus';
 
   // TODO: Handle showing sidebar if not logged in
-  public showSidebar: boolean = false;
+  public showSidebar: boolean = true;
 
   // TODO: Handle going to home page
   goHome() {
