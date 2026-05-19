@@ -3,16 +3,18 @@ import { NgClass } from '@angular/common';
 import { LayoutService } from '../../service/layout.service';
 import { Subject } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
+import { RouterLink } from '@angular/router';
 
 interface MenuItem {
   icon: string;
   label: string;
   isOpen?: boolean;
+  route?: string;
 }
 
 @Component({
   selector: 'app-sidebar',
-  imports: [NgClass, ButtonModule],
+  imports: [NgClass, ButtonModule, RouterLink],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
@@ -57,6 +59,7 @@ export class Sidebar {
     this.unbindOutsideClickListener();
   }
 
+  public closeSidebar() {}
   private bindOutsideClickListener() {
     if (!this.outsideClickListener) {
       this.outsideClickListener = (event: MouseEvent) => {
@@ -106,6 +109,7 @@ export class Sidebar {
     {
       icon: 'pi pi-calendar',
       label: 'Calendar',
+      route: 'calendar',
     },
     {
       icon: 'pi pi-chart-bar',

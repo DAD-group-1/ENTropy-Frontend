@@ -29,9 +29,10 @@
   <ul class="layout-menu p-2 space-y-2" role="menu">
     <ng-container>
       @for (item of menuItems; track item) {
-        <li class="sidebar-menu-item" role="none">
+        <li class="sidebar-menu-item cursor-pointer" role="none"
+            routerLink="{{ item.route }}"
+            (click)="!this.layoutService.isDesktop() ? layoutService.onMenuToggle() : null">
           <a
-            href="#"
             role="menuitem"
             tabindex="0"
             class="item-a"
