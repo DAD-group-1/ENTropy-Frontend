@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ENTCalendar } from '../../shared-modules/app-common/entcalendar/entcalendar';
 
 @Component({
@@ -7,6 +7,7 @@ import { ENTCalendar } from '../../shared-modules/app-common/entcalendar/entcale
   templateUrl: './calendar-page.html',
   styleUrl: './calendar-page.css',
 })
-export class CalendarPage implements OnInit {
-  ngOnInit() {}
+export class CalendarPage  {
+  //TODO: Get it from the Authorization service
+  public isTeacher: boolean = false;
 }

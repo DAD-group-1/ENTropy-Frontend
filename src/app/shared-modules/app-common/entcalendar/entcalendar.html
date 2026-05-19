@@ -1,273 +1,93 @@
-<div class="cal-root">
+<!--<div class="container">-->
+<full-calendar #calendar [options]="calendarOptions">
+</full-calendar>
 
-  <!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
-  <header class="cal-header">
-    <div class="cal-header-left">
-      <h1 class="cal-brand">Calendar</h1>
-      <span class="cal-period">{{ headerLabel() }}</span>
-    </div>
+<p-dialog
+  header="Course informations"
+  [modal]="true"
+  [visible]="showModal()"
+  (visibleChange)="showModal.set($event)"
+  [style]="{ width: '50rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [dismissableMask]="true"
+  [draggable]="false"
+>
+  <article class="space-y-4">
+    <!-- HEADER -->
+    <header class="header-modal">
+      <h2 class="text-xl font-semibold text-gray-900">
+        {{ clickedEvent()?.title }}
+      </h2>
 
-    <div class="cal-nav">
-      <button class="nav-btn" (click)="prev()">‹</button>
-      <button class="today-btn" (click)="today()">Today</button>
-      <button class="nav-btn" (click)="next()">›</button>
-    </div>
+      <p class="text-sm text-gray-600">
+        <time [attr.datetime]="toDate(clickedEvent()?.start) | date:'yyyy-MM-dd'">
+          {{ toDate(clickedEvent()?.start) | date:'EEEE dd MMMM yyyy' }}
+        </time>
 
-    <div class="cal-controls">
-      <div class="view-tabs">
-        <button [class.active]="viewMode() === 'month'" (click)="setView('month')">Month</button>
-        <button [class.active]="viewMode() === 'week'" (click)="setView('week')">Week</button>
-        <button [class.active]="viewMode() === 'day'" (click)="setView('day')">Day</button>
-      </div>
-      @if (canModify()) {
-        <button class="btn-add" (click)="openAddModal()">+ New event</button>
-      }
-    </div>
-  </header>
+        <span aria-hidden="true"> — </span>
 
-  <!-- ══════════════════════════ MONTH VIEW ════════════════════════════════ -->
-  @if (viewMode() === 'month') {
-    <div class="cal-grid-wrap">
+        <span
+          class="inline-flex items-center text-xs px-3 py-1 rounded-full font-medium bg-blue-100 text-blue-700"
+        >
+          @if (clickedEvent()?.allDay) {
+            All day
+          } @else {
+            <time [attr.datetime]="toDate(clickedEvent()?.start) | date:'HH:mm'">
+              {{ toDate(clickedEvent()?.start) | date:'HH:mm' }}
+            </time>
 
-      <div class="cal-weeknames">
-        @for (name of weekDayNames; track name) {
-          <div class="weekname">{{ name }}</div>
-        }
-      </div>
+            <span aria-hidden="true"> - </span>
 
-      <div class="cal-grid">
-        @for (cell of calendarDays(); track trackByDate($index, cell)) {
-          <div
-            class="cal-cell"
-            tabindex="0"
-            [class.other-month]="!cell.isCurrentMonth"
-            [class.is-today]="cell.isToday"
-            (click)="openAddModal(cell.dateStr)"
-            (keydown.enter)="openAddModal(cell.dateStr)"
-            (keydown.space)="openAddModal(cell.dateStr)">
-
-            <span class="cell-num" [class.today-num]="cell.isToday">
-              {{ cell.date.getDate() }}
-            </span>
-
-            <div class="cell-events">
-              @for (ev of cell.events; track trackById($index, ev)) {
-                <div
-                  class="cell-event"
-                  [style.background]="ev.color"
-                  (click)="openEvent(ev, $event)"
-                  [title]="ev.title">
-                  @if (ev.start_time) {
-                    <span class="ev-time">{{ ev.start_time }}</span>
-                  }
-                  <span class="ev-title">{{ ev.title }}</span>
-                </div>
-              }
-            </div>
-          </div>
-        }
-      </div>
-
-    </div>
-  }
-
-  <!-- ══════════════════════════ WEEK VIEW ═════════════════════════════════ -->
-  @if (viewMode() === 'week') {
-    <div class="week-wrap">
-
-      <div class="week-header">
-        <div class="week-gutter"></div>
-        @for (cell of weekDays(); track cell.dateStr) {
-          <div class="week-col-head" [class.is-today]="cell.isToday">
-            <span class="wh-name">{{ weekDayNames[$index] }}</span>
-            <span class="wh-num" [class.today-num]="cell.isToday">{{ cell.date.getDate() }}</span>
-          </div>
-        }
-      </div>
-
-      <div class="week-body">
-        <div class="week-hours">
-          @for (h of hours; track h) {
-            <div class="hour-label">{{ h }}</div>
-          }
-        </div>
-        @for (cell of weekDays(); track cell.dateStr) {
-          <div class="week-col" (click)="openAddModal(cell.dateStr)">
-            @for (h of hours; track h) {
-              <div class="hour-slot"></div>
+            @if (clickedEvent()?.end) {
+              <time
+                [attr.datetime]="toDate(clickedEvent()?.end) | date:'HH:mm'">
+              {{ toDate(clickedEvent()?.end) | date:'HH:mm' }}
+            </time>
             }
-            @for (ev of cell.events; track ev.id) {
-              <div
-                class="week-event"
-                [style.background]="ev.color"
-                [style.top]="calculateEventPosition(ev.start_time)"
-                (click)="openEvent(ev, $event)">
-                <span class="week-event-title">{{ ev.title }}</span>
-                @if (ev.start_time) {
-                  <span class="week-event-time">{{ ev.start_time }}</span>
-                }
-              </div>
-            }
-          </div>
-        }
-      </div>
-
-    </div>
-  }
-
-  <!-- ════════════════════════════ DAY VIEW ════════════════════════════════ -->
-  @if (viewMode() === 'day') {
-    <div class="day-wrap">
-
-      <div class="day-topbar">
-        <span class="day-label">{{ formatDate(toDateStr(viewDate())) }}</span>
-        @if (canModify()) {
-          <button class="btn-add sm" (click)="openAddModal(toDateStr(viewDate()))">+ Add</button>
-        }
-      </div>
-
-      @if (dayEvents().length === 0) {
-        <div class="day-empty">
-          <span>No events</span>
-          @if (canModify()) {
-            <span>- click <strong>+ Add</strong> to create one.</span>
           }
-        </div>
+        </span>
+      </p>
+    </header>
+
+    <!-- DETAILS -->
+    <section aria-label="Course details" class="space-y-4">
+      <!-- ROOM -->
+      @if (clickedEvent()?.extendedProps?.['room']) {
+        <dl class="dl">
+          <dt class="dt">
+            <i class="dt-i pi pi-map-marker"></i>
+            Room
+          </dt>
+          <dd class="dd bg-indigo-100 text-indigo-700">
+            {{ clickedEvent()?.extendedProps?.['room'] }}
+          </dd>
+        </dl>
       }
 
-      <div class="day-list">
-        @for (ev of dayEvents(); track ev.id) {
-          <div class="day-card" [style.border-left-color]="ev.color" (click)="openEvent(ev, $event)">
-            <div class="day-card-dot" [style.background]="ev.color"></div>
-            <div class="day-card-body">
-              <span class="day-card-title">{{ ev.title }}</span>
-              @if (ev.start_time) {
-                <span class="day-card-time"><span class="pi pi-clock"></span> {{ ev.start_time }}</span>
-              }
-              @if (ev.description) {
-                <p class="day-card-desc">{{ ev.description }}</p>
-              }
-            </div>
-            @if (canModify()) {
-              <button
-                class="day-card-del"
-                (click)="$event.stopPropagation(); events.update(evts => evts.filter(e => e.id !== ev.id))">
-                🗑
-              </button>
-            }
-          </div>
-        }
-      </div>
+      <!-- TUTOR -->
+      @if (clickedEvent()?.extendedProps?.['tutor']) {
+        <dl class="dl">
+          <dt class="dt">
+            <i class="dt-i pi pi-briefcase"></i>
+            Tutor
+          </dt>
+          <dd class="dd bg-emerald-100 text-emerald-700">
+            {{ clickedEvent()?.extendedProps?.['tutor'] }}
+          </dd>
+        </dl>
+      }
 
-    </div>
-  }
-
-  <!-- ═══════════════════════ EVENT INFO MODAL ═════════════════════════════ -->
-  @if (showEventModal()) {
-    <div class="modal-backdrop" (click)="closeEventModal()">
-      <div class="modal" (click)="$event.stopPropagation()">
-        <div class="modal-color-bar" [style.background]="selectedEvent()?.color"></div>
-        <button class="modal-close-x" (click)="closeEventModal()">✕</button>
-
-        <div class="modal-body">
-          <h2 class="modal-title">{{ selectedEvent()?.title }}</h2>
-          <div class="modal-row datetime-row">
-            <span class="pi pi-calendar"></span>
-            <span>{{ formatDate(selectedEvent()!.date) }}</span>
-          </div>
-          @if (selectedEvent()?.start_time) {
-            <div class="modal-row datetime-row">
-              <span class="pi pi-clock"></span>
-              <span>{{ selectedEvent()?.start_time }}</span>
-            </div>
-          }
-          @if(selectedEvent()?.building && selectedEvent()?.room) {
-            <section class="modal-row">
-              <span class="pi pi-building"></span>
-              <section>
-                <span>{{ selectedEvent()?.building }}</span>
-                @if(selectedEvent()?.building && selectedEvent()?.room) { <span> - </span> }
-                <span>{{ selectedEvent()?.room }}</span>
-              </section>
-            </section>
-          }
-          @if (selectedEvent()?.instructor) {
-            <div class="modal-row">
-              <span class="pi pi-user"></span>
-              <span>{{ selectedEvent()?.instructor }}</span>
-            </div>
-          }
-          @if (selectedEvent()?.description) {
-            <p class="modal-desc">{{ selectedEvent()?.description }}</p>
-          }
-        </div>
-
-        <div class="modal-footer">
-          @if (canModify()) {
-            <button class="btn-danger" (click)="deleteSelectedEvent()">🗑 Delete</button>
-          }
-          <button class="btn-dark" (click)="closeEventModal()">Close</button>
-        </div>
-      </div>
-    </div>
-  }
-
-  <!-- ═══════════════════════ ADD EVENT MODAL ══════════════════════════════ -->
-  @if (canModify() && showAddModal()) {
-    <div class="modal-backdrop" (click)="cancelAdd()">
-      <div class="modal" (click)="$event.stopPropagation()">
-        <div class="modal-color-bar" [style.background]="newEvent.color || '#6366f1'"></div>
-        <button class="modal-close-x" (click)="cancelAdd()">✕</button>
-
-        <div class="modal-body">
-          <h2 class="modal-title">New Event</h2>
-
-          <label class="form-label">Title *</label>
-          <input class="form-input" [(ngModel)]="newEvent.title" placeholder="Event title…" />
-
-          <label class="form-label">Date</label>
-          <input class="form-input" type="date" [(ngModel)]="newEvent.date" />
-
-          <label class="form-label">Start Time</label>
-          <input class="form-input" type="time" [(ngModel)]="newEvent.start_time" />
-
-          <label class="form-label">End Time</label>
-          <input class="form-input" type="time" [(ngModel)]="newEvent.end_time" />
-
-          <label class="form-label">Building</label>
-          <input class="form-input" [(ngModel)]="newEvent.building" placeholder="Building name…" />
-
-          <label class="form-label">Room</label>
-          <input class="form-input" [(ngModel)]="newEvent.room" placeholder="Room number/name…" />
-
-          <label class="form-label">Description (optional)</label>
-          <textarea class="form-input form-textarea" [(ngModel)]="newEvent.description"
-                    placeholder="Add notes…"></textarea>
-
-          <label class="form-label">Color</label>
-          <div class="color-row">
-            @for (c of colorOptions; track c) {
-              <button
-                class="color-swatch"
-                [class.selected]="newEvent.color === c"
-                [style.background]="c"
-                (click)="newEvent.color = c">
-              </button>
-            }
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button class="btn-ghost" (click)="cancelAdd()">Cancel</button>
-          <button
-            class="btn-save"
-            [style.background]="newEvent.color || '#6366f1'"
-            (click)="confirmAdd()">
-            Save event
-          </button>
-        </div>
-      </div>
-    </div>
-  }
-
-</div>
+      <!-- DESCRIPTION -->
+      @if (clickedEvent()?.extendedProps?.['description']) {
+        <section aria-label="Description"
+                 class="bg-gray-50 border rounded-lg p-4"
+        >
+          <p class="text-sm text-gray-700 whitespace-pre-line wrap-break-word overflow-auto">
+            {{ clickedEvent()?.extendedProps?.['description'] }}
+          </p>
+        </section>
+      }
+    </section>
+  </article>
+</p-dialog>
+<!--</div>-->

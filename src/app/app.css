@@ -3,7 +3,7 @@
 @import "tailwindcss";
 
 :host {
-  @apply flex flex-col min-h-screen w-screen;
+  @apply flex flex-col min-h-svh w-screen;
 }
 
 main.main {
@@ -11,6 +11,6 @@ main.main {
 }
 
 main.main .content {
-  @apply flex flex-1 min-h-0 h-full w-full overflow-auto relative;
+  @apply block min-h-0 w-full overflow-auto relative p-4;
   background: linear-gradient(to bottom right, var(--background-color), #e8e8e8);
 }
