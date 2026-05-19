@@ -1,0 +1,93 @@
+<!--<div class="container">-->
+<full-calendar #calendar [options]="calendarOptions">
+</full-calendar>
+
+<p-dialog
+  header="Course informations"
+  [modal]="true"
+  [visible]="showModal()"
+  (visibleChange)="showModal.set($event)"
+  [style]="{ width: '50rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [dismissableMask]="true"
+  [draggable]="false"
+>
+  <article class="space-y-4">
+    <!-- HEADER -->
+    <header class="header-modal">
+      <h2 class="text-xl font-semibold text-gray-900">
+        {{ clickedEvent()?.title }}
+      </h2>
+
+      <p class="text-sm text-gray-600">
+        <time [attr.datetime]="toDate(clickedEvent()?.start) | date:'yyyy-MM-dd'">
+          {{ toDate(clickedEvent()?.start) | date:'EEEE dd MMMM yyyy' }}
+        </time>
+
+        <span aria-hidden="true"> — </span>
+
+        <span
+          class="inline-flex items-center text-xs px-3 py-1 rounded-full font-medium bg-blue-100 text-blue-700"
+        >
+          @if (clickedEvent()?.allDay) {
+            All day
+          } @else {
+            <time [attr.datetime]="toDate(clickedEvent()?.start) | date:'HH:mm'">
+              {{ toDate(clickedEvent()?.start) | date:'HH:mm' }}
+            </time>
+
+            <span aria-hidden="true"> - </span>
+
+            @if (clickedEvent()?.end) {
+              <time
+                [attr.datetime]="toDate(clickedEvent()?.end) | date:'HH:mm'">
+              {{ toDate(clickedEvent()?.end) | date:'HH:mm' }}
+            </time>
+            }
+          }
+        </span>
+      </p>
+    </header>
+
+    <!-- DETAILS -->
+    <section aria-label="Course details" class="space-y-4">
+      <!-- ROOM -->
+      @if (clickedEvent()?.extendedProps?.['room']) {
+        <dl class="dl">
+          <dt class="dt">
+            <i class="dt-i pi pi-map-marker"></i>
+            Room
+          </dt>
+          <dd class="dd bg-indigo-100 text-indigo-700">
+            {{ clickedEvent()?.extendedProps?.['room'] }}
+          </dd>
+        </dl>
+      }
+
+      <!-- TUTOR -->
+      @if (clickedEvent()?.extendedProps?.['tutor']) {
+        <dl class="dl">
+          <dt class="dt">
+            <i class="dt-i pi pi-briefcase"></i>
+            Tutor
+          </dt>
+          <dd class="dd bg-emerald-100 text-emerald-700">
+            {{ clickedEvent()?.extendedProps?.['tutor'] }}
+          </dd>
+        </dl>
+      }
+
+      <!-- DESCRIPTION -->
+      @if (clickedEvent()?.extendedProps?.['description']) {
+        <section aria-label="Description"
+                 class="bg-gray-50 border rounded-lg p-4"
+        >
+          <p class="text-sm text-gray-700 whitespace-pre-line wrap-break-word overflow-auto">
+            {{ clickedEvent()?.extendedProps?.['description'] }}
+          </p>
+        </section>
+      }
+    </section>
+  </article>
+</p-dialog>
+<!--</div>-->

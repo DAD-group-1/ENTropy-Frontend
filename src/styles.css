@@ -29,5 +29,5 @@ html, body {
 }
 
 router-outlet + * {
-  @apply flex h-full w-full;
+  @apply h-full w-full;
 }

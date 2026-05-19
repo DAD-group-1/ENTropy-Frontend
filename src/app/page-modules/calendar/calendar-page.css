@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.calendar-page {
+  @apply w-full min-h-full overflow-y-auto h-1 p-4 shadow-xl rounded-2xl border-0 bg-clip-border bg-white;
+}
