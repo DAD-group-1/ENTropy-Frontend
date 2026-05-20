@@ -1,12 +1,24 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { PrimeNG } from 'primeng/config';
+import { Header } from './shared-modules/layout/header/header';
+import { Sidebar } from './shared-modules/layout/sidebar/sidebar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Header, Sidebar],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
-export class App {
+export class App implements OnInit {
+  constructor(private primeng: PrimeNG) {}
+
+  // TODO: Handle showing the sidebar if not logged in
+  public showSidebar: boolean = true;
+
+  ngOnInit() {
+    this.primeng.ripple.set(true);
+  }
+
   protected readonly title = signal('ENTropy-Frontend');
 }

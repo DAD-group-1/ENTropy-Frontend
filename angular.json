@@ -26,6 +26,8 @@
               }
             ],
             "styles": [
+              "normalize-css/normalize.css",
+              "primeicons/primeicons.css",
               "src/styles.css"
             ]
           },

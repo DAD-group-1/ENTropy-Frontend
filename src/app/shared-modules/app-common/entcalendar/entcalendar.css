@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+:host {
+  /*.container {*/
+  /*  @apply rounded-2xl;*/
+  /*}*/
+
+  ::ng-deep .fc .fc-view-harness {
+    @apply bg-amber-50;
+  }
+
+  ::ng-deep .fc-event.fc-event-past {
+    background-color: slategray;
+    border: none;
+  }
+
+  .header-modal {
+    @apply flex justify-between flex-wrap;
+  }
+
+  .dl {
+    @apply flex items-center gap-2;
+
+    .dt {
+      @apply text-gray-500 align-middle;
+
+      .dt-i {
+        @apply text-xs;
+      }
+    }
+
+    .dd {
+      @apply px-2 py-1 rounded text-sm font-medium;
+    }
+  }
+
+  /* Force toolbar start, center, and end to 100% width on small screens */
+  @media (max-width: 767px) {
+    .fc-toolbar-chunk {
+      @apply flex justify-center w-full mb-2.5;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    ::ng-deep .fc-toolbar.fc-header-toolbar {
+      @apply flex-wrap justify-center gap-2;
+    }
+
+    ::ng-deep .fc-toolbar-chunk {
+      @apply table-row text-center px-1;
+    }
+  }
+}
