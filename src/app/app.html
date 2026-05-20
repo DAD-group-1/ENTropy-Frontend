@@ -1,6 +1,6 @@
-<app-header />
+<app-header [showLoggedLayoutAndItems]="showLoggedLayoutAndItems()" />
 <main class="main">
-  @if (showSidebar) {
+  @if (showLoggedLayoutAndItems()) {
     <app-sidebar />
   }
 
