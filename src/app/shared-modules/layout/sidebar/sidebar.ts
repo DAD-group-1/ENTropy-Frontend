@@ -3,7 +3,8 @@ import { NgClass } from '@angular/common';
 import { LayoutService } from '../../service/layout.service';
 import { Subject } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
-import { RouterLink } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { NavigationService } from '../../service/navigation.service';
 
 interface MenuItem {
   icon: string;
@@ -14,24 +15,22 @@ interface MenuItem {
 
 @Component({
   selector: 'app-sidebar',
-  imports: [NgClass, ButtonModule, RouterLink],
+  imports: [NgClass, ButtonModule, RouterModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
   layoutService = inject(LayoutService);
-
+  navigationService = inject(NavigationService);
   el = inject(ElementRef);
+
+  //TODO: Get from Auth service
+  protected studentName: string = 'John Doe';
+  protected role: string = 'Student';
 
   private outsideClickListener: ((event: MouseEvent) => void) | null = null;
 
   private destroy$ = new Subject<void>();
-
-  // TODO: This should be set based on the actual current page, possibly using Angular's Router
-  protected currentPage: string | undefined = 'Home';
-
-  protected studentName: string = 'John Doe';
-  protected role: string = 'Student';
 
   constructor() {
     effect(() => {
@@ -59,7 +58,6 @@ export class Sidebar {
     this.unbindOutsideClickListener();
   }
 
-  public closeSidebar() {}
   private bindOutsideClickListener() {
     if (!this.outsideClickListener) {
       this.outsideClickListener = (event: MouseEvent) => {
@@ -98,7 +96,8 @@ export class Sidebar {
   }
 
   onLogout() {
-    alert('Logout');
+    localStorage.removeItem('token');
+    this.navigationService.navigate('login');
   }
 
   menuItems: MenuItem[] = [
@@ -114,6 +113,7 @@ export class Sidebar {
     {
       icon: 'pi pi-chart-bar',
       label: 'Grades',
+      route: 'login',
     },
     {
       icon: 'pi pi-times-circle',

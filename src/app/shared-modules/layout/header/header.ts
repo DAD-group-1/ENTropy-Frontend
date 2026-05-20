@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { NgmMotionDirective } from '@scripttype/ng-motion';
 import { LayoutService } from '../../service/layout.service';
 
@@ -9,15 +9,13 @@ import { LayoutService } from '../../service/layout.service';
   styleUrl: './header.css',
 })
 export class Header {
+  @Input() public showLoggedLayoutAndItems: boolean = true;
+
   layoutService = inject(LayoutService);
 
   public schoolName: string = 'Nova Campus';
 
-  // TODO: Handle showing sidebar if not logged in
-  public showSidebar: boolean = true;
-
-  // TODO: Handle going to home page
   goHome() {
-    window.alert('Going to Home...');
+    // TODO: If logged in using Auth service, go to home, else do nothing
   }
 }

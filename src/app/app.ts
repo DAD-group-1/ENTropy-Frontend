@@ -1,5 +1,6 @@
-import { Component, OnInit, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit, WritableSignal, signal } from '@angular/core';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { PrimeNG } from 'primeng/config';
 import { Header } from './shared-modules/layout/header/header';
 import { Sidebar } from './shared-modules/layout/sidebar/sidebar';
@@ -11,13 +12,21 @@ import { Sidebar } from './shared-modules/layout/sidebar/sidebar';
   styleUrl: './app.css',
 })
 export class App implements OnInit {
-  constructor(private primeng: PrimeNG) {}
+  constructor(
+    private router: Router,
+    private primeng: PrimeNG,
+  ) {}
 
   // TODO: Handle showing the sidebar if not logged in
-  public showSidebar: boolean = true;
+  public showLoggedLayoutAndItems: WritableSignal<boolean> = signal(true);
 
   ngOnInit() {
     this.primeng.ripple.set(true);
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        this.showLoggedLayoutAndItems.set(!event.urlAfterRedirects.startsWith('/login'));
+      });
   }
 
   protected readonly title = signal('ENTropy-Frontend');

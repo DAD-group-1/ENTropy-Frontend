@@ -29,15 +29,20 @@
   <ul class="layout-menu p-2 space-y-2" role="menu">
     <ng-container>
       @for (item of menuItems; track item) {
-        <li class="sidebar-menu-item cursor-pointer" role="none"
-            routerLink="{{ item.route }}"
-            (click)="!this.layoutService.isDesktop() ? layoutService.onMenuToggle() : null">
+        <li class="sidebar-menu-item cursor-pointer" tabindex="0"
+            role="button"
+            routerLinkActive="active-link"
+            (keydown.enter)="navigationService.navigate(item.route)"
+            (keydown.space)="navigationService.navigate(item.route); $event.preventDefault()"
+            (click)="navigationService.navigate(item.route)"
+        >
+          <div role="none" class="hidden pointer-events-none" [routerLink]="item.route || '/home'"></div>
+
           <a
             role="menuitem"
-            tabindex="0"
             class="item-a"
           >
-            <i [class]="item.icon + ' text-lg text-indigo-300 group-hover:text-indigo-200'"></i>
+            <i [class]="item.icon + ' text-lg text-indigo-300'"></i>
 
             <span class="sidebar-item-text">{{ item.label }}</span>
           </a>
