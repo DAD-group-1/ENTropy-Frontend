@@ -1,7 +1,6 @@
 # Development Guidelines
 
 ## App structure :
-
 - app (root folder of project source files)
   - constants (for constants)
   - core (core components)
