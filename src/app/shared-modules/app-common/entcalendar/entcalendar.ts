@@ -9,13 +9,25 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import { DialogModule } from 'primeng/dialog';
 
-interface eventDataAdditions {
+interface EventDataAdditions {
+  id?: string;
   description?: string;
   room?: string;
   tutor?: string;
 }
 
-type eventsCalendarData = (EventInput & eventDataAdditions)[];
+interface EventDataAdditions {
+  id?: string;
+  description?: string;
+  room?: string;
+  tutor?: string;
+}
+
+export interface CalendarEvent extends EventDataAdditions {
+  title: string;
+  start: Date | string;
+  end?: Date | string;
+}
 
 @Component({
   selector: 'app-entcalendar',
@@ -29,7 +41,7 @@ export class ENTCalendar {
   @Input() public defaultLayout: 'dayGridMonth' | 'timeGridWeek' | 'timeGridDay' | 'listWeek' =
     'timeGridWeek';
 
-  private TODAY_STR = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
+  @Input({ required: true }) public calendarEvents: CalendarEvent[] = [];
 
   public clickedEvent: WritableSignal<EventInput | null> = signal(null);
   public showModal: WritableSignal<boolean> = signal(false);
@@ -63,31 +75,6 @@ export class ENTCalendar {
     return window.innerWidth >= this.WINDOW_PC_WIDTH ? this.defaultLayout : 'timeGridDay';
   }
 
-  //TODO: Do a query to the backend
-  public initialEvents: eventsCalendarData = [
-    {
-      id: '1',
-      title: 'title',
-      start: this.TODAY_STR,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      room: '101',
-      tutor: 'MR. Tutor TEST',
-    },
-    {
-      id: '2',
-      title: 'Timed event',
-      start: this.TODAY_STR + 'T08:00:00',
-      end: this.TODAY_STR + 'T09:00:00',
-    },
-    {
-      id: '3',
-      title: 'Timed event',
-      start: this.TODAY_STR + 'T12:00:00',
-      end: this.TODAY_STR + 'T15:00:00',
-    },
-  ];
-
   public calendarOptions!: CalendarOptions;
 
   ngOnInit() {
@@ -110,15 +97,10 @@ export class ENTCalendar {
 
         this.calendarComponent.getApi().changeView(view);
       },
-      initialEvents: this.initialEvents,
       eventClick: (event) => {
         this.clickedEvent.set(event.event as EventInput);
         this.showModal.set(true);
       },
     };
-
-    //   document.querySelector('style')!.textContent +=
-    //     '@media screen and (max-width:767px) { .fc-toolbar.fc-header-toolbar {flex-direction:column;} .fc-toolbar-chunk { display: table-row; text-align:center; padding:5px 0; } }';
-    //
   }
 }
