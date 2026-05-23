@@ -113,23 +113,27 @@ export class Sidebar {
     {
       icon: 'pi pi-chart-bar',
       label: 'Grades',
-      route: 'login',
+      route: 'grades',
     },
     {
       icon: 'pi pi-times-circle',
       label: 'Absence Records',
+      route: 'absences',
     },
     {
       icon: 'pi pi-book',
       label: 'Assignments',
+      route: 'assignments',
     },
     {
       icon: 'pi pi-box',
       label: 'Resources',
+      route: 'resources',
     },
     {
       icon: 'pi pi-info-circle',
-      label: 'Information',
+      label: 'Informations',
+      route: 'informations',
     },
   ];
 }

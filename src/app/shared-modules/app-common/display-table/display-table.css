@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+:host {
+  p-table {
+    @apply h-full overflow-y-auto rounded-xl;
+
+    .sortable-column {
+      @apply flex items-center gap-2;
+
+      .filter-column {
+        @apply ml-auto;
+      }
+    }
+  }
+}

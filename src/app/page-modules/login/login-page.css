@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "primeicons/primeicons.css";
 
 :host .center {
   @apply min-w-full min-h-full flex items-center justify-center;
