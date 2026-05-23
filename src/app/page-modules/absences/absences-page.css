@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+:host {
+  .content {
+    @apply min-h-full overflow-y-auto;
+  }
+
+  .table-display {
+    /*@apply h-96;*/
+  }
+}
