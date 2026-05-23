@@ -1,0 +1,73 @@
+<p-table #dt stripedRows
+         [value]="rows"
+         [paginator]="true"
+         [rows]="20"
+         [rowHover]="true"
+         [loading]="loading()"
+         [scrollable]="true"
+         scrollHeight="flex"
+         [globalFilterFields]="globalFilterFields"
+         [sortField]="defaultSortField?.key ?? ''"
+         [sortOrder]="defaultSortField?.sort?.sortOrder ?? 1"
+>
+  <ng-template #caption>
+    <div class="flex">
+      <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt)" />
+
+      <p-iconfield iconPosition="left" class="ml-auto">
+        <p-inputicon>
+          <i class="pi pi-search"></i>
+        </p-inputicon>
+        <input #searchInput pInputText type="text" [(ngModel)]="searchValue"
+               (input)="dt.filterGlobal(searchInput.value, 'contains')"
+               placeholder="Search keyword" />
+      </p-iconfield>
+    </div>
+  </ng-template>
+
+  <ng-template #header>
+    <tr>
+      @for (header of headers; track header.key) {
+        <th
+          pSortableColumn="{{ header.key }}"
+        >
+          <div class="sortable-column">
+            {{ header.label }}
+            <p-sortIcon [field]="header.key" />
+            <p-columnFilter
+              [type]="header.isBoolean ? 'boolean' : 'text'"
+              [field]="header.key"
+              display="menu"
+            />
+          </div>
+        </th>
+      }
+    </tr>
+  </ng-template>
+
+  <ng-template #body let-row>
+    <tr>
+      @for (header of headers; track header.key) {
+        <td>
+          @if (header.isBoolean) {
+            <i
+              class="pi"
+              [ngClass]="{
+                'text-green-500 pi-check-circle': row[header.key],
+                'text-red-500 pi-times-circle': !row[header.key]
+              }"
+            ></i>
+          } @else {
+            {{ row[header.key] }}
+          }
+        </td>
+      }
+    </tr>
+  </ng-template>
+
+  <ng-template #emptymessage>
+    <tr>
+      <td colspan="100%" class="text-center">No data found</td>
+    </tr>
+  </ng-template>
+</p-table>
