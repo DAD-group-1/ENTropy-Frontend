@@ -2,7 +2,7 @@
 
 :host {
   p-table {
-    @apply h-full overflow-y-auto rounded-xl;
+    @apply h-full overflow-y-auto rounded-xl bg-white;
 
     .sortable-column {
       @apply flex items-center gap-2;
