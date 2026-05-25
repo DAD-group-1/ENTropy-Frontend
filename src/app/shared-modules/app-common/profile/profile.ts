@@ -1,0 +1,36 @@
+import { Component, Input } from '@angular/core';
+import { TitleCasePipe } from '@angular/common';
+
+export type ProfileType = 'student' | 'teacher';
+
+export interface ProfileData {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phone: string;
+  birthday: string;
+  campus: string;
+
+  program?: string;
+  enrollmentYear?: number;
+  emergency_phone?: string;
+  emergency_contact?: string;
+  address?: string;
+  city?: string;
+  zipCode?: string;
+
+  department?: string;
+  hire_date?: string;
+  specialization?: string;
+}
+
+@Component({
+  selector: 'app-profile',
+  imports: [TitleCasePipe],
+  templateUrl: './profile.html',
+  styleUrl: './profile.css',
+})
+export class Profile {
+  @Input({ required: true }) userData!: ProfileData;
+  @Input({ required: true }) profileType!: ProfileType;
+}

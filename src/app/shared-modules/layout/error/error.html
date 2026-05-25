@@ -1,0 +1,24 @@
+<div class="error-page" role="main" aria-labelledby="title">
+  <div class="error-card">
+    <div class="icon" aria-hidden="true"
+         [ngClass]="styles.icon">
+      {{ errorCode }}
+    </div>
+
+    <h1 id="title">{{ title }}</h1>
+
+    <p class="message">
+      {{ message }}
+    </p>
+
+    <div class="actions">
+      <a routerLink="/home" class="primary-btn" [ngClass]="styles.primary">
+        Go Home
+      </a>
+
+      <button class="secondary-btn" (click)="goBack()">
+        Go back
+      </button>
+    </div>
+  </div>
+</div>

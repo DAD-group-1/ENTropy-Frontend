@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomePage } from './home-page';
+import { ForbiddenPage } from './forbidden-page';
 import { provideRouter } from '@angular/router';
 
-describe('HomePage', () => {
-  let component: HomePage;
-  let fixture: ComponentFixture<HomePage>;
+describe('ForbiddenPage', () => {
+  let component: ForbiddenPage;
+  let fixture: ComponentFixture<ForbiddenPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomePage],
+      imports: [ForbiddenPage],
       providers: [provideRouter([])],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HomePage);
+    fixture = TestBed.createComponent(ForbiddenPage);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

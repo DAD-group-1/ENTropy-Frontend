@@ -2,6 +2,7 @@ import { Component, OnInit, WritableSignal, signal } from '@angular/core';
 import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { PrimeNG } from 'primeng/config';
+import { LayoutService } from './shared-modules/service/layout.service';
 import { Header } from './shared-modules/layout/header/header';
 import { Sidebar } from './shared-modules/layout/sidebar/sidebar';
 
@@ -15,17 +16,24 @@ export class App implements OnInit {
   constructor(
     private router: Router,
     private primeng: PrimeNG,
+    public layoutService: LayoutService,
   ) {}
 
   // TODO: Handle showing the sidebar if not logged in
-  public showLoggedLayoutAndItems: WritableSignal<boolean> = signal(true);
+  private shouldShowLayout(url: string): boolean {
+    const excluded = ['/login', '/not-found'];
+
+    return !excluded.some((r) => url.startsWith(r));
+  }
 
   ngOnInit() {
     this.primeng.ripple.set(true);
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe((event: any) => {
-        this.showLoggedLayoutAndItems.set(!event.urlAfterRedirects.startsWith('/login'));
+      .subscribe((event: NavigationEnd) => {
+        const url = event.urlAfterRedirects;
+
+        this.layoutService.setLoggedLayout(this.shouldShowLayout(url));
       });
   }
 

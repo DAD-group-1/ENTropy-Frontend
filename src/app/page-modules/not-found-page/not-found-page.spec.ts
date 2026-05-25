@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomePage } from './home-page';
+import { NotFoundPage } from './not-found-page';
 import { provideRouter } from '@angular/router';
 
-describe('HomePage', () => {
-  let component: HomePage;
-  let fixture: ComponentFixture<HomePage>;
+describe('NotFoundPage', () => {
+  let component: NotFoundPage;
+  let fixture: ComponentFixture<NotFoundPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomePage],
+      imports: [NotFoundPage],
       providers: [provideRouter([])],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HomePage);
+    fixture = TestBed.createComponent(NotFoundPage);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

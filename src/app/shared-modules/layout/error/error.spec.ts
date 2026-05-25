@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomePage } from './home-page';
+import { Error } from './error';
 import { provideRouter } from '@angular/router';
 
-describe('HomePage', () => {
-  let component: HomePage;
-  let fixture: ComponentFixture<HomePage>;
+describe('Error', () => {
+  let component: Error;
+  let fixture: ComponentFixture<Error>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomePage],
+      imports: [Error],
       providers: [provideRouter([])],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HomePage);
+    fixture = TestBed.createComponent(Error);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
