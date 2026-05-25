@@ -13,7 +13,7 @@ import {
 })
 export class GradesPage {
   public headers: TableColumn[] = [
-    // TODO: Change remove student column if not teacher
+    // TODO: Change remove student column if not instructor
     {
       key: 'student',
       label: 'Student',
@@ -41,7 +41,7 @@ export class GradesPage {
     },
   ];
 
-  //TODO: Get your grades if student, get everyone grade if teacher
+  //TODO: Get your grades if student, get everyone grade if instructor
   public rows: TableRow[] = [
     {
       student: 'Alice Martin',

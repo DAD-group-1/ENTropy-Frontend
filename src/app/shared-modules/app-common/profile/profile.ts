@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { TitleCasePipe } from '@angular/common';
+import { NgClass, TitleCasePipe } from '@angular/common';
 import { Card } from 'primeng/card';
 
-export type ProfileType = 'student' | 'teacher';
+export type ProfileType = 'student' | 'instructor';
 
 export interface ProfileData {
   firstname: string;
@@ -27,11 +27,16 @@ export interface ProfileData {
 
 @Component({
   selector: 'app-profile',
-  imports: [TitleCasePipe, Card],
+  imports: [TitleCasePipe, Card, NgClass],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
 export class Profile {
   @Input({ required: true }) userData!: ProfileData;
   @Input({ required: true }) profileType!: ProfileType;
+
+  public readonly roleMap: Record<ProfileType, string> = {
+    student: 'bg-blue-100 text-blue-700',
+    instructor: 'bg-green-100 text-green-700',
+  };
 }
