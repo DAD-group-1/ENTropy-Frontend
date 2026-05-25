@@ -62,7 +62,7 @@ export class ProfilePage {
         specialization: 'Software Engineering',
       };
 
-      this.userType = 'teacher'; //TODO
+      this.userType = 'instructor'; //TODO
     }
   }
 }

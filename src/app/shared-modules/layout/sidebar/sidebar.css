@@ -82,10 +82,13 @@
   }
 
   .sidebar-menu-item {
-    @apply py-1;
+    @apply rounded-lg py-1;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.15);
+    }
 
     &.active-link {
-      @apply rounded-lg;
       background-color: rgba(0, 0, 0, 0.3);
 
       .sidebar-item-text {

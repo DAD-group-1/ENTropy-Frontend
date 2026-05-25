@@ -26,6 +26,14 @@
     @apply flex justify-end;
   }
 
+  ::ng-deep .fc-daygrid-event-harness {
+    @apply cursor-pointer;
+  }
+
+  ::ng-deep .fc-timegrid-event-harness.fc-timegrid-event-harness-inset {
+    @apply cursor-pointer;
+  }
+
   .header-modal {
     @apply flex justify-between flex-wrap;
   }

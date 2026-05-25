@@ -12,7 +12,7 @@ import {
   styleUrl: './absences-page.css',
 })
 export class AbsencesPage {
-  // TODO: Change remove student column if not teacher
+  // TODO: Change remove student column if not instructor
   public headers: TableColumn[] = [
     {
       key: 'student',
@@ -40,7 +40,7 @@ export class AbsencesPage {
     },
   ];
 
-  //TODO: Get your grades if student, get everyone grade if teacher
+  //TODO: Get your grades if student, get everyone grade if instructor
   public rows: TableRow[] = [
     {
       student: 'Alice Martin',

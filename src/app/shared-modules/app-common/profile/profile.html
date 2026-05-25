@@ -15,7 +15,8 @@
 
         <span
           class="role-badge"
-          aria-label="User role"
+          [ngClass]="roleMap[profileType]"
+          [attr.aria-label]="'User role: ' + profileType"
         >
           {{ profileType | titlecase }}
         </span>
@@ -89,9 +90,9 @@
       </section>
     }
 
-    <!-- TEACHER ONLY -->
-    @if (profileType === 'teacher') {
-      <section class="profile-grid" aria-label="Teacher information">
+    <!-- INSTRUCTOR ONLY -->
+    @if (profileType === 'instructor') {
+      <section class="profile-grid" aria-label="Instructor information">
         <div class="profile-item">
           <span class="label">Department</span>
           <span class="value">{{ userData.department }}</span>

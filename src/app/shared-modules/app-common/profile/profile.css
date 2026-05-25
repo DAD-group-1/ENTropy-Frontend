@@ -23,7 +23,7 @@
   }
 
   .role-badge {
-    @apply inline-block mt-2 px-3 py-1 rounded-full bg-blue-600 text-sm font-semibold text-white;
+    @apply inline-block mt-2 px-3 py-1 rounded-full text-sm font-semibold;
   }
 
   .profile-grid {
@@ -44,18 +44,6 @@
 
   .value {
     @apply text-base font-semibold text-gray-900;
-  }
-
-  .profile-actions {
-    @apply mt-8 flex flex-wrap gap-4;
-  }
-
-  .primary-btn {
-    @apply px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 transition font-semibold text-white;
-  }
-
-  .secondary-btn {
-    @apply px-5 py-3 rounded-2xl bg-gray-100 hover:bg-gray-200 transition font-semibold text-gray-800 border border-gray-200;
   }
 
   .history-card h2 {
