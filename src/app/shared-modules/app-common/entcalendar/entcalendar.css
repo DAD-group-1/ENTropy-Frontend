@@ -14,6 +14,18 @@
     border: none;
   }
 
+  ::ng-deep .fc-toolbar.fc-header-toolbar > * {
+    @apply flex-1;
+  }
+
+  ::ng-deep .fc-toolbar.fc-header-toolbar > *:not(:last-child):not(:first-child) {
+    @apply flex justify-center;
+  }
+
+  ::ng-deep .fc-toolbar.fc-header-toolbar > *:last-child {
+    @apply flex justify-end;
+  }
+
   .header-modal {
     @apply flex justify-between flex-wrap;
   }
