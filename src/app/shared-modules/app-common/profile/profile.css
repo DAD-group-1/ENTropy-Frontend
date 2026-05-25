@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+:host {
+  .profile-page {
+    @apply text-gray-900 grid gap-8;
+  }
+
+  .profile-card,
+  .history-card {
+    @apply bg-white border border-gray-200 rounded-3xl p-8 shadow-sm;
+  }
+
+  .profile-header {
+    @apply flex items-center gap-6 mb-8;
+  }
+
+  .avatar {
+    @apply w-24 h-24 rounded-full object-cover border-4 border-gray-100;
+  }
+
+  .profile-main-info h1 {
+    @apply m-0 text-4xl font-bold text-gray-900;
+  }
+
+  .role-badge {
+    @apply inline-block mt-2 px-3 py-1 rounded-full bg-blue-600 text-sm font-semibold text-white;
+  }
+
+  .profile-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4;
+
+    &:not(:last-child) {
+      @apply mb-4;
+    }
+  }
+
+  .profile-item {
+    @apply bg-gray-50 border border-gray-100 rounded-2xl p-4 flex flex-col gap-1.5;
+  }
+
+  .label {
+    @apply text-sm text-gray-500;
+  }
+
+  .value {
+    @apply text-base font-semibold text-gray-900;
+  }
+
+  .profile-actions {
+    @apply mt-8 flex flex-wrap gap-4;
+  }
+
+  .primary-btn {
+    @apply px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 transition font-semibold text-white;
+  }
+
+  .secondary-btn {
+    @apply px-5 py-3 rounded-2xl bg-gray-100 hover:bg-gray-200 transition font-semibold text-gray-800 border border-gray-200;
+  }
+
+  .history-card h2 {
+    @apply mt-0 mb-6 text-2xl font-bold text-gray-900;
+  }
+
+  .history-list {
+    @apply flex flex-col gap-4;
+  }
+
+  .history-item {
+    @apply p-4 rounded-2xl bg-gray-50 border border-gray-100;
+  }
+
+  .history-item strong {
+    @apply block mb-1 text-gray-900;
+  }
+
+  .history-item p {
+    @apply m-0 text-sm text-gray-500;
+  }
+}

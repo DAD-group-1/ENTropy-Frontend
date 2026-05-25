@@ -13,7 +13,8 @@
 >
   <!-- Avatar and Student Name (Tailwind classes) -->
   <header>
-    <div class="flex items-center gap-3 overflow-hidden">
+    <div class="flex items-center gap-3 overflow-hidden cursor-pointer"
+         (click)="navigationService.navigate('/profile')">
       <img src="assets/user-avatar.png" alt="Student Avatar"
            class="w-12 h-12 rounded-full object-cover border-2 border-white/6" />
       <div class="truncate">
