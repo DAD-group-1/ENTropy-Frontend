@@ -1,4 +1,4 @@
-import { CanActivateFn, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 
 export const permissionGuard: CanActivateFn = (route) => {
@@ -13,5 +13,5 @@ export const permissionGuard: CanActivateFn = (route) => {
     return true;
   }
 
-  return router.createUrlTree(['/home']); // ou page "403"
+  return router.createUrlTree(['/forbidden']);
 };
