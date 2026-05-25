@@ -5,10 +5,10 @@
     @apply text-gray-900 grid gap-8;
   }
 
-  .profile-card,
-  .history-card {
-    @apply bg-white border border-gray-200 rounded-3xl p-8 shadow-sm;
-  }
+  /*.profile-card,*/
+  /*.history-card {*/
+  /*  @apply bg-white border border-gray-200 rounded-3xl p-8 shadow-sm;*/
+  /*}*/
 
   .profile-header {
     @apply flex items-center gap-6 mb-8;

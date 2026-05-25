@@ -6,20 +6,21 @@
       </button>
     </section>
   } @else {
-    <div class="header-placeholder"></div>
+    <div class="header-placeholder" aria-hidden="true"></div>
   }
 
   <section class="logo-section">
     <h1>{{ schoolName }}</h1>
 
-    <img src="assets/logo_512x512.png" routerLink="/home" alt="Logo" class="logo"
-         ngmMotion
-         [whileHover]="{ scale: 1.04, y: -2 }"
-         [transition]="{
-            type: 'spring',
-            stiffness: 400,
-            damping: 20
-          }"
-    >
+    <a routerLink="/home" class="logo-link" aria-label="Go to homepage">
+      <img src="assets/logo_512x512.png" alt="Logo ENTropy" class="logo"
+           ngmMotion
+           [whileHover]="{ scale: 1.04, y: -2 }"
+           [transition]="{
+          type: 'spring',
+          stiffness: 400,
+          damping: 20
+        }">
+    </a>
   </section>
 </header>
