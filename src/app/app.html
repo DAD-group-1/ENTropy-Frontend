@@ -1,6 +1,6 @@
-<app-header [showLoggedLayoutAndItems]="showLoggedLayoutAndItems()" />
+<app-header [showLoggedLayoutAndItems]="layoutService.showLoggedLayout()" />
 <main class="main">
-  @if (showLoggedLayoutAndItems()) {
+  @if (layoutService.showLoggedLayout()) {
     <app-sidebar />
   }
 

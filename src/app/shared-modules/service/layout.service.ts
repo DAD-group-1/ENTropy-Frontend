@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, WritableSignal } from '@angular/core';
 
 export interface LayoutConfig {
   menuMode: string;
@@ -17,6 +17,14 @@ export class LayoutService {
   constructor() {
     this.handleResize();
     window.addEventListener('resize', this.handleResize.bind(this));
+  }
+
+  private _showLoggedLayout: WritableSignal<boolean> = signal(true);
+
+  showLoggedLayout = this._showLoggedLayout.asReadonly();
+
+  setLoggedLayout(value: boolean) {
+    this._showLoggedLayout.set(value);
   }
 
   handleResize() {
