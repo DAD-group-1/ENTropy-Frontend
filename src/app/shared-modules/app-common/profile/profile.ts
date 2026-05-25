@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
+import { Card } from 'primeng/card';
 
 export type ProfileType = 'student' | 'teacher';
 
@@ -26,7 +27,7 @@ export interface ProfileData {
 
 @Component({
   selector: 'app-profile',
-  imports: [TitleCasePipe],
+  imports: [TitleCasePipe, Card],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
