@@ -1,4 +1,4 @@
-import { Component, Input, signal, ViewChild, WritableSignal } from '@angular/core';
+import { Component, Input, OnInit, signal, ViewChild, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
@@ -36,7 +36,7 @@ export interface CalendarEvent extends EventDataAdditions {
   templateUrl: './entcalendar.html',
   styleUrl: './entcalendar.css',
 })
-export class ENTCalendar {
+export class ENTCalendar implements OnInit {
   @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
   @Input() public defaultLayout: 'dayGridMonth' | 'timeGridWeek' | 'timeGridDay' | 'listWeek' =
     'timeGridWeek';
@@ -70,7 +70,7 @@ export class ENTCalendar {
     return null;
   }
 
-  private WINDOW_PC_WIDTH: number = 1024;
+  private WINDOW_PC_WIDTH = 1024;
   getInitialView(): string {
     return window.innerWidth >= this.WINDOW_PC_WIDTH ? this.defaultLayout : 'timeGridDay';
   }

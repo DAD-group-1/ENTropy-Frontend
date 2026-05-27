@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -31,9 +31,9 @@ import { NgmMotionDirective } from '@scripttype/ng-motion';
   styleUrl: './login-page.css',
 })
 export class LoginPage implements OnInit {
-  loginForm!: FormGroup;
+  fb = inject(FormBuilder);
 
-  constructor(private fb: FormBuilder) {}
+  loginForm!: FormGroup;
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({

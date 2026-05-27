@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Profile, ProfileData, ProfileType } from '../../shared-modules/app-common/profile/profile';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from '../../shared-modules/service/navigation.service';
@@ -9,7 +9,7 @@ import { NavigationService } from '../../shared-modules/service/navigation.servi
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.css',
 })
-export class ProfilePage {
+export class ProfilePage implements OnInit {
   userData!: ProfileData;
   userType!: ProfileType;
 
@@ -24,7 +24,7 @@ export class ProfilePage {
         userId = Number(userId);
 
         //TODO: Call query based on userId
-      } catch (e) {
+      } catch {
         this.navigationService.navigate('/not-found');
       }
 

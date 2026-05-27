@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Location, NgClass } from '@angular/common';
 import { LayoutService } from '../../service/layout.service';
@@ -12,10 +12,10 @@ type ErrorColor = 'red' | 'blue' | 'yellow' | 'gray';
   templateUrl: './error.html',
   styleUrl: './error.css',
 })
-export class Error {
-  @Input() errorCode: string = '404';
-  @Input() title: string = 'Page not found';
-  @Input() message: string = 'The page you are looking for doesn’t exist or has been moved.';
+export class Error implements OnInit {
+  @Input() errorCode = '404';
+  @Input() title = 'Page not found';
+  @Input() message = 'The page you are looking for doesn’t exist or has been moved.';
   @Input() color: ErrorColor = 'red';
 
   router = inject(Router);
