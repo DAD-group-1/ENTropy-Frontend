@@ -1,4 +1,4 @@
-import { Component, OnInit, WritableSignal, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { PrimeNG } from 'primeng/config';
@@ -13,11 +13,9 @@ import { Sidebar } from './shared-modules/layout/sidebar/sidebar';
   styleUrl: './app.css',
 })
 export class App implements OnInit {
-  constructor(
-    private router: Router,
-    private primeng: PrimeNG,
-    public layoutService: LayoutService,
-  ) {}
+  router = inject(Router);
+  primeng = inject(PrimeNG);
+  layoutService = inject(LayoutService);
 
   // TODO: Handle showing the sidebar if not logged in
   private shouldShowLayout(url: string): boolean {
