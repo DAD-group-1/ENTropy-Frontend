@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './guards/auth/auth-guard';
+// import { authGuard } from './guards/auth/auth-guard';
 import { HomePage } from './page-modules/home/home-page';
 import { LoginPage } from './page-modules/login/login-page';
 import { CalendarPage } from './page-modules/calendar/calendar-page';
@@ -53,11 +53,16 @@ export const routes: Routes = [
       },
       {
         path: 'profile',
-        component: ProfilePage,
-      },
-      {
-        path: 'profile/:id',
-        component: ProfilePage,
+        children: [
+          {
+            path: '',
+            component: ProfilePage,
+          },
+          {
+            path: ':id',
+            component: ProfilePage,
+          },
+        ],
       },
     ],
   },
