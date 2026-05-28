@@ -4,15 +4,19 @@
   header {
     @apply bg-linear-65 from-(--primary-color) to-(--secondary-color) text-white p-2 flex items-center justify-between z-1000 relative shadow-xl;
 
-    .logo-section {
-      @apply flex justify-center items-center gap-x-4;
+    .notif-logo-section {
+      @apply flex items-center gap-x-5;
 
-      h1 {
-        @apply text-2xl text-right font-bold;
-      }
+      .logo-section {
+        @apply flex justify-center items-center gap-x-4;
 
-      .logo {
-        @apply w-16 h-16 rounded-2xl cursor-pointer;
+        h1 {
+          @apply text-2xl text-right font-bold;
+        }
+
+        .logo {
+          @apply w-16 h-16 rounded-2xl cursor-pointer;
+        }
       }
     }
 
@@ -56,12 +60,17 @@
 
   @media (max-width: 991px) {
     .layout-menu-button {
-      margin-left: 0;
-      margin-right: 0.5rem;
+      @apply ml-0 mr-2;
     }
 
     .layout-topbar-menu-button {
-      display: inline-flex;
+      @apply inline-flex;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .school-name {
+      @apply hidden;
     }
   }
 }

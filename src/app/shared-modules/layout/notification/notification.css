@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+:host {
+  .notification-icon {
+    @apply relative scale-150 text-xl cursor-pointer;
+
+    .notification-count {
+      @apply absolute -top-1 -right-1
+      flex items-center justify-center
+      w-3.5 h-3.5
+      rounded-full
+      bg-red-500 text-white
+      text-[8px] font-semibold
+      leading-none
+      select-none;
+    }
+  }
+
+  .notification-popover {
+    @apply max-w-85 max-h-105 flex flex-col;
+  }
+
+  .popover-header {
+    @apply flex items-center justify-between
+    mb-3 pb-2 border-b border-gray-200;
+  }
+
+  .popover-title {
+    @apply text-sm font-semibold text-gray-800;
+  }
+
+  .show-all-link {
+    @apply text-xs text-blue-500 hover:text-blue-600 hover:underline
+    transition-colors no-underline cursor-pointer;
+  }
+
+  .notification-list {
+    @apply flex flex-col gap-2 overflow-y-auto pr-1;
+  }
+
+  .notification-item {
+    @apply no-underline rounded-xl
+    border border-gray-200
+    hover:bg-gray-50
+    transition-colors
+    p-3 cursor-pointer;
+  }
+
+  .notification-content {
+    @apply flex flex-col min-w-0;
+  }
+
+  .notification-top-row {
+    @apply flex items-center justify-between gap-2 mb-1;
+  }
+
+  .notification-title {
+    @apply text-sm font-medium text-gray-900
+    truncate block;
+  }
+
+  .notification-message {
+    @apply text-xs text-gray-500
+    truncate block;
+  }
+
+  .notification-date {
+    @apply text-[10px] text-gray-400 mt-2;
+  }
+
+  .unread-dot {
+    @apply min-w-2 w-2 h-2 rounded-full bg-blue-500;
+  }
+
+  .empty-notifications {
+    @apply text-sm text-gray-400 text-center py-6;
+  }
+
+  ::ng-deep .p-component.p-popover {
+    transform: translateX(12.5%);
+  }
+
+  ::ng-deep .p-component.p-popover:before, ::ng-deep .p-component.p-popover:after {
+    left: calc(100% - 35px);
+  }
+
+  @media (max-width: 1128px) {
+    ::ng-deep .p-component.p-popover {
+      transform: translateX(10%);
+    }
+
+    ::ng-deep .p-component.p-popover:before, ::ng-deep .p-component.p-popover:after {
+      left: calc(100% - 30px);
+    }
+  }
+
+  @media (max-width: 430px) {
+    ::ng-deep .p-component.p-popover {
+      transform: translateX(10%);
+      width: 70%;
+    }
+
+    ::ng-deep .p-component.p-popover:before, ::ng-deep .p-component.p-popover:after {
+      left: calc(100% - 40px);
+    }
+  }
+}
