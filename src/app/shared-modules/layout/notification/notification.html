@@ -1,0 +1,73 @@
+<button #notificationButton type="button"
+        class="notification-button"
+        aria-label="Notifications"
+        tabindex="0"
+        (click)="toggle($event, notificationButton)"
+>
+  <i class="notification-icon pi pi-bell" aria-hidden="true">
+    @if (notificationService.notificationCount() > 0) {
+      <span
+        class="notification-count"
+        aria-label="{{ notificationService.notificationCount() }} new notifications"
+      >
+        {{ notificationService.notificationCount() }}
+      </span>
+    }
+  </i>
+</button>
+
+<p-popover
+  #notificationPopover
+  [dismissable]="true"
+  [appendTo]="notificationPopover"
+>
+  <div class="notification-popover">
+    <div class="popover-header">
+      <span class="popover-title">Notifications</span>
+
+      <button
+        routerLink="/notifications"
+        (click)="notificationPopover.hide()"
+        class="show-all-link"
+      >
+        Show all
+      </button>
+    </div>
+
+    <div class="notification-list">
+      @for (notification of notificationService.notifications(); track notification.id) {
+        <a
+          class="notification-item"
+          [routerLink]="notification.redirectUrl"
+          (click)="notificationService.readNotification(notification.id); notificationPopover.hide()"
+        >
+          <div class="notification-content">
+            <div class="notification-top-row">
+              <span class="notification-title">
+                {{ notification.title }}
+              </span>
+
+              @if (!notification.read) {
+                <span class="unread-dot"></span>
+              }
+            </div>
+
+            <span class="notification-message">
+              {{ notification.message }}
+            </span>
+
+            <span class="notification-date">
+              {{ notification.publishDate | date:'dd/MM/yyyy HH:mm' }}
+            </span>
+          </div>
+        </a>
+      }
+
+      @if (notificationService.notifications().length === 0) {
+        <div class="empty-notifications">
+          No notifications
+        </div>
+      }
+    </div>
+  </div>
+</p-popover>

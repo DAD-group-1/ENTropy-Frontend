@@ -1,4 +1,4 @@
-import { Component, Input, signal, WritableSignal } from '@angular/core';
+import { Component, Input, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Table, TableModule } from 'primeng/table';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -16,9 +16,7 @@ export interface TableColumn {
   };
   isBoolean?: boolean;
 }
-export interface TableRow {
-  [key: TableColumn['key']]: string | number | boolean | null;
-}
+export type TableRow = Record<TableColumn['key'], string | number | boolean | null>;
 
 @Component({
   selector: 'app-display-table',
@@ -34,7 +32,7 @@ export interface TableRow {
   templateUrl: './display-table.html',
   styleUrl: './display-table.css',
 })
-export class DisplayTable {
+export class DisplayTable implements OnInit {
   @Input({ required: true }) headers!: TableColumn[];
   @Input({ required: true }) rows!: TableRow[];
 

@@ -1,13 +1,14 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './guards/auth/auth-guard';
+// import { authGuard } from './guards/auth/auth-guard';
 import { HomePage } from './page-modules/home/home-page';
 import { LoginPage } from './page-modules/login/login-page';
 import { CalendarPage } from './page-modules/calendar/calendar-page';
 import { GradesPage } from './page-modules/grades/grades-page';
 import { AbsencesPage } from './page-modules/absences/absences-page';
-import { ProfilePage } from './page-modules/profile-page/profile-page';
-import { NotFoundPage } from './page-modules/not-found-page/not-found-page';
-import { ForbiddenPage } from './page-modules/forbidden-page/forbidden-page';
+import { ProfilePage } from './page-modules/profile/profile-page';
+import { NotFoundPage } from './page-modules/not-found/not-found-page';
+import { ForbiddenPage } from './page-modules/forbidden/forbidden-page';
+import { NotificationsPage } from './page-modules/notifications/notifications-page';
 
 export const routes: Routes = [
   {
@@ -53,11 +54,21 @@ export const routes: Routes = [
       },
       {
         path: 'profile',
-        component: ProfilePage,
+        children: [
+          {
+            path: '',
+            component: ProfilePage,
+          },
+          {
+            path: ':id',
+            component: ProfilePage,
+          },
+        ],
       },
+
       {
-        path: 'profile/:id',
-        component: ProfilePage,
+        path: 'notifications',
+        component: NotificationsPage,
       },
     ],
   },

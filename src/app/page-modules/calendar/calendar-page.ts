@@ -12,7 +12,7 @@ import {
 })
 export class CalendarPage {
   //TODO: Get it from the Authorization service
-  public isInstructor: boolean = false;
+  public isInstructor = false;
 
   private TODAY_STR = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
 

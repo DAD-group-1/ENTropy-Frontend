@@ -16,7 +16,7 @@ export class NavigationService {
 
     const target = route || '/home';
 
-    this.router.navigate([target]).then((r) => {});
+    void this.router.navigate([target]);
   }
 
   public navigateWithRefresh(route?: string) {

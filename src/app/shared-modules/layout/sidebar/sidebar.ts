@@ -1,4 +1,4 @@
-import { Component, effect, ElementRef, inject } from '@angular/core';
+import { Component, effect, ElementRef, inject, OnDestroy } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { LayoutService } from '../../service/layout.service';
 import { Subject } from 'rxjs';
@@ -19,14 +19,14 @@ interface MenuItem {
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
-export class Sidebar {
+export class Sidebar implements OnDestroy {
   layoutService = inject(LayoutService);
   navigationService = inject(NavigationService);
   el = inject(ElementRef);
 
   //TODO: Get from Auth service
-  protected studentName: string = 'John Doe';
-  protected role: string = 'Student';
+  protected studentName = 'John Doe';
+  protected role = 'Student';
 
   private outsideClickListener: ((event: MouseEvent) => void) | null = null;
 

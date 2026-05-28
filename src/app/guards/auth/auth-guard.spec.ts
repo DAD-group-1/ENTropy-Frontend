@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn, CanMatchFn } from '@angular/router';
+import { CanMatchFn } from '@angular/router';
 
 import { authGuard } from './auth-guard';
 

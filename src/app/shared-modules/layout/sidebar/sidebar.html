@@ -13,15 +13,15 @@
 >
   <!-- Avatar and Student Name (Tailwind classes) -->
   <header>
-    <section class="flex items-center gap-3 overflow-hidden cursor-pointer"
+    <button type="button" class="flex items-center gap-3 overflow-hidden cursor-pointer"
              (click)="navigationService.navigate('/profile')">
       <img src="assets/user-avatar.png" alt="Student Avatar"
            class="w-12 h-12 rounded-full object-cover border-2 border-white/6" />
-      <section class="truncate">
+      <section class="truncate text-left">
         <p class="sidebar-student-name">{{ studentName || 'Student Name' }}</p>
         <p class="sidebar-entropy">{{ role }} · ENTropy</p>
       </section>
-    </section>
+    </button>
     <button class="close-button" (click)="layoutService.onMenuToggle()">
       <i class="pi pi-times"></i>
     </button>

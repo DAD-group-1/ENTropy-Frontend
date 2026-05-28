@@ -27,7 +27,7 @@ describe('Profile', () => {
       campus: 'Test',
       program: 'Test',
       enrollmentYear: 2024,
-    } as any;
+    };
 
     await fixture.whenStable();
   });
