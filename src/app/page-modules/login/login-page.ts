@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgmMotionDirective } from '@scripttype/ng-motion';
+import { AuthenticationService } from '../../core/data-services';
 
 @Component({
   selector: 'app-login-page',
@@ -31,6 +32,7 @@ import { NgmMotionDirective } from '@scripttype/ng-motion';
   styleUrl: './login-page.css',
 })
 export class LoginPage implements OnInit {
+  private readonly authenticationService = inject(AuthenticationService);
   fb = inject(FormBuilder);
 
   loginForm!: FormGroup;
@@ -39,6 +41,13 @@ export class LoginPage implements OnInit {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
+    });
+
+    this.authenticationService.authenticationControllerLogin({
+      email: 'student@example.com',
+      password: 'password123',
+    }).subscribe((response) => {
+      console.log('Login response:', response);
     });
   }
 

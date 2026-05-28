@@ -4,6 +4,9 @@ import { providePrimeNG } from 'primeng/config';
 import ENTropyPreset from './ENTropyPreset';
 
 import { routes } from './app.routes';
+import { provideApi } from './core/data-services';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { JwtInterceptor } from './core/interceptors/jwt-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,5 +25,7 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
+    provideApi('http://localhost:3000'),
+    provideHttpClient(withInterceptors([JwtInterceptor])),
   ],
 };
