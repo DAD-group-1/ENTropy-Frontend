@@ -1,16 +1,25 @@
-import { Injectable, inject } from '@angular/core';
-import {
-  BehaviorSubject,
-  catchError,
-  map,
-  Observable,
-  take,
-  tap,
-  throwError,
-} from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { BehaviorSubject, catchError, map, Observable, of, take, tap, throwError } from 'rxjs';
 import { AuthenticationService } from '../../core/data-services';
 import { NavigationService } from './navigation.service';
 import { filter } from 'rxjs/operators';
+
+export enum Roles {
+  STUDENT = 'student',
+  INSTRUCTOR = 'instructor',
+  MANAGEMENT = 'management',
+  ADMIN = 'admin'
+}
+
+interface TokenData {
+  sub: string;
+  email: string;
+  iat: string;
+  exp: string;
+  data: {
+    role: Roles;
+  };
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -22,6 +31,31 @@ export class AuthService {
 
   public readonly ACCESS_TOKEN = 'access_token';
   public readonly REFRESH_TOKEN = 'refresh_token';
+
+  private _tokenData: TokenData | null = null;
+
+  get tokenData(): TokenData | null {
+    return this._tokenData;
+  }
+
+  get tokenPersonalizedData(): TokenData['data'] | null {
+    return this._tokenData?.data ?? null;
+  }
+
+  updateTokenData(): void {
+    const token = this.getAccessToken();
+
+    if (!token) {
+      this._tokenData = null;
+      return;
+    }
+
+    try {
+      this._tokenData = JSON.parse(atob(token.split('.')[1])) as TokenData;
+    } catch {
+      this._tokenData = null;
+    }
+  }
 
   getAccessToken(): string | null {
     return localStorage.getItem(this.ACCESS_TOKEN);
@@ -91,6 +125,7 @@ export class AuthService {
     return this.api.authenticationRefreshToken({ refresh_token: refreshToken }).pipe(
       map((response) => {
         this.setTokens(response.data.access_token, response.data.refresh_token);
+        this.updateTokenData();
 
         return response?.data?.access_token;
       }),
@@ -118,6 +153,15 @@ export class AuthService {
       this.api.authenticationLogout({ refresh_token: refreshToken }).subscribe();
     }
 
+    this.updateTokenData();
+
     this.navigationService.navigate('/login');
+  }
+
+  isLoggedVerified(): Observable<boolean> {
+    return this.api.authenticationVerifyToken().pipe(
+      map(() => true),
+      catchError(() => of(false)),
+    );
   }
 }
