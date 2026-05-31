@@ -1,10 +1,8 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 api.base.service.ts
 api.module.ts
 api/api.ts
-api/app.service.ts
 api/authentication.service.ts
 api/instructor.service.ts
 api/student.service.ts
@@ -15,6 +13,7 @@ index.ts
 model/createInstructorDto.ts
 model/createStudentDto.ts
 model/loginDto.ts
+model/logoutDto.ts
 model/models.ts
 model/refreshTokenDto.ts
 model/updateInstructorDto.ts

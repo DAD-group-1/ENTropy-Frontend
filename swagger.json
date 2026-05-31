@@ -1,28 +1,9 @@
 {
   "openapi": "3.0.0",
   "paths": {
-    "/": {
-      "get": {
-        "operationId": "AppController_getHello",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "tags": ["App"]
-      }
-    },
-    "/students": {
+    "/api/students": {
       "post": {
-        "operationId": "StudentController_create",
+        "operationId": "Student_create",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -47,7 +28,7 @@
         "tags": ["Student"]
       },
       "get": {
-        "operationId": "StudentController_findAll",
+        "operationId": "Student_findAll",
         "parameters": [],
         "responses": {
           "200": {
@@ -64,12 +45,17 @@
             }
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "tags": ["Student"]
       }
     },
-    "/students/{id}": {
+    "/api/students/{id}": {
       "get": {
-        "operationId": "StudentController_findOne",
+        "operationId": "Student_findOne",
         "parameters": [
           {
             "name": "id",
@@ -92,10 +78,15 @@
             }
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "tags": ["Student"]
       },
       "patch": {
-        "operationId": "StudentController_update",
+        "operationId": "Student_update",
         "parameters": [
           {
             "name": "id",
@@ -128,10 +119,15 @@
             }
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "tags": ["Student"]
       },
       "delete": {
-        "operationId": "StudentController_remove",
+        "operationId": "Student_remove",
         "parameters": [
           {
             "name": "id",
@@ -147,12 +143,17 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "tags": ["Student"]
       }
     },
-    "/instructors": {
+    "/api/instructors": {
       "post": {
-        "operationId": "InstructorController_create",
+        "operationId": "Instructor_create",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -177,7 +178,7 @@
         "tags": ["Instructor"]
       },
       "get": {
-        "operationId": "InstructorController_findAll",
+        "operationId": "Instructor_findAll",
         "parameters": [],
         "responses": {
           "200": {
@@ -194,12 +195,17 @@
             }
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "tags": ["Instructor"]
       }
     },
-    "/instructors/{id}": {
+    "/api/instructors/{id}": {
       "get": {
-        "operationId": "InstructorController_findOne",
+        "operationId": "Instructor_findOne",
         "parameters": [
           {
             "name": "id",
@@ -222,10 +228,15 @@
             }
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "tags": ["Instructor"]
       },
       "patch": {
-        "operationId": "InstructorController_update",
+        "operationId": "Instructor_update",
         "parameters": [
           {
             "name": "id",
@@ -258,10 +269,15 @@
             }
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "tags": ["Instructor"]
       },
       "delete": {
-        "operationId": "InstructorController_remove",
+        "operationId": "Instructor_remove",
         "parameters": [
           {
             "name": "id",
@@ -277,12 +293,39 @@
             "description": ""
           }
         },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "tags": ["Instructor"]
       }
     },
-    "/login": {
+    "/api/logout": {
       "post": {
-        "operationId": "AuthenticationController_login",
+        "operationId": "Authentication_logout",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogoutDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["Authentication"]
+      }
+    },
+    "/api/login": {
+      "post": {
+        "operationId": "Authentication_login",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -302,9 +345,9 @@
         "tags": ["Authentication"]
       }
     },
-    "/refresh": {
+    "/api/refresh": {
       "post": {
-        "operationId": "AuthenticationController_refreshToken",
+        "operationId": "Authentication_refreshToken",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -321,6 +364,23 @@
             "description": ""
           }
         },
+        "tags": ["Authentication"]
+      }
+    },
+    "/api/verify": {
+      "get": {
+        "operationId": "Authentication_verifyToken",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
         "tags": ["Authentication"]
       }
     }
@@ -658,6 +718,16 @@
             "description": "The ID of the instructor's specialization"
           }
         }
+      },
+      "LogoutDto": {
+        "type": "object",
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "description": "Refresh token given by the backend"
+          }
+        },
+        "required": ["refresh_token"]
       },
       "LoginDto": {
         "type": "object",
