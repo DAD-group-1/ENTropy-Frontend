@@ -9,6 +9,12 @@
       </div>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form" novalidate>
+        @if (loginError()) {
+          <p-message severity="error" variant="simple">
+            {{ loginError() }}
+          </p-message>
+        }
+
         <section class="email">
           <label for="email-input" id="email-label">Email Address</label>
           <input pInputText
@@ -51,11 +57,10 @@
 
         <div class="motion-wrapper" ngmMotion>
           <p-button
-            label="Sign In"
+            [label]="loading() ? 'Signing in...' : 'Sign In'"
             [raised]="true"
-            [disabled]="loginForm.invalid"
+            [disabled]="loginForm.invalid || loading()"
             type="submit"
-            [attr.aria-busy]="false"
           ></p-button>
         </div>
       </form>

@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { Location, NgClass } from '@angular/common';
 import { LayoutService } from '../../service/layout.service';
 import { ButtonModule } from 'primeng/button';
+import { AuthService } from '../../service/auth.service';
 
 type ErrorColor = 'red' | 'blue' | 'yellow' | 'gray';
 
@@ -20,6 +21,7 @@ export class Error implements OnInit {
 
   router = inject(Router);
   location = inject(Location);
+  authService = inject(AuthService);
   layoutService = inject(LayoutService);
 
   public readonly colorMap: Record<
@@ -48,7 +50,7 @@ export class Error implements OnInit {
   };
 
   ngOnInit() {
-    this.layoutService.setLoggedLayout(false);
+    this.layoutService.setLoggedLayout(this.authService.hasOneTokenAndNotExpired());
   }
 
   get styles() {
