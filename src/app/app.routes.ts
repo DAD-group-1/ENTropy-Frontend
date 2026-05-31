@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-// import { authGuard } from './guards/auth/auth-guard';
+import { authCanMatchGuard, authCanActivateGuard } from './guards/auth/auth-guard';
 import { HomePage } from './page-modules/home/home-page';
 import { LoginPage } from './page-modules/login/login-page';
 import { CalendarPage } from './page-modules/calendar/calendar-page';
@@ -22,8 +22,8 @@ export const routes: Routes = [
 
   {
     path: '',
-    // TODO: Activate authGuard when auth service is implemented
-    // canMatch: [authGuard],
+    canMatch: [authCanMatchGuard],
+    canActivateChild: [authCanActivateGuard],
     children: [
       {
         path: '',
