@@ -79,7 +79,6 @@ export class AuthService {
     }
 
     if (this.isRefreshing) {
-      console.log('is refreshing');
       return this.refreshSubject.asObservable().pipe(
         filter((token): token is string => token !== null),
         take(1),
