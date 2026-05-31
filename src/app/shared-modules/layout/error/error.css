@@ -22,15 +22,15 @@
   }
 
   .actions {
-    @apply flex flex-col sm:flex-row gap-3 justify-center;
+    @apply flex flex-wrap gap-3 justify-center;
   }
 
   .primary-btn {
-    @apply rounded-2xl text-white font-semibold transition;
+    @apply rounded-2xl text-white font-semibold transition w-fit;
   }
 
   .secondary-btn {
-    @apply transition;
+    @apply transition w-fit;
 
     ::ng-deep button {
       @apply rounded-2xl ;

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -35,7 +35,7 @@ import { LayoutService } from '../../shared-modules/service/layout.service';
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
   private readonly authService = inject(AuthService);
   private readonly authenticationService = inject(AuthenticationService);
   private readonly navigationService = inject(NavigationService);
@@ -53,7 +53,18 @@ export class LoginPage implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
 
-    this.layoutService.setLoggedLayout(this.authService.hasOneTokenAndNotExpired());
+    if (!this.authService.hasOneTokenAndNotExpired()) {
+      this.layoutService.setLoggedLayout(false);
+      return;
+    }
+
+    this.authService.isLoggedVerified().subscribe((isVerified) => {
+      this.layoutService.setLoggedLayout(isVerified);
+    });
+  }
+
+  ngOnDestroy() {
+    this.layoutService.setLoggedLayout(true);
   }
 
   get email() {
@@ -111,6 +122,7 @@ export class LoginPage implements OnInit {
       .subscribe({
         next: (response) => {
           this.authService.setTokens(response?.data?.access_token, response?.data?.refresh_token);
+          this.authService.updateTokenData();
 
           this.navigationService.navigate('/');
         },
