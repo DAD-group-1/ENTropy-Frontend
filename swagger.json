@@ -1,0 +1,758 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/students": {
+      "post": {
+        "operationId": "Student_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStudentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Student"]
+      },
+      "get": {
+        "operationId": "Student_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Student"]
+      }
+    },
+    "/api/students/{id}": {
+      "get": {
+        "operationId": "Student_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Student"]
+      },
+      "patch": {
+        "operationId": "Student_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStudentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Student"]
+      },
+      "delete": {
+        "operationId": "Student_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Student"]
+      }
+    },
+    "/api/instructors": {
+      "post": {
+        "operationId": "Instructor_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateInstructorDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Instructor"]
+      },
+      "get": {
+        "operationId": "Instructor_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Instructor"]
+      }
+    },
+    "/api/instructors/{id}": {
+      "get": {
+        "operationId": "Instructor_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Instructor"]
+      },
+      "patch": {
+        "operationId": "Instructor_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateInstructorDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Instructor"]
+      },
+      "delete": {
+        "operationId": "Instructor_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Instructor"]
+      }
+    },
+    "/api/logout": {
+      "post": {
+        "operationId": "Authentication_logout",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogoutDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["Authentication"]
+      }
+    },
+    "/api/login": {
+      "post": {
+        "operationId": "Authentication_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["Authentication"]
+      }
+    },
+    "/api/refresh": {
+      "post": {
+        "operationId": "Authentication_refreshToken",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["Authentication"]
+      }
+    },
+    "/api/verify": {
+      "get": {
+        "operationId": "Authentication_verifyToken",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": ["Authentication"]
+      }
+    }
+  },
+  "info": {
+    "title": "ENTropy API",
+    "description": "The ENTropy API description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "swiirzi-redhidi-en0ri4ni",
+      "description": ""
+    }
+  ],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "CreateStudentDto": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the user"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password for the user's account"
+          },
+          "phone": {
+            "type": "string",
+            "description": "The phone number of the user"
+          },
+          "birthday": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The birthday of the user"
+          },
+          "campus_id": {
+            "type": "number",
+            "description": "The ID of the campus the user is associated with"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Indicates whether the user account is active"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The date and time when the user account was last updated"
+          },
+          "program_id": {
+            "type": "number",
+            "description": "The ID of the program the student is enrolled in"
+          },
+          "enrollment_year": {
+            "type": "number",
+            "description": "The year the student enrolled in the program"
+          },
+          "status": {
+            "type": "string",
+            "description": "The current status of the student",
+            "enum": ["Active", "Inactive"]
+          },
+          "address": {
+            "type": "string",
+            "description": "The address of the student"
+          },
+          "city": {
+            "type": "string",
+            "description": "The city where the student resides"
+          },
+          "zip_code": {
+            "type": "string",
+            "description": "The zip code of the student's residence"
+          },
+          "emergency_contact": {
+            "type": "string",
+            "description": "The name of the student's emergency contact"
+          },
+          "emergency_phone": {
+            "type": "string",
+            "description": "The phone number of the student's emergency contact"
+          }
+        },
+        "required": [
+          "first_name",
+          "last_name",
+          "email",
+          "password",
+          "phone",
+          "birthday",
+          "campus_id",
+          "created_at",
+          "updated_at",
+          "program_id",
+          "enrollment_year",
+          "status",
+          "address",
+          "city",
+          "zip_code",
+          "emergency_contact",
+          "emergency_phone"
+        ]
+      },
+      "UpdateStudentDto": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the user"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password for the user's account"
+          },
+          "phone": {
+            "type": "string",
+            "description": "The phone number of the user"
+          },
+          "birthday": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The birthday of the user"
+          },
+          "campus_id": {
+            "type": "number",
+            "description": "The ID of the campus the user is associated with"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Indicates whether the user account is active"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The date and time when the user account was last updated"
+          },
+          "program_id": {
+            "type": "number",
+            "description": "The ID of the program the student is enrolled in"
+          },
+          "enrollment_year": {
+            "type": "number",
+            "description": "The year the student enrolled in the program"
+          },
+          "status": {
+            "type": "string",
+            "description": "The current status of the student",
+            "enum": ["Active", "Inactive"]
+          },
+          "address": {
+            "type": "string",
+            "description": "The address of the student"
+          },
+          "city": {
+            "type": "string",
+            "description": "The city where the student resides"
+          },
+          "zip_code": {
+            "type": "string",
+            "description": "The zip code of the student's residence"
+          },
+          "emergency_contact": {
+            "type": "string",
+            "description": "The name of the student's emergency contact"
+          },
+          "emergency_phone": {
+            "type": "string",
+            "description": "The phone number of the student's emergency contact"
+          }
+        }
+      },
+      "CreateInstructorDto": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the user"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password for the user's account"
+          },
+          "phone": {
+            "type": "string",
+            "description": "The phone number of the user"
+          },
+          "birthday": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The birthday of the user"
+          },
+          "campus_id": {
+            "type": "number",
+            "description": "The ID of the campus the user is associated with"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Indicates whether the user account is active"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The date and time when the user account was last updated"
+          },
+          "department_id": {
+            "type": "number",
+            "description": "The ID of the department the instructor belongs to"
+          },
+          "status": {
+            "type": "string",
+            "description": "The current status of the instructor",
+            "enum": ["Active", "Inactive"]
+          },
+          "hire_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The date the instructor was hired"
+          },
+          "specialization_id": {
+            "type": "number",
+            "description": "The ID of the instructor's specialization"
+          }
+        },
+        "required": [
+          "first_name",
+          "last_name",
+          "email",
+          "password",
+          "phone",
+          "birthday",
+          "campus_id",
+          "created_at",
+          "updated_at",
+          "department_id",
+          "status",
+          "hire_date",
+          "specialization_id"
+        ]
+      },
+      "UpdateInstructorDto": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the user"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password for the user's account"
+          },
+          "phone": {
+            "type": "string",
+            "description": "The phone number of the user"
+          },
+          "birthday": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The birthday of the user"
+          },
+          "campus_id": {
+            "type": "number",
+            "description": "The ID of the campus the user is associated with"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Indicates whether the user account is active"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The date and time when the user account was last updated"
+          },
+          "department_id": {
+            "type": "number",
+            "description": "The ID of the department the instructor belongs to"
+          },
+          "status": {
+            "type": "string",
+            "description": "The current status of the instructor",
+            "enum": ["Active", "Inactive"]
+          },
+          "hire_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The date the instructor was hired"
+          },
+          "specialization_id": {
+            "type": "number",
+            "description": "The ID of the instructor's specialization"
+          }
+        }
+      },
+      "LogoutDto": {
+        "type": "object",
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "description": "Refresh token given by the backend"
+          }
+        },
+        "required": ["refresh_token"]
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The email address of the account"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password of the account"
+          }
+        },
+        "required": ["email", "password"]
+      },
+      "RefreshTokenDto": {
+        "type": "object",
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "description": "Refresh token given by the backend addressed to the refresh endpoint"
+          }
+        },
+        "required": ["refresh_token"]
+      }
+    }
+  }
+}

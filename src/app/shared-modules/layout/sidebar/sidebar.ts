@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
 import { NavigationService } from '../../service/navigation.service';
+import { AuthService } from '../../service/auth.service';
 
 interface MenuItem {
   icon: string;
@@ -22,6 +23,7 @@ interface MenuItem {
 export class Sidebar implements OnDestroy {
   layoutService = inject(LayoutService);
   navigationService = inject(NavigationService);
+  authService = inject(AuthService);
   el = inject(ElementRef);
 
   //TODO: Get from Auth service
@@ -96,8 +98,7 @@ export class Sidebar implements OnDestroy {
   }
 
   onLogout() {
-    localStorage.removeItem('token');
-    this.navigationService.navigate('login');
+    this.authService.logout();
   }
 
   menuItems: MenuItem[] = [

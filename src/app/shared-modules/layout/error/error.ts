@@ -1,8 +1,9 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Location, NgClass } from '@angular/common';
 import { LayoutService } from '../../service/layout.service';
 import { ButtonModule } from 'primeng/button';
+import { AuthService } from '../../service/auth.service';
 
 type ErrorColor = 'red' | 'blue' | 'yellow' | 'gray';
 
@@ -12,7 +13,7 @@ type ErrorColor = 'red' | 'blue' | 'yellow' | 'gray';
   templateUrl: './error.html',
   styleUrl: './error.css',
 })
-export class Error implements OnInit {
+export class Error implements OnInit, OnDestroy {
   @Input() errorCode = '404';
   @Input() title = 'Page not found';
   @Input() message = 'The page you are looking for doesn’t exist or has been moved.';
@@ -20,6 +21,7 @@ export class Error implements OnInit {
 
   router = inject(Router);
   location = inject(Location);
+  authService = inject(AuthService);
   layoutService = inject(LayoutService);
 
   public readonly colorMap: Record<
@@ -48,7 +50,18 @@ export class Error implements OnInit {
   };
 
   ngOnInit() {
-    this.layoutService.setLoggedLayout(false);
+    if (!this.authService.hasOneTokenAndNotExpired()) {
+      this.layoutService.setLoggedLayout(false);
+      return;
+    }
+
+    this.authService.isLoggedVerified().subscribe((isVerified) => {
+      this.layoutService.setLoggedLayout(isVerified);
+    });
+  }
+
+  ngOnDestroy() {
+    this.layoutService.setLoggedLayout(true);
   }
 
   get styles() {

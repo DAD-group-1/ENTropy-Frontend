@@ -10,7 +10,7 @@ export class NavigationService {
   private router = inject(Router);
 
   public navigate(route?: string) {
-    if (!this.layoutService.isDesktop()) {
+    if (!this.layoutService.isDesktop() && this.layoutService.layoutState().mobileMenuActive) {
       this.layoutService.onMenuToggle();
     }
 
