@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -17,7 +17,7 @@ import { AuthenticationService } from '../../core/data-services';
 import { NavigationService } from '../../shared-modules/service/navigation.service';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../shared-modules/service/auth.service';
-import { LayoutService } from '../../shared-modules/service/layout.service';
+import { ProgressSpinner } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-login-page',
@@ -31,19 +31,21 @@ import { LayoutService } from '../../shared-modules/service/layout.service';
     ReactiveFormsModule,
     CommonModule,
     NgmMotionDirective,
+    ProgressSpinner,
   ],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
-export class LoginPage implements OnInit, OnDestroy {
+export class LoginPage implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly authenticationService = inject(AuthenticationService);
   private readonly navigationService = inject(NavigationService);
-  private readonly layoutService = inject(LayoutService);
   private readonly fb = inject(FormBuilder);
 
   loading = signal<boolean>(false);
   loginError = signal<string>('');
+
+  loadingLogginYouBackIn = signal<boolean>(true);
 
   loginForm!: FormGroup;
 
@@ -53,18 +55,15 @@ export class LoginPage implements OnInit, OnDestroy {
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
 
-    if (!this.authService.hasOneTokenAndNotExpired()) {
-      this.layoutService.setLoggedLayout(false);
-      return;
-    }
-
     this.authService.isLoggedVerified().subscribe((isVerified) => {
-      this.layoutService.setLoggedLayout(isVerified);
+      if (isVerified)
+        setTimeout(() => {
+          this.navigationService.navigate('/');
+        }, 1000);
+      else {
+        this.loadingLogginYouBackIn.set(false);
+      }
     });
-  }
-
-  ngOnDestroy() {
-    this.layoutService.setLoggedLayout(true);
   }
 
   get email() {
