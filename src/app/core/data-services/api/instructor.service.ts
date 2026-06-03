@@ -19,6 +19,12 @@ import { OpenApiHttpParams, QueryParamStyle } from '../query.params';
 // @ts-ignore
 import { CreateInstructorDto } from '../model/createInstructorDto';
 // @ts-ignore
+import { InstructorCreateDefaultResponse } from '../model/instructorCreateDefaultResponse';
+// @ts-ignore
+import { InstructorFindAllDefaultResponse } from '../model/instructorFindAllDefaultResponse';
+// @ts-ignore
+import { InstructorFindOneDefaultResponse } from '../model/instructorFindOneDefaultResponse';
+// @ts-ignore
 import { UpdateInstructorDto } from '../model/updateInstructorDto';
 
 // @ts-ignore
@@ -38,16 +44,18 @@ export class InstructorService extends BaseService {
     }
 
     /**
+     * Create a new instructor
+     * Add a new instructor to the system with the provided details.
      * @endpoint post /api/instructors
      * @param createInstructorDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public instructorCreate(createInstructorDto: CreateInstructorDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public instructorCreate(createInstructorDto: CreateInstructorDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public instructorCreate(createInstructorDto: CreateInstructorDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public instructorCreate(createInstructorDto: CreateInstructorDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public instructorCreate(createInstructorDto: CreateInstructorDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<InstructorCreateDefaultResponse>;
+    public instructorCreate(createInstructorDto: CreateInstructorDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<InstructorCreateDefaultResponse>>;
+    public instructorCreate(createInstructorDto: CreateInstructorDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<InstructorCreateDefaultResponse>>;
+    public instructorCreate(createInstructorDto: CreateInstructorDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createInstructorDto === null || createInstructorDto === undefined) {
             throw new Error('Required parameter createInstructorDto was null or undefined when calling instructorCreate.');
         }
@@ -58,6 +66,7 @@ export class InstructorService extends BaseService {
         localVarHeaders = this.configuration.addCredentialToHeaders('bearer', 'Authorization', localVarHeaders, 'Bearer ');
 
         const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'application/json'
         ]);
         if (localVarHttpHeaderAcceptSelected !== undefined) {
             localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
@@ -90,7 +99,7 @@ export class InstructorService extends BaseService {
 
         let localVarPath = `/api/instructors`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<any>('post', `${basePath}${localVarPath}`,
+        return this.httpClient.request<InstructorCreateDefaultResponse>('post', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: createInstructorDto,
@@ -105,15 +114,39 @@ export class InstructorService extends BaseService {
     }
 
     /**
+     * Get a list of all instructors
+     * Retrieve a paginated list of all instructors in the system.
      * @endpoint get /api/instructors
+     * @param page 
+     * @param limit 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public instructorFindAll(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<object>>;
-    public instructorFindAll(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<object>>>;
-    public instructorFindAll(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<object>>>;
-    public instructorFindAll(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public instructorFindAll(page?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<InstructorFindAllDefaultResponse>;
+    public instructorFindAll(page?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<InstructorFindAllDefaultResponse>>;
+    public instructorFindAll(page?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<InstructorFindAllDefaultResponse>>;
+    public instructorFindAll(page?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+
+        let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'page',
+            <any>page,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'limit',
+            <any>limit,
+            QueryParamStyle.Form,
+            true,
+        );
+
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -145,9 +178,10 @@ export class InstructorService extends BaseService {
 
         let localVarPath = `/api/instructors`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<Array<object>>('get', `${basePath}${localVarPath}`,
+        return this.httpClient.request<InstructorFindAllDefaultResponse>('get', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                params: localVarQueryParameters.toHttpParams(),
                 responseType: <any>responseType_,
                 ...(withCredentials ? { withCredentials } : {}),
                 headers: localVarHeaders,
@@ -159,15 +193,17 @@ export class InstructorService extends BaseService {
     }
 
     /**
+     * Get a specific instructor by ID
+     * Retrieve detailed information about a specific instructor using their unique ID.
      * @endpoint get /api/instructors/{id}
      * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public instructorFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<object>;
-    public instructorFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<object>>;
-    public instructorFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<object>>;
+    public instructorFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<InstructorFindOneDefaultResponse>;
+    public instructorFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<InstructorFindOneDefaultResponse>>;
+    public instructorFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<InstructorFindOneDefaultResponse>>;
     public instructorFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling instructorFindOne.');
@@ -203,7 +239,7 @@ export class InstructorService extends BaseService {
 
         let localVarPath = `/api/instructors/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<object>('get', `${basePath}${localVarPath}`,
+        return this.httpClient.request<InstructorFindOneDefaultResponse>('get', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -217,6 +253,8 @@ export class InstructorService extends BaseService {
     }
 
     /**
+     * Delete an instructor
+     * Remove an instructor from the system using their unique ID.
      * @endpoint delete /api/instructors/{id}
      * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -274,6 +312,8 @@ export class InstructorService extends BaseService {
     }
 
     /**
+     * Update an existing instructor
+     * Modify the details of an existing instructor using their unique ID.
      * @endpoint patch /api/instructors/{id}
      * @param id 
      * @param updateInstructorDto 
@@ -281,9 +321,9 @@ export class InstructorService extends BaseService {
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public instructorUpdate(id: string, updateInstructorDto: UpdateInstructorDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<object>;
-    public instructorUpdate(id: string, updateInstructorDto: UpdateInstructorDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<object>>;
-    public instructorUpdate(id: string, updateInstructorDto: UpdateInstructorDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<object>>;
+    public instructorUpdate(id: string, updateInstructorDto: UpdateInstructorDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<InstructorCreateDefaultResponse>;
+    public instructorUpdate(id: string, updateInstructorDto: UpdateInstructorDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<InstructorCreateDefaultResponse>>;
+    public instructorUpdate(id: string, updateInstructorDto: UpdateInstructorDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<InstructorCreateDefaultResponse>>;
     public instructorUpdate(id: string, updateInstructorDto: UpdateInstructorDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling instructorUpdate.');
@@ -331,7 +371,7 @@ export class InstructorService extends BaseService {
 
         let localVarPath = `/api/instructors/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<object>('patch', `${basePath}${localVarPath}`,
+        return this.httpClient.request<InstructorCreateDefaultResponse>('patch', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: updateInstructorDto,

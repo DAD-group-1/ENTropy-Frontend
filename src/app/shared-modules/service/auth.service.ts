@@ -134,11 +134,13 @@ export class AuthService {
       })
       .pipe(
         map((response) => {
-          this.setTokens(response.data.access_token, response.data.refresh_token);
+          this.setTokens(response?.data?.access_token ?? '', response?.data?.refresh_token);
           this.updateTokenData();
 
           return response?.data?.access_token;
         }),
+
+        filter((accessToken): accessToken is string => accessToken !== undefined),
 
         tap((accessToken) => {
           this.isRefreshing = false;

@@ -39,14 +39,6 @@ export interface UpdateStudentDto {
      */
     campus_id?: number;
     /**
-     * Indicates whether the user account is active
-     */
-    created_at?: string;
-    /**
-     * The date and time when the user account was last updated
-     */
-    updated_at?: string;
-    /**
      * The ID of the program the student is enrolled in
      */
     program_id?: number;
