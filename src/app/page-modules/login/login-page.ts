@@ -11,13 +11,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { NgmMotionDirective } from '@scripttype/ng-motion';
 import { AuthenticationService } from '../../core/data-services';
 import { NavigationService } from '../../shared-modules/service/navigation.service';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../shared-modules/service/auth.service';
 import { ProgressSpinner } from 'primeng/progressspinner';
+import { LayoutService } from '../../shared-modules/service/layout.service';
 
 @Component({
   selector: 'app-login-page',
@@ -32,20 +33,20 @@ import { ProgressSpinner } from 'primeng/progressspinner';
     CommonModule,
     NgmMotionDirective,
     ProgressSpinner,
+    NgOptimizedImage,
   ],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
 export class LoginPage implements OnInit {
-  private readonly authService = inject(AuthService);
+  private readonly layoutService = inject(LayoutService);
   private readonly authenticationService = inject(AuthenticationService);
   private readonly navigationService = inject(NavigationService);
   private readonly fb = inject(FormBuilder);
+  public readonly authService = inject(AuthService);
 
   loading = signal<boolean>(false);
   loginError = signal<string>('');
-
-  loadingLogginYouBackIn = signal<boolean>(true);
 
   loginForm!: FormGroup;
 
@@ -55,15 +56,10 @@ export class LoginPage implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
 
-    this.authService.isLoggedVerified().subscribe((isVerified) => {
-      if (isVerified)
-        setTimeout(() => {
-          this.navigationService.navigate('/');
-        }, 1000);
-      else {
-        this.loadingLogginYouBackIn.set(false);
-      }
-    });
+    if (this.authService.loadingLogginYouBackIn())
+      setTimeout(() => {
+        this.navigationService.navigate('/');
+      }, 1000);
   }
 
   get email() {
@@ -124,6 +120,8 @@ export class LoginPage implements OnInit {
           this.authService.updateTokenData();
 
           this.navigationService.navigate('/');
+          this.layoutService.setLoggedLayout(true);
+          this.authService.loadingLogginYouBackIn.set(true);
         },
         error: (err) => {
           this.loginError.set(err?.error?.message || 'Invalid email or password');

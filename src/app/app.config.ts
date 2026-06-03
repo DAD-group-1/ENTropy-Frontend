@@ -13,7 +13,6 @@ import { provideApi } from './core/data-services';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptors/jwt-interceptor';
 import { AuthService } from './shared-modules/service/auth.service';
-import { NavigationService } from './shared-modules/service/navigation.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,19 +32,33 @@ export const appConfig: ApplicationConfig = {
       },
     }),
     provideApi('http://localhost:3000'),
-    provideHttpClient(withInterceptors([JwtInterceptor])),
     provideAppInitializer(initAuth),
+    provideHttpClient(withInterceptors([JwtInterceptor])),
   ],
 };
 
 function initAuth() {
-  const navigationService = inject(NavigationService);
   const authService = inject(AuthService);
 
-  if (authService.hasOneTokenAndNotExpired()) {
-    authService.isLoggedVerified().subscribe((isVerified) => {
-      if (!isVerified)
-          navigationService.navigate('/login');
-    });
+  if (!authService.hasOneTokenAndNotExpired()) {
+    authService.logout();
+    authService.authReady.set(true);
+    return;
   }
+
+  authService.isLoggedVerified().subscribe({
+    next: (isVerified) => {
+      if (!isVerified) {
+        authService.logout();
+      } else {
+        authService.loadingLogginYouBackIn.set(true);
+      }
+    },
+    error: () => {
+      authService.logout();
+    },
+    complete: () => {
+      authService.authReady.set(true);
+    }
+  });
 }

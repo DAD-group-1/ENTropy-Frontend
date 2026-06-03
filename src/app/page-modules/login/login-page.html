@@ -1,19 +1,7 @@
 <div class="center" role="main" aria-label="Login page">
-  @if (loadingLogginYouBackIn()) {
-    <p-card>
-      <div class="loading-container">
-        <p-progressSpinner
-          [style]="{ width: '50px', height: '50px' }"
-          strokeWidth="4"
-          animationDuration=".5s"
-          aria-label="Loading spinner indicating that we are logging you back in"
-        ></p-progressSpinner>
-        <p class="loading-text">Logging you back in...</p>
-      </div>
-    </p-card>
-  } @else {
+  @if (!authService.loadingLogginYouBackIn()) {
     <section class="login-page">
-      <img src="assets/nova-campus.jpg" alt="Nova campus marketing image" class="image">
+      <img ngSrc="assets/nova-campus.jpg" alt="Nova campus marketing image" class="image" height="460" width="800">
 
       <p-card>
         <div class="card-header">
@@ -79,5 +67,17 @@
         </form>
       </p-card>
     </section>
+  } @else {
+    <p-card>
+      <div class="loading-container">
+        <p-progressSpinner
+          [style]="{ width: '50px', height: '50px' }"
+          strokeWidth="4"
+          animationDuration=".5s"
+          aria-label="Loading spinner indicating that we are logging you back in"
+        ></p-progressSpinner>
+        <p class="loading-text">Logging you back in...</p>
+      </div>
+    </p-card>
   }
 </div>

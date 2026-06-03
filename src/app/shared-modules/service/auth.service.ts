@@ -1,14 +1,17 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, of, take, tap, throwError } from 'rxjs';
 import { AuthenticationService } from '../../core/data-services';
 import { NavigationService } from './navigation.service';
 import { filter } from 'rxjs/operators';
+import { LayoutService } from './layout.service';
+import { HttpContext } from '@angular/common/http';
+import { SKIP_INTERCEPTOR } from '../../core/interceptors/jwt-interceptor';
 
 export enum Roles {
   STUDENT = 'student',
   INSTRUCTOR = 'instructor',
-  MANAGEMENT = 'management',
-  ADMIN = 'admin'
+  MANAGER = 'manager',
+  ADMIN = 'admin',
 }
 
 interface TokenData {
@@ -23,6 +26,7 @@ interface TokenData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private layoutService = inject(LayoutService);
   private navigationService = inject(NavigationService);
   private api = inject(AuthenticationService);
 
@@ -32,6 +36,8 @@ export class AuthService {
   public readonly ACCESS_TOKEN = 'access_token';
   public readonly REFRESH_TOKEN = 'refresh_token';
 
+  public authReady = signal<boolean>(false);
+  public loadingLogginYouBackIn = signal<boolean>(false);
   private _tokenData: TokenData | null = null;
 
   get tokenData(): TokenData | null {
@@ -122,39 +128,47 @@ export class AuthService {
     this.isRefreshing = true;
     this.refreshSubject.next(null);
 
-    return this.api.authenticationRefreshToken({ refresh_token: refreshToken }).pipe(
-      map((response) => {
-        this.setTokens(response.data.access_token, response.data.refresh_token);
-        this.updateTokenData();
+    return this.api
+      .authenticationRefreshToken({ refresh_token: refreshToken }, 'body', false, {
+        context: new HttpContext().set(SKIP_INTERCEPTOR, true),
+      })
+      .pipe(
+        map((response) => {
+          this.setTokens(response.data.access_token, response.data.refresh_token);
+          this.updateTokenData();
 
-        return response?.data?.access_token;
-      }),
+          return response?.data?.access_token;
+        }),
 
-      tap((accessToken) => {
-        this.isRefreshing = false;
-        this.refreshSubject.next(accessToken);
-      }),
+        tap((accessToken) => {
+          this.isRefreshing = false;
+          this.refreshSubject.next(accessToken);
+        }),
 
-      catchError((err) => {
-        this.isRefreshing = false;
-        this.refreshSubject.next(null);
-        this.logout();
-        return throwError(() => err);
-      }),
-    );
+        catchError((err) => {
+          this.isRefreshing = false;
+          this.refreshSubject.next(null);
+          this.logout();
+          return throwError(() => err);
+        }),
+      );
   }
 
   logout(): void {
     const refreshToken = this.getRefreshToken();
 
     this.clearTokens();
-
-    if (refreshToken) {
-      this.api.authenticationLogout({ refresh_token: refreshToken }).subscribe();
-    }
-
     this.updateTokenData();
 
+    if (refreshToken) {
+      this.api
+        .authenticationLogout({ refresh_token: refreshToken })
+        .pipe(catchError(() => of(null)))
+        .subscribe();
+    }
+
+    this.layoutService.setLoggedLayout(false);
+    this.loadingLogginYouBackIn.set(false);
     this.navigationService.navigate('/login');
   }
 

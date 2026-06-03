@@ -1,7 +1,6 @@
 import { CanActivateFn, CanMatchFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { AuthService } from '../../shared-modules/service/auth.service';
-import { AuthenticationService } from '../../core/data-services';
 import { catchError, map, of } from 'rxjs';
 
 export const authCanMatchGuard: CanMatchFn = () => {
@@ -14,10 +13,14 @@ export const authCanMatchGuard: CanMatchFn = () => {
 };
 
 export const authCanActivateGuard: CanActivateFn = () => {
-  const auth = inject(AuthenticationService);
+  const authService = inject(AuthService);
+  const router = inject(Router);
 
-  return auth.authenticationVerifyToken().pipe(
-    map(() => true),
-    catchError(() => of(false)),
+  return authService.isLoggedVerified().pipe(
+    map((isValid) => (isValid ? true : router.createUrlTree(['/login']))),
+    catchError(() => {
+      authService.logout();
+      return of(router.createUrlTree(['/login']));
+    }),
   );
 };
