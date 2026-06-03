@@ -116,7 +116,10 @@ export class LoginPage implements OnInit {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (response) => {
-          this.authService.setTokens(response?.data?.access_token, response?.data?.refresh_token);
+          this.authService.setTokens(
+            response?.data?.access_token ?? '',
+            response?.data?.refresh_token,
+          );
           this.authService.updateTokenData();
 
           this.navigationService.navigate('/');
