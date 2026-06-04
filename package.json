@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "generate-api-client": "cross-env JAVA_OPTS=\"-Dio.swagger.v3.parser.util.RemoteUrl.trustAll=true\" openapi-generator-cli generate --openapitools openapitools.json"
   },
   "private": true,
   "packageManager": "npm@11.14.1",
@@ -41,6 +42,7 @@
     "@openapitools/openapi-generator-cli": "^2.34.0",
     "@tailwindcss/postcss": "^4.1.12",
     "angular-eslint": "21.4.0",
+    "cross-env": "^10.1.0",
     "eslint": "^10.3.0",
     "jsdom": "^28.0.0",
     "postcss": "^8.5.3",
