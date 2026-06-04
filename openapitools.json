@@ -2,6 +2,18 @@
   "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
   "spaces": 2,
   "generator-cli": {
-    "version": "7.22.0"
+    "version": "7.18.0",
+    "generators": {
+      "ENTropy-Gateway": {
+        "inputSpec": "./swagger.json",
+        "generatorName": "typescript-angular",
+        "output": "src/app/core/data-services",
+        "additionalProperties": {
+          "fileNaming": "kebab-case",
+          "nullSafeAdditionalProps": true,
+          "useSingleRequestParameter": true
+        }
+      }
+    }
   }
 }
