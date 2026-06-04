@@ -1,5 +1,12 @@
-import { Injectable, Signal, signal, WritableSignal, computed } from '@angular/core';
-import { NotificationItem } from '../layout/notification/notification';
+import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import {
+  GetNotificationListResponseDto,
+  GetNotificationResponseDto,
+  NotificationsFindAllDefaultResponse,
+  NotificationsFindAllForUserRequestParams,
+  NotificationsService,
+} from '../../core/data-services';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,79 +16,103 @@ export class NotificationService {
     this.loadInitialNotifications();
   }
 
-  private _notifications: WritableSignal<NotificationItem[]> = signal([]);
+  private readonly notificationService = inject(NotificationsService);
+  private readonly authService = inject(AuthService);
 
-  public notifications: Signal<NotificationItem[]> = this._notifications.asReadonly();
+  private _latestNotifications: WritableSignal<GetNotificationResponseDto[]> = signal([]);
 
-  public notificationCount: Signal<number> = computed(
-    () => this._notifications().filter((n) => !n.read).length,
+  public latestNotifications = this._latestNotifications.asReadonly();
+
+  public latestNotificationsCount: Signal<number> = computed(
+    () => this._latestNotifications().filter((n) => !n.read_at).length,
   );
 
-  private loadInitialNotifications() {
-    //TODO: Query the notification microservice
-
-    this._notifications.set([
-      {
-        id: 1,
-        title: 'New Booking',
-        message:
-          'John Doe has successfully booked a Yoga session scheduled for tomorrow at 6:00 PM. Please make sure the instructor is notified and the room is prepared accordingly.',
-        redirectUrl: '/calendar',
-        read: false,
-        publishDate: new Date(),
-      },
-      {
-        id: 2,
-        title: 'Payment Confirmed',
-        message:
-          'The payment for order #4821 has been successfully processed and confirmed. The invoice has been generated and sent to the customer email address.',
-        redirectUrl: '/payments/4821',
-        read: false,
-        publishDate: new Date(Date.now() - 1000 * 60 * 15),
-      },
-      {
-        id: 3,
-        title: 'New Support Message',
-        message:
-          'You have received a new message from the support team regarding your recent inquiry. Please review the details and respond if additional information is required.',
-        redirectUrl: '/messages',
-        read: true,
-        publishDate: new Date(Date.now() - 1000 * 60 * 45),
-      },
-      {
-        id: 4,
-        title: 'Profile Updated',
-        message:
-          'Your profile has been successfully updated with the latest information. All changes have been saved and are now visible across the platform.',
-        redirectUrl: '/profile',
-        read: true,
-        publishDate: new Date(Date.now() - 1000 * 60 * 60 * 2),
-      },
-      {
-        id: 5,
-        title: 'Class Cancelled',
-        message:
-          'The Pilates class scheduled for today at 6:00 PM has been cancelled due to unforeseen circumstances. All registered participants have been notified automatically.',
-        redirectUrl: '/courses',
-        read: false,
-        publishDate: new Date(Date.now() - 1000 * 60 * 60 * 5),
-      },
-    ]);
+  public setLatestNotifications(notifications: GetNotificationResponseDto[]) {
+    this._latestNotifications.set(notifications);
   }
 
-  public setNotifications(notifications: NotificationItem[]) {
-    this._notifications.set(notifications);
+  private _currentNotifications: WritableSignal<GetNotificationResponseDto[]> = signal([]);
+
+  public currentNotifications = this._currentNotifications.asReadonly();
+
+  public setCurrentNotifications(notifications: GetNotificationResponseDto[]) {
+    this._currentNotifications.set(notifications);
+  }
+
+  private _paginationResults: WritableSignal<GetNotificationListResponseDto | null> = signal(null);
+
+  public paginationResults = this._paginationResults.asReadonly();
+
+  public setPaginationResults = (result: GetNotificationListResponseDto | null) =>
+    this._paginationResults.set(result);
+
+  public hasMultiplePages = computed(() => {
+    const res = this.paginationResults();
+    if (!res) return false;
+    return Math.ceil(res.total / res.limit) > 1;
+  });
+
+  private loadInitialNotifications() {
+    const notificationQuery: NotificationsFindAllForUserRequestParams = {
+      userId: parseInt(this.authService.tokenData?.sub ?? '0', 10),
+      page: 1,
+      limit: 10,
+    };
+
+    this.notificationService.notificationsFindAllForUser(notificationQuery).subscribe({
+      next: (result: NotificationsFindAllDefaultResponse) => {
+        const resultData = result.data;
+
+        this.setPaginationResults(resultData ?? null);
+        this.setLatestNotifications(resultData?.items ?? []);
+        this.setCurrentNotifications(resultData?.items ?? []);
+      },
+      error: () => {
+        this.setPaginationResults(null);
+        this.setLatestNotifications([]);
+        this.setCurrentNotifications([]);
+      },
+    });
   }
 
   public readNotification(notificationId: number) {
-    this._notifications.update((list) =>
-      list.map((n) => (n.id === notificationId ? { ...n, read: true } : n)),
-    );
+    const id = String(notificationId);
+    const date = new Date().toISOString();
+
+    this.notificationService
+      .notificationsUpdate({
+        id: id,
+        updateNotificationDto: {
+          read_at: date,
+        },
+      })
+      .subscribe({
+        next: () => {
+          this._latestNotifications.update((list) =>
+            list.map((n) => (String(n._id) === id ? { ...n, read_at: date } : n)),
+          );
+
+          this._currentNotifications.update((list) =>
+            list.map((n) => (String(n._id) === id ? { ...n, read_at: date } : n)),
+          );
+        },
+        error: () => {
+          this._latestNotifications.update((list) =>
+            list.map((n) => (String(n._id) === id ? { ...n, read_at: undefined } : n)),
+          );
+
+          this._currentNotifications.update((list) =>
+            list.map((n) => (String(n._id) === id ? { ...n, read_at: undefined } : n)),
+          );
+        },
+      });
   }
 
-  public canMarkAllAsRead = computed(() => this._notifications().some((n) => !n.read));
+  public canMarkAllAsRead = computed(() => this.currentNotifications().some((n) => !n.read_at));
 
   public markAllAsRead() {
-    this._notifications.update((list) => list.map((n) => ({ ...n, read: true })));
+    this.currentNotifications().forEach((notification) => {
+      this.readNotification(notification._id);
+    });
   }
 }

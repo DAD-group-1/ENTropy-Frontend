@@ -20,7 +20,7 @@
   }
 
   .list {
-    @apply flex flex-col gap-3;
+    @apply flex flex-col gap-3 mb-4;
 
     .card {
       @apply bg-white border border-gray-200 rounded-xl p-4

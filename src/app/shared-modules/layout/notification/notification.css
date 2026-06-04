@@ -17,7 +17,7 @@
   }
 
   .notification-popover {
-    @apply max-w-85 max-h-105 flex flex-col;
+    @apply w-85 max-h-105 flex flex-col;
   }
 
   .popover-header {
@@ -84,7 +84,7 @@
     left: calc(100% - 35px);
   }
 
-  @media (max-width: 1128px) {
+  @media (min-width: 1129px) and (max-width: 1600px) {
     ::ng-deep .p-component.p-popover {
       transform: translateX(10%);
     }
@@ -94,7 +94,21 @@
     }
   }
 
+  @media (max-width: 1128px) {
+    ::ng-deep .p-component.p-popover {
+      transform: translateX(10%);
+    }
+
+    ::ng-deep .p-component.p-popover:before, ::ng-deep .p-component.p-popover:after {
+      left: calc(100% - 45px);
+    }
+  }
+
   @media (max-width: 430px) {
+    .notification-popover {
+      @apply max-w-85 w-auto;
+    }
+
     ::ng-deep .p-component.p-popover {
       transform: translateX(10%);
       width: 70%;
