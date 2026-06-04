@@ -29,6 +29,28 @@ import { Configuration }                                     from '../configurat
 import { BaseService } from '../api.base.service';
 
 
+export interface CourseCreateRequestParams {
+    createCourseDto: CreateCourseDto;
+}
+
+export interface CourseFindAllRequestParams {
+    page?: number;
+    limit?: number;
+}
+
+export interface CourseFindOneRequestParams {
+    id: string;
+}
+
+export interface CourseRemoveRequestParams {
+    id: string;
+}
+
+export interface CourseUpdateRequestParams {
+    id: string;
+    body: object;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,15 +65,16 @@ export class CourseService extends BaseService {
      * Create a new course record
      * Add a new course record to the system.
      * @endpoint post /api/courses
-     * @param createCourseDto 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public courseCreate(createCourseDto: CreateCourseDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CourseCreateDefaultResponse>;
-    public courseCreate(createCourseDto: CreateCourseDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CourseCreateDefaultResponse>>;
-    public courseCreate(createCourseDto: CreateCourseDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CourseCreateDefaultResponse>>;
-    public courseCreate(createCourseDto: CreateCourseDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public courseCreate(requestParameters: CourseCreateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CourseCreateDefaultResponse>;
+    public courseCreate(requestParameters: CourseCreateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CourseCreateDefaultResponse>>;
+    public courseCreate(requestParameters: CourseCreateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CourseCreateDefaultResponse>>;
+    public courseCreate(requestParameters: CourseCreateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const createCourseDto = requestParameters?.createCourseDto;
         if (createCourseDto === null || createCourseDto === undefined) {
             throw new Error('Required parameter createCourseDto was null or undefined when calling courseCreate.');
         }
@@ -113,16 +136,17 @@ export class CourseService extends BaseService {
      * Get a list of courses
      * Retrieve a paginated list of courses from the system.
      * @endpoint get /api/courses
-     * @param page 
-     * @param limit 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public courseFindAll(page?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CourseFindAllDefaultResponse>;
-    public courseFindAll(page?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CourseFindAllDefaultResponse>>;
-    public courseFindAll(page?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CourseFindAllDefaultResponse>>;
-    public courseFindAll(page?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public courseFindAll(requestParameters?: CourseFindAllRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CourseFindAllDefaultResponse>;
+    public courseFindAll(requestParameters?: CourseFindAllRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CourseFindAllDefaultResponse>>;
+    public courseFindAll(requestParameters?: CourseFindAllRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CourseFindAllDefaultResponse>>;
+    public courseFindAll(requestParameters?: CourseFindAllRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const page = requestParameters?.page;
+        const limit = requestParameters?.limit;
 
         let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
 
@@ -192,15 +216,16 @@ export class CourseService extends BaseService {
      * Get a course by ID
      * Retrieve a single course record by its unique ID.
      * @endpoint get /api/courses/{id}
-     * @param id 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public courseFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CourseCreateDefaultResponse>;
-    public courseFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CourseCreateDefaultResponse>>;
-    public courseFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CourseCreateDefaultResponse>>;
-    public courseFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public courseFindOne(requestParameters: CourseFindOneRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CourseCreateDefaultResponse>;
+    public courseFindOne(requestParameters: CourseFindOneRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CourseCreateDefaultResponse>>;
+    public courseFindOne(requestParameters: CourseFindOneRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CourseCreateDefaultResponse>>;
+    public courseFindOne(requestParameters: CourseFindOneRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling courseFindOne.');
         }
@@ -252,15 +277,16 @@ export class CourseService extends BaseService {
      * Delete a course by ID
      * Remove a course record from the system by its unique ID.
      * @endpoint delete /api/courses/{id}
-     * @param id 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public courseRemove(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public courseRemove(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public courseRemove(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public courseRemove(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public courseRemove(requestParameters: CourseRemoveRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public courseRemove(requestParameters: CourseRemoveRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public courseRemove(requestParameters: CourseRemoveRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public courseRemove(requestParameters: CourseRemoveRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling courseRemove.');
         }
@@ -311,19 +337,20 @@ export class CourseService extends BaseService {
      * Update a course by ID
      * Update an existing course record by its unique ID.
      * @endpoint patch /api/courses/{id}
-     * @param id 
-     * @param body 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public courseUpdate(id: string, body: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CourseCreateDefaultResponse>;
-    public courseUpdate(id: string, body: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CourseCreateDefaultResponse>>;
-    public courseUpdate(id: string, body: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CourseCreateDefaultResponse>>;
-    public courseUpdate(id: string, body: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public courseUpdate(requestParameters: CourseUpdateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CourseCreateDefaultResponse>;
+    public courseUpdate(requestParameters: CourseUpdateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CourseCreateDefaultResponse>>;
+    public courseUpdate(requestParameters: CourseUpdateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CourseCreateDefaultResponse>>;
+    public courseUpdate(requestParameters: CourseUpdateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling courseUpdate.');
         }
+        const body = requestParameters?.body;
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling courseUpdate.');
         }

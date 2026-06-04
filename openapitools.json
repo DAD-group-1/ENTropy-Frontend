@@ -9,7 +9,6 @@
         "generatorName": "typescript-angular",
         "output": "src/app/core/data-services",
         "additionalProperties": {
-          "fileNaming": "kebab-case",
           "nullSafeAdditionalProps": true,
           "useSingleRequestParameter": true
         }

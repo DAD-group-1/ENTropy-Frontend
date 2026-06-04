@@ -29,6 +29,28 @@ import { Configuration }                                     from '../configurat
 import { BaseService } from '../api.base.service';
 
 
+export interface PaymentCreateRequestParams {
+    createPaymentDto: CreatePaymentDto;
+}
+
+export interface PaymentFindAllRequestParams {
+    page?: number;
+    limit?: number;
+}
+
+export interface PaymentFindOneRequestParams {
+    id: string;
+}
+
+export interface PaymentRemoveRequestParams {
+    id: string;
+}
+
+export interface PaymentUpdateRequestParams {
+    id: string;
+    body: object;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,15 +65,16 @@ export class PaymentService extends BaseService {
      * Create a new payment record
      * Add a new payment record to the system.
      * @endpoint post /api/payments
-     * @param createPaymentDto 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public paymentCreate(createPaymentDto: CreatePaymentDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<PaymentCreateDefaultResponse>;
-    public paymentCreate(createPaymentDto: CreatePaymentDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<PaymentCreateDefaultResponse>>;
-    public paymentCreate(createPaymentDto: CreatePaymentDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<PaymentCreateDefaultResponse>>;
-    public paymentCreate(createPaymentDto: CreatePaymentDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public paymentCreate(requestParameters: PaymentCreateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<PaymentCreateDefaultResponse>;
+    public paymentCreate(requestParameters: PaymentCreateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<PaymentCreateDefaultResponse>>;
+    public paymentCreate(requestParameters: PaymentCreateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<PaymentCreateDefaultResponse>>;
+    public paymentCreate(requestParameters: PaymentCreateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const createPaymentDto = requestParameters?.createPaymentDto;
         if (createPaymentDto === null || createPaymentDto === undefined) {
             throw new Error('Required parameter createPaymentDto was null or undefined when calling paymentCreate.');
         }
@@ -113,16 +136,17 @@ export class PaymentService extends BaseService {
      * Get a list of payments
      * Retrieve a paginated list of payments from the system.
      * @endpoint get /api/payments
-     * @param page 
-     * @param limit 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public paymentFindAll(page?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<PaymentFindAllDefaultResponse>;
-    public paymentFindAll(page?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<PaymentFindAllDefaultResponse>>;
-    public paymentFindAll(page?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<PaymentFindAllDefaultResponse>>;
-    public paymentFindAll(page?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public paymentFindAll(requestParameters?: PaymentFindAllRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<PaymentFindAllDefaultResponse>;
+    public paymentFindAll(requestParameters?: PaymentFindAllRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<PaymentFindAllDefaultResponse>>;
+    public paymentFindAll(requestParameters?: PaymentFindAllRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<PaymentFindAllDefaultResponse>>;
+    public paymentFindAll(requestParameters?: PaymentFindAllRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const page = requestParameters?.page;
+        const limit = requestParameters?.limit;
 
         let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
 
@@ -192,15 +216,16 @@ export class PaymentService extends BaseService {
      * Get a payment by ID
      * Retrieve a single payment record by its unique ID.
      * @endpoint get /api/payments/{id}
-     * @param id 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public paymentFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<PaymentCreateDefaultResponse>;
-    public paymentFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<PaymentCreateDefaultResponse>>;
-    public paymentFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<PaymentCreateDefaultResponse>>;
-    public paymentFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public paymentFindOne(requestParameters: PaymentFindOneRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<PaymentCreateDefaultResponse>;
+    public paymentFindOne(requestParameters: PaymentFindOneRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<PaymentCreateDefaultResponse>>;
+    public paymentFindOne(requestParameters: PaymentFindOneRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<PaymentCreateDefaultResponse>>;
+    public paymentFindOne(requestParameters: PaymentFindOneRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling paymentFindOne.');
         }
@@ -252,15 +277,16 @@ export class PaymentService extends BaseService {
      * Delete a payment record
      * Remove a payment record from the system by its ID.
      * @endpoint delete /api/payments/{id}
-     * @param id 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public paymentRemove(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public paymentRemove(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public paymentRemove(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public paymentRemove(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public paymentRemove(requestParameters: PaymentRemoveRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public paymentRemove(requestParameters: PaymentRemoveRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public paymentRemove(requestParameters: PaymentRemoveRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public paymentRemove(requestParameters: PaymentRemoveRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling paymentRemove.');
         }
@@ -311,19 +337,20 @@ export class PaymentService extends BaseService {
      * Update a payment record
      * Update the details of an existing payment record by its ID.
      * @endpoint patch /api/payments/{id}
-     * @param id 
-     * @param body 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public paymentUpdate(id: string, body: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<PaymentCreateDefaultResponse>;
-    public paymentUpdate(id: string, body: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<PaymentCreateDefaultResponse>>;
-    public paymentUpdate(id: string, body: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<PaymentCreateDefaultResponse>>;
-    public paymentUpdate(id: string, body: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public paymentUpdate(requestParameters: PaymentUpdateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<PaymentCreateDefaultResponse>;
+    public paymentUpdate(requestParameters: PaymentUpdateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<PaymentCreateDefaultResponse>>;
+    public paymentUpdate(requestParameters: PaymentUpdateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<PaymentCreateDefaultResponse>>;
+    public paymentUpdate(requestParameters: PaymentUpdateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling paymentUpdate.');
         }
+        const body = requestParameters?.body;
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling paymentUpdate.');
         }

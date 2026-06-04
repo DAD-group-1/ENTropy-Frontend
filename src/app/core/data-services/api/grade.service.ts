@@ -29,6 +29,28 @@ import { Configuration }                                     from '../configurat
 import { BaseService } from '../api.base.service';
 
 
+export interface GradeCreateRequestParams {
+    createGradeRequestDto: CreateGradeRequestDto;
+}
+
+export interface GradeFindAllRequestParams {
+    page?: number;
+    limit?: number;
+}
+
+export interface GradeFindOneRequestParams {
+    id: string;
+}
+
+export interface GradeRemoveRequestParams {
+    id: string;
+}
+
+export interface GradeUpdateRequestParams {
+    id: string;
+    body: object;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,15 +65,16 @@ export class GradeService extends BaseService {
      * Create a new grade record
      * Add a new grade record to the system.
      * @endpoint post /api/grades
-     * @param createGradeRequestDto 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public gradeCreate(createGradeRequestDto: CreateGradeRequestDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GradeCreateDefaultResponse>;
-    public gradeCreate(createGradeRequestDto: CreateGradeRequestDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GradeCreateDefaultResponse>>;
-    public gradeCreate(createGradeRequestDto: CreateGradeRequestDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GradeCreateDefaultResponse>>;
-    public gradeCreate(createGradeRequestDto: CreateGradeRequestDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public gradeCreate(requestParameters: GradeCreateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GradeCreateDefaultResponse>;
+    public gradeCreate(requestParameters: GradeCreateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GradeCreateDefaultResponse>>;
+    public gradeCreate(requestParameters: GradeCreateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GradeCreateDefaultResponse>>;
+    public gradeCreate(requestParameters: GradeCreateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const createGradeRequestDto = requestParameters?.createGradeRequestDto;
         if (createGradeRequestDto === null || createGradeRequestDto === undefined) {
             throw new Error('Required parameter createGradeRequestDto was null or undefined when calling gradeCreate.');
         }
@@ -113,16 +136,17 @@ export class GradeService extends BaseService {
      * Get all grade records
      * Retrieve a list of all grade records in the system.
      * @endpoint get /api/grades
-     * @param page 
-     * @param limit 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public gradeFindAll(page?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GradeFindAllDefaultResponse>;
-    public gradeFindAll(page?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GradeFindAllDefaultResponse>>;
-    public gradeFindAll(page?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GradeFindAllDefaultResponse>>;
-    public gradeFindAll(page?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public gradeFindAll(requestParameters?: GradeFindAllRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GradeFindAllDefaultResponse>;
+    public gradeFindAll(requestParameters?: GradeFindAllRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GradeFindAllDefaultResponse>>;
+    public gradeFindAll(requestParameters?: GradeFindAllRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GradeFindAllDefaultResponse>>;
+    public gradeFindAll(requestParameters?: GradeFindAllRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const page = requestParameters?.page;
+        const limit = requestParameters?.limit;
 
         let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
 
@@ -192,15 +216,16 @@ export class GradeService extends BaseService {
      * Get a grade record by ID
      * Retrieve a specific grade record using its unique ID.
      * @endpoint get /api/grades/{id}
-     * @param id 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public gradeFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GradeCreateDefaultResponse>;
-    public gradeFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GradeCreateDefaultResponse>>;
-    public gradeFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GradeCreateDefaultResponse>>;
-    public gradeFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public gradeFindOne(requestParameters: GradeFindOneRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GradeCreateDefaultResponse>;
+    public gradeFindOne(requestParameters: GradeFindOneRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GradeCreateDefaultResponse>>;
+    public gradeFindOne(requestParameters: GradeFindOneRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GradeCreateDefaultResponse>>;
+    public gradeFindOne(requestParameters: GradeFindOneRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling gradeFindOne.');
         }
@@ -252,15 +277,16 @@ export class GradeService extends BaseService {
      * Delete a grade record
      * Remove a specific grade record from the system using its unique ID.
      * @endpoint delete /api/grades/{id}
-     * @param id 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public gradeRemove(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public gradeRemove(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public gradeRemove(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public gradeRemove(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public gradeRemove(requestParameters: GradeRemoveRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public gradeRemove(requestParameters: GradeRemoveRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public gradeRemove(requestParameters: GradeRemoveRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public gradeRemove(requestParameters: GradeRemoveRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling gradeRemove.');
         }
@@ -311,19 +337,20 @@ export class GradeService extends BaseService {
      * Update a grade record
      * Modify an existing grade record using its unique ID.
      * @endpoint patch /api/grades/{id}
-     * @param id 
-     * @param body 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public gradeUpdate(id: string, body: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GradeCreateDefaultResponse>;
-    public gradeUpdate(id: string, body: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GradeCreateDefaultResponse>>;
-    public gradeUpdate(id: string, body: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GradeCreateDefaultResponse>>;
-    public gradeUpdate(id: string, body: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public gradeUpdate(requestParameters: GradeUpdateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GradeCreateDefaultResponse>;
+    public gradeUpdate(requestParameters: GradeUpdateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GradeCreateDefaultResponse>>;
+    public gradeUpdate(requestParameters: GradeUpdateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GradeCreateDefaultResponse>>;
+    public gradeUpdate(requestParameters: GradeUpdateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling gradeUpdate.');
         }
+        const body = requestParameters?.body;
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling gradeUpdate.');
         }

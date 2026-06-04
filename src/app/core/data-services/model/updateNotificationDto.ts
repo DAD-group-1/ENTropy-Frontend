@@ -12,6 +12,7 @@
 export interface UpdateNotificationDto { 
     title?: string;
     message?: string;
+    target_url?: string;
     read_at?: string;
 }
 

@@ -5682,6 +5682,9 @@
           "message": {
             "type": "string"
           },
+          "target_url": {
+            "type": "string"
+          },
           "read_at": {
             "format": "date-time",
             "type": "string"
@@ -5698,16 +5701,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "_id",
-          "user_id",
-          "title",
-          "message",
-          "read_at",
-          "createdAt",
-          "updatedAt",
-          "_v"
-        ]
+        "required": ["_id", "user_id", "title", "message", "createdAt", "updatedAt", "_v"]
       },
       "CreateNotificationDto": {
         "type": "object",
@@ -5742,6 +5736,9 @@
           "message": {
             "type": "string"
           },
+          "target_url": {
+            "type": "string"
+          },
           "read_at": {
             "format": "date-time",
             "type": "string"
@@ -5758,16 +5755,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "_id",
-          "user_id",
-          "title",
-          "message",
-          "read_at",
-          "createdAt",
-          "updatedAt",
-          "_v"
-        ]
+        "required": ["_id", "user_id", "title", "message", "createdAt", "updatedAt", "_v"]
       },
       "GetNotificationListResponseDto": {
         "type": "object",
@@ -5800,6 +5788,9 @@
             "type": "string"
           },
           "message": {
+            "type": "string"
+          },
+          "target_url": {
             "type": "string"
           },
           "read_at": {

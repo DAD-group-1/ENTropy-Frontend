@@ -14,7 +14,8 @@ export interface GetNotificationResponseDto {
     user_id: number;
     title: string;
     message: string;
-    read_at: string;
+    target_url?: string;
+    read_at?: string;
     createdAt: string;
     updatedAt: string;
     _v: number;
