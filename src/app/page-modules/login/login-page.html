@@ -1,64 +1,83 @@
 <div class="center" role="main" aria-label="Login page">
-  <section class="login-page">
-    <img src="assets/nova-campus.jpg" alt="Nova campus marketing image" class="image">
+  @if (!authService.loadingLogginYouBackIn()) {
+    <section class="login-page">
+      <img ngSrc="assets/nova-campus.jpg" alt="Nova campus marketing image" class="image" height="460" width="800">
 
-    <p-card>
-      <div class="card-header">
-        <h1>Welcome Back</h1>
-        <p>Sign in to your account</p>
-      </div>
-
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form" novalidate>
-        <section class="email">
-          <label for="email-input" id="email-label">Email Address</label>
-          <input pInputText
-            id="email-input"
-            type="email"
-            placeholder="you@example.com"
-            class="p-inputtext p-component"
-            formControlName="email"
-            [invalid]="emailInvalid"
-            aria-labelledby="email-label"
-            [attr.aria-invalid]="emailInvalid"
-            [attr.aria-describedby]="emailInvalid ? 'email-error' : null"
-          />
-          @if (emailInvalid) {
-            <p-message severity="error" variant="simple" size="small">
-              {{ getEmailErrorMessage() }}
-            </p-message>
-          }
-        </section>
-
-        <section class="password">
-          <label for="password-input" id="password-label">Password</label>
-          <p-password
-            inputId="password-input"
-            formControlName="password"
-            [toggleMask]="true"
-            [feedback]="false"
-            [invalid]="passwordInvalid"
-            placeholder="Enter your password"
-            aria-labelledby="password-label"
-            [attr.aria-invalid]="passwordInvalid"
-            [attr.aria-describedby]="passwordInvalid ? 'password-error' : null"
-          ></p-password>
-          @if (passwordInvalid) {
-            <p-message severity="error" variant="simple" size="small">
-              {{ getPasswordErrorMessage() }}
-            </p-message>
-          }
-        </section>
-
-        <div class="motion-wrapper" ngmMotion>
-          <p-button
-            label="Sign In"
-            [raised]="true"
-            [disabled]="loginForm.invalid"
-            type="submit"
-            [attr.aria-busy]="false"
-          ></p-button>
+      <p-card>
+        <div class="card-header">
+          <h1>Welcome Back</h1>
+          <p>Sign in to your account</p>
         </div>
-      </form>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form" novalidate>
+          @if (loginError()) {
+            <p-message severity="error" variant="simple">
+              {{ loginError() }}
+            </p-message>
+          }
+
+          <section class="email">
+            <label for="email-input" id="email-label">Email Address</label>
+            <input pInputText
+                   id="email-input"
+                   type="email"
+                   placeholder="you@example.com"
+                   class="p-inputtext p-component"
+                   formControlName="email"
+                   [invalid]="emailInvalid"
+                   aria-labelledby="email-label"
+                   [attr.aria-invalid]="emailInvalid"
+                   [attr.aria-describedby]="emailInvalid ? 'email-error' : null"
+            />
+            @if (emailInvalid) {
+              <p-message severity="error" variant="simple" size="small">
+                {{ getEmailErrorMessage() }}
+              </p-message>
+            }
+          </section>
+
+          <section class="password">
+            <label for="password-input" id="password-label">Password</label>
+            <p-password
+              inputId="password-input"
+              formControlName="password"
+              [toggleMask]="true"
+              [feedback]="false"
+              [invalid]="passwordInvalid"
+              placeholder="Enter your password"
+              aria-labelledby="password-label"
+              [attr.aria-invalid]="passwordInvalid"
+              [attr.aria-describedby]="passwordInvalid ? 'password-error' : null"
+            ></p-password>
+            @if (passwordInvalid) {
+              <p-message severity="error" variant="simple" size="small">
+                {{ getPasswordErrorMessage() }}
+              </p-message>
+            }
+          </section>
+
+          <div class="motion-wrapper" ngmMotion>
+            <p-button
+              [label]="loading() ? 'Signing in...' : 'Sign In'"
+              [raised]="true"
+              [disabled]="loginForm.invalid || loading()"
+              type="submit"
+            ></p-button>
+          </div>
+        </form>
+      </p-card>
+    </section>
+  } @else {
+    <p-card>
+      <div class="loading-container">
+        <p-progressSpinner
+          [style]="{ width: '50px', height: '50px' }"
+          strokeWidth="4"
+          animationDuration=".5s"
+          aria-label="Loading spinner indicating that we are logging you back in"
+        ></p-progressSpinner>
+        <p class="loading-text">Logging you back in...</p>
+      </div>
     </p-card>
-  </section>
+  }
 </div>

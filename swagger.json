@@ -1,0 +1,5817 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/attendances": {
+      "post": {
+        "description": "Add a new attendance record to the system.",
+        "operationId": "Attendance_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAttendanceRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/AttendanceResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new attendance record",
+        "tags": ["Attendance"]
+      },
+      "get": {
+        "description": "Retrieve a paginated list of all attendance records.",
+        "operationId": "Attendance_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/AttendanceListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all attendance records",
+        "tags": ["Attendance"]
+      }
+    },
+    "/api/attendances/{id}": {
+      "get": {
+        "description": "Retrieve details of a specific attendance record by its ID.",
+        "operationId": "Attendance_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/AttendanceResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a specific attendance record",
+        "tags": ["Attendance"]
+      },
+      "patch": {
+        "description": "Update the details of an existing attendance record by its ID.",
+        "operationId": "Attendance_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAttendanceDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/AttendanceResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update an attendance record",
+        "tags": ["Attendance"]
+      },
+      "delete": {
+        "description": "Remove an attendance record from the system by its ID.",
+        "operationId": "Attendance_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete an attendance record",
+        "tags": ["Attendance"]
+      }
+    },
+    "/api/payment-methods": {
+      "post": {
+        "description": "Add a new payment method to the system.",
+        "operationId": "PaymentMethod_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePaymentMethodDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/PaymentMethodResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new payment method",
+        "tags": ["PaymentMethod"]
+      },
+      "get": {
+        "description": "Retrieve a list of all payment methods with pagination support.",
+        "operationId": "PaymentMethod_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePaymentMethodDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/PaymentMethodListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all payment methods",
+        "tags": ["PaymentMethod"]
+      }
+    },
+    "/api/payment-methods/{id}": {
+      "get": {
+        "description": "Retrieve details of a specific payment method using its ID.",
+        "operationId": "PaymentMethod_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/PaymentMethodResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a payment method by ID",
+        "tags": ["PaymentMethod"]
+      },
+      "patch": {
+        "description": "Update the details of an existing payment method using its ID.",
+        "operationId": "PaymentMethod_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePaymentMethodDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/PaymentMethodResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a payment method",
+        "tags": ["PaymentMethod"]
+      },
+      "delete": {
+        "description": "Remove a payment method from the system using its ID.",
+        "operationId": "PaymentMethod_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a payment method",
+        "tags": ["PaymentMethod"]
+      }
+    },
+    "/api/payments": {
+      "post": {
+        "description": "Add a new payment record to the system.",
+        "operationId": "Payment_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePaymentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/PaymentResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new payment record",
+        "tags": ["Payment"]
+      },
+      "get": {
+        "description": "Retrieve a paginated list of payments from the system.",
+        "operationId": "Payment_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/PaymentListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a list of payments",
+        "tags": ["Payment"]
+      }
+    },
+    "/api/payments/{id}": {
+      "get": {
+        "description": "Retrieve a single payment record by its unique ID.",
+        "operationId": "Payment_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/PaymentResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a payment by ID",
+        "tags": ["Payment"]
+      },
+      "patch": {
+        "description": "Update the details of an existing payment record by its ID.",
+        "operationId": "Payment_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePaymentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/PaymentResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a payment record",
+        "tags": ["Payment"]
+      },
+      "delete": {
+        "description": "Remove a payment record from the system by its ID.",
+        "operationId": "Payment_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a payment record",
+        "tags": ["Payment"]
+      }
+    },
+    "/api/courses": {
+      "post": {
+        "description": "Add a new course record to the system.",
+        "operationId": "Course_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCourseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/CourseResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new course record",
+        "tags": ["Course"]
+      },
+      "get": {
+        "description": "Retrieve a paginated list of courses from the system.",
+        "operationId": "Course_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/CourseListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a list of courses",
+        "tags": ["Course"]
+      }
+    },
+    "/api/courses/{id}": {
+      "get": {
+        "description": "Retrieve a single course record by its unique ID.",
+        "operationId": "Course_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/CourseResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a course by ID",
+        "tags": ["Course"]
+      },
+      "patch": {
+        "description": "Update an existing course record by its unique ID.",
+        "operationId": "Course_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCourseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/CourseResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a course by ID",
+        "tags": ["Course"]
+      },
+      "delete": {
+        "description": "Remove a course record from the system by its unique ID.",
+        "operationId": "Course_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a course by ID",
+        "tags": ["Course"]
+      }
+    },
+    "/api/enrollments": {
+      "post": {
+        "description": "Add a new enrollment record to the system.",
+        "operationId": "Enrollment_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEnrollmentRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/EnrollmentResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new enrollment record",
+        "tags": ["Enrollment"]
+      },
+      "get": {
+        "description": "Retrieve a paginated list of enrollments.",
+        "operationId": "Enrollment_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/EnrollmentListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a list of enrollments",
+        "tags": ["Enrollment"]
+      }
+    },
+    "/api/enrollments/{id}": {
+      "get": {
+        "description": "Retrieve details of a specific enrollment by its ID.",
+        "operationId": "Enrollment_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/EnrollmentResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a specific enrollment",
+        "tags": ["Enrollment"]
+      },
+      "patch": {
+        "description": "Update details of an existing enrollment by its ID.",
+        "operationId": "Enrollment_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEnrollmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/EnrollmentResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update an enrollment",
+        "tags": ["Enrollment"]
+      },
+      "delete": {
+        "description": "Remove an enrollment from the system by its ID.",
+        "operationId": "Enrollment_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete an enrollment",
+        "tags": ["Enrollment"]
+      }
+    },
+    "/api/grades": {
+      "post": {
+        "description": "Add a new grade record to the system.",
+        "operationId": "Grade_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGradeRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/GradeResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new grade record",
+        "tags": ["Grade"]
+      },
+      "get": {
+        "description": "Retrieve a list of all grade records in the system.",
+        "operationId": "Grade_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/GradeListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all grade records",
+        "tags": ["Grade"]
+      }
+    },
+    "/api/grades/{id}": {
+      "get": {
+        "description": "Retrieve a specific grade record using its unique ID.",
+        "operationId": "Grade_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/GradeResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a grade record by ID",
+        "tags": ["Grade"]
+      },
+      "patch": {
+        "description": "Modify an existing grade record using its unique ID.",
+        "operationId": "Grade_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateGradeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/GradeResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a grade record",
+        "tags": ["Grade"]
+      },
+      "delete": {
+        "description": "Remove a specific grade record from the system using its unique ID.",
+        "operationId": "Grade_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a grade record",
+        "tags": ["Grade"]
+      }
+    },
+    "/api/buildings": {
+      "post": {
+        "description": "Add a new building record to the system.",
+        "operationId": "Building_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBuildingRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/BuildingResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new building record",
+        "tags": ["Building"]
+      },
+      "get": {
+        "description": "Retrieve a list of all buildings with pagination support.",
+        "operationId": "Building_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/BuildingListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all buildings",
+        "tags": ["Building"]
+      }
+    },
+    "/api/buildings/{id}": {
+      "get": {
+        "description": "Retrieve a single building record by its unique ID.",
+        "operationId": "Building_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/BuildingResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a building by ID",
+        "tags": ["Building"]
+      },
+      "patch": {
+        "description": "Update an existing building record by its unique ID.",
+        "operationId": "Building_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBuildingDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/BuildingResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a building record",
+        "tags": ["Building"]
+      },
+      "delete": {
+        "description": "Remove an existing building record by its unique ID.",
+        "operationId": "Building_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a building record",
+        "tags": ["Building"]
+      }
+    },
+    "/api/campuses": {
+      "post": {
+        "description": "Add a new campus record to the system.",
+        "operationId": "Campus_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCampusRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/CampusResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new campus record",
+        "tags": ["Campus"]
+      },
+      "get": {
+        "description": "Retrieve a list of all campuses with pagination support.",
+        "operationId": "Campus_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/CampusListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all campuses",
+        "tags": ["Campus"]
+      }
+    },
+    "/api/campuses/{id}": {
+      "get": {
+        "description": "Retrieve a single campus record by its unique ID.",
+        "operationId": "Campus_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/CampusResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a campus by ID",
+        "tags": ["Campus"]
+      },
+      "patch": {
+        "description": "Update an existing campus record by its unique ID.",
+        "operationId": "Campus_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCampusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/CampusResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a campus record",
+        "tags": ["Campus"]
+      },
+      "delete": {
+        "description": "Remove an existing campus record by its unique ID.",
+        "operationId": "Campus_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a campus record",
+        "tags": ["Campus"]
+      }
+    },
+    "/api/room-types": {
+      "post": {
+        "description": "Add a new room type record to the system.",
+        "operationId": "RoomType_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRoomTypeRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/RoomTypeResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new room type record",
+        "tags": ["RoomType"]
+      },
+      "get": {
+        "description": "Retrieve a list of all room types with pagination.",
+        "operationId": "RoomType_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/RoomTypeListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all room types",
+        "tags": ["RoomType"]
+      }
+    },
+    "/api/room-types/{id}": {
+      "get": {
+        "description": "Retrieve a single room type record by its unique ID.",
+        "operationId": "RoomType_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a room type by ID",
+        "tags": ["RoomType"]
+      },
+      "patch": {
+        "description": "Update an existing room type record by its unique ID.",
+        "operationId": "RoomType_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRoomTypeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/RoomTypeResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a room type",
+        "tags": ["RoomType"]
+      },
+      "delete": {
+        "description": "Remove a room type record from the system by its unique ID.",
+        "operationId": "RoomType_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a room type",
+        "tags": ["RoomType"]
+      }
+    },
+    "/api/rooms": {
+      "post": {
+        "description": "Add a new room record to the system.",
+        "operationId": "Room_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRoomRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/RoomResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new room record",
+        "tags": ["Room"]
+      },
+      "get": {
+        "description": "Retrieve a paginated list of rooms from the system.",
+        "operationId": "Room_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRoomRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/RoomListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a list of rooms",
+        "tags": ["Room"]
+      }
+    },
+    "/api/rooms/{id}": {
+      "get": {
+        "description": "Retrieve a single room record by its unique ID.",
+        "operationId": "Room_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/RoomResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a room by ID",
+        "tags": ["Room"]
+      },
+      "patch": {
+        "description": "Update an existing room record in the system.",
+        "operationId": "Room_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRoomDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/RoomResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a room record",
+        "tags": ["Room"]
+      },
+      "delete": {
+        "description": "Remove a room record from the system by its unique ID.",
+        "operationId": "Room_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a room record",
+        "tags": ["Room"]
+      }
+    },
+    "/api/schedules": {
+      "post": {
+        "description": "Add a new schedule record to the system.",
+        "operationId": "Schedule_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateScheduleRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/ScheduleResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new schedule record",
+        "tags": ["Schedule"]
+      },
+      "get": {
+        "description": "Retrieve a list of all schedule records in the system.",
+        "operationId": "Schedule_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/ScheduleListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all schedule records",
+        "tags": ["Schedule"]
+      }
+    },
+    "/api/schedules/{id}": {
+      "get": {
+        "description": "Retrieve a single schedule record by its unique ID.",
+        "operationId": "Schedule_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/ScheduleResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a schedule record by ID",
+        "tags": ["Schedule"]
+      },
+      "patch": {
+        "description": "Update an existing schedule record by its unique ID.",
+        "operationId": "Schedule_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateScheduleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/ScheduleResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a schedule record",
+        "tags": ["Schedule"]
+      },
+      "delete": {
+        "description": "Remove a schedule record from the system by its unique ID.",
+        "operationId": "Schedule_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a schedule record",
+        "tags": ["Schedule"]
+      }
+    },
+    "/api/students": {
+      "post": {
+        "description": "Add a new student record to the system.",
+        "operationId": "Student_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStudentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/CreateStudentResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new student record",
+        "tags": ["Student"]
+      },
+      "get": {
+        "description": "Retrieve a list of all student records in the system.",
+        "operationId": "Student_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/StudentListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all student records",
+        "tags": ["Student"]
+      }
+    },
+    "/api/students/{id}": {
+      "get": {
+        "description": "Retrieve a single student record by its unique ID.",
+        "operationId": "Student_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/StudentResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a student record by ID",
+        "tags": ["Student"]
+      },
+      "patch": {
+        "description": "Update an existing student record by its unique ID.",
+        "operationId": "Student_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStudentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/CreateStudentResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a student record",
+        "tags": ["Student"]
+      },
+      "delete": {
+        "description": "Remove a student record from the system by its unique ID.",
+        "operationId": "Student_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a student record",
+        "tags": ["Student"]
+      }
+    },
+    "/api/instructors": {
+      "post": {
+        "description": "Add a new instructor to the system with the provided details.",
+        "operationId": "Instructor_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateInstructorDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/CreateInstructorResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new instructor",
+        "tags": ["Instructor"]
+      },
+      "get": {
+        "description": "Retrieve a paginated list of all instructors in the system.",
+        "operationId": "Instructor_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/InstructorListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a list of all instructors",
+        "tags": ["Instructor"]
+      }
+    },
+    "/api/instructors/{id}": {
+      "get": {
+        "description": "Retrieve detailed information about a specific instructor using their unique ID.",
+        "operationId": "Instructor_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/InstructorResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a specific instructor by ID",
+        "tags": ["Instructor"]
+      },
+      "patch": {
+        "description": "Modify the details of an existing instructor using their unique ID.",
+        "operationId": "Instructor_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateInstructorDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/CreateInstructorResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update an existing instructor",
+        "tags": ["Instructor"]
+      },
+      "delete": {
+        "description": "Remove an instructor from the system using their unique ID.",
+        "operationId": "Instructor_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete an instructor",
+        "tags": ["Instructor"]
+      }
+    },
+    "/api/logout": {
+      "post": {
+        "description": "Invalidate the user's refresh token to log them out of the system.",
+        "operationId": "Authentication_logout",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogoutDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/LogoutResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Logout a user and invalidate their refresh token",
+        "tags": ["Authentication"]
+      }
+    },
+    "/api/login": {
+      "post": {
+        "description": "Authenticate a user with email and password to receive an access token.",
+        "operationId": "Authentication_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/TokenResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Login a user and obtain an access token",
+        "tags": ["Authentication"]
+      }
+    },
+    "/api/refresh": {
+      "post": {
+        "description": "Use a valid refresh token to obtain a new access token.",
+        "operationId": "Authentication_refreshToken",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/TokenResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Refresh an access token using a refresh token",
+        "tags": ["Authentication"]
+      }
+    },
+    "/api/verify": {
+      "get": {
+        "description": "Check if the provided access token is valid and has not expired.",
+        "operationId": "Authentication_verifyToken",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Verify the validity of an access token",
+        "tags": ["Authentication"]
+      }
+    },
+    "/api/roles": {
+      "post": {
+        "description": "Add a new role to the system.",
+        "operationId": "Authorization_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/RoleResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new role",
+        "tags": ["Authorization"]
+      },
+      "get": {
+        "description": "Retrieve a list of all roles in the system.",
+        "operationId": "Authorization_findAll",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/RoleResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all roles",
+        "tags": ["Authorization"]
+      }
+    },
+    "/api/roles/{id}": {
+      "get": {
+        "description": "Retrieve a specific role by its ID.",
+        "operationId": "Authorization_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/RoleResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get role by ID",
+        "tags": ["Authorization"]
+      },
+      "patch": {
+        "description": "Update the details of an existing role.",
+        "operationId": "Authorization_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/RoleResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update role",
+        "tags": ["Authorization"]
+      },
+      "delete": {
+        "description": "Remove a role from the system.",
+        "operationId": "Authorization_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete role",
+        "tags": ["Authorization"]
+      }
+    },
+    "/api/users/{id}/roles/add": {
+      "post": {
+        "description": "Assign a specific role to a user.",
+        "operationId": "UserRole_addRoleToUser",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddRoleToUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/UserRoleResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Add role to user",
+        "tags": ["UserRole"]
+      }
+    },
+    "/api/users/{id}/roles/{roleId}/remove": {
+      "delete": {
+        "description": "Remove a specific role from a user.",
+        "operationId": "UserRole_removeUserRole",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "roleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Remove role from user",
+        "tags": ["UserRole"]
+      }
+    },
+    "/api/users/{id}/roles/assign": {
+      "put": {
+        "description": "Assign multiple roles to a user, replacing existing roles.",
+        "operationId": "UserRole_assignRoles",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignRolesDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/UserRoleResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Assign roles to user",
+        "tags": ["UserRole"]
+      }
+    },
+    "/api/users/{id}/roles": {
+      "get": {
+        "description": "Retrieve all roles assigned to a specific user.",
+        "operationId": "UserRole_getUserRoles",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/UserRoleResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get user roles",
+        "tags": ["UserRole"]
+      }
+    },
+    "/api/notifications": {
+      "post": {
+        "description": "Add a new notification record to the system.",
+        "operationId": "Notifications_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNotificationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/NotificationResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new notification record",
+        "tags": ["Notifications"]
+      },
+      "get": {
+        "description": "Retrieve a paginated list of notifications.",
+        "operationId": "Notifications_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/GetNotificationListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a list of notifications",
+        "tags": ["Notifications"]
+      }
+    },
+    "/api/notifications/user/{userId}": {
+      "get": {
+        "description": "Retrieve a paginated list of notifications for a specific user.",
+        "operationId": "Notifications_findAllForUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/GetNotificationListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get notifications for a specific user",
+        "tags": ["Notifications"]
+      }
+    },
+    "/api/notifications/{id}": {
+      "get": {
+        "description": "Retrieve a single notification by its unique ID.",
+        "operationId": "Notifications_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/GetNotificationResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a notification by ID",
+        "tags": ["Notifications"]
+      },
+      "patch": {
+        "description": "Update the details of an existing notification.",
+        "operationId": "Notifications_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateNotificationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/NotificationResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a notification",
+        "tags": ["Notifications"]
+      },
+      "delete": {
+        "description": "Remove a notification from the system by its unique ID.",
+        "operationId": "Notifications_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/DeleteNotificationResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a notification",
+        "tags": ["Notifications"]
+      }
+    }
+  },
+  "info": {
+    "title": "ENTropy API",
+    "description": "The ENTropy API description",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "swiirzi-redhidi-en0ri4ni",
+      "description": ""
+    }
+  ],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "GlobalResponseDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Indicates if the operation was successful"
+          },
+          "error": {
+            "type": "object",
+            "description": "The error message, if the operation failed",
+            "nullable": true
+          },
+          "data": {
+            "type": "object",
+            "description": "The data returned from the operation, if any",
+            "nullable": true
+          }
+        },
+        "required": ["success"]
+      },
+      "AttendanceResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "schedule_id": {
+            "type": "number"
+          },
+          "student_id": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "schedule_id",
+          "student_id",
+          "status",
+          "note",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "CreateAttendanceRequestDto": {
+        "type": "object",
+        "properties": {
+          "schedule_id": {
+            "type": "number",
+            "description": "The ID of the schedule"
+          },
+          "student_id": {
+            "type": "number",
+            "description": "The ID of the student"
+          },
+          "status": {
+            "type": "string",
+            "description": "The attendance status",
+            "enum": ["PRESENT", "ABSENT", "LATE", "EXCUSED"]
+          },
+          "note": {
+            "type": "string",
+            "description": "Optional note about attendance"
+          }
+        },
+        "required": ["schedule_id", "student_id", "status", "note"]
+      },
+      "AttendanceListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttendanceResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdateAttendanceDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "PaymentMethodResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "name"]
+      },
+      "CreatePaymentMethodDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the payment method"
+          }
+        },
+        "required": ["name"]
+      },
+      "PaymentMethodListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentMethodResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdatePaymentMethodDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "PaymentResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "student_id": {
+            "type": "number"
+          },
+          "invoice_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "due_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "status": {
+            "type": "number"
+          },
+          "payment_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "payment_method_id": {
+            "type": "number"
+          },
+          "academic_year": {
+            "type": "number"
+          },
+          "semester": {
+            "type": "number"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "student_id",
+          "invoice_date",
+          "due_date",
+          "amount",
+          "status",
+          "payment_date",
+          "payment_method_id",
+          "academic_year",
+          "semester",
+          "notes",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "CreatePaymentDto": {
+        "type": "object",
+        "properties": {
+          "student_id": {
+            "type": "number",
+            "description": "The ID of the student"
+          },
+          "invoice_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The invoice date"
+          },
+          "due_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The due date for payment"
+          },
+          "amount": {
+            "type": "number",
+            "description": "The payment amount"
+          },
+          "status": {
+            "type": "number",
+            "description": "The payment status",
+            "enum": []
+          },
+          "payment_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The actual payment date"
+          },
+          "payment_method_id": {
+            "type": "number",
+            "description": "The ID of the payment method"
+          },
+          "academic_year": {
+            "type": "number",
+            "description": "The academic year"
+          },
+          "semester": {
+            "type": "number",
+            "description": "The semester"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes about the payment"
+          }
+        },
+        "required": [
+          "student_id",
+          "invoice_date",
+          "due_date",
+          "amount",
+          "status",
+          "payment_date",
+          "payment_method_id",
+          "academic_year",
+          "semester",
+          "notes"
+        ]
+      },
+      "PaymentListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdatePaymentDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CourseResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "program_id": {
+            "type": "number"
+          },
+          "semester": {
+            "type": "number"
+          },
+          "credits": {
+            "type": "number"
+          },
+          "total_hours": {
+            "type": "number"
+          },
+          "instructor_id": {
+            "type": "number"
+          },
+          "room_id": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "program_id",
+          "semester",
+          "credits",
+          "total_hours",
+          "instructor_id",
+          "room_id",
+          "status",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "CreateCourseDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the course"
+          },
+          "code": {
+            "type": "string",
+            "description": "The course code"
+          },
+          "program_id": {
+            "type": "number",
+            "description": "The ID of the program"
+          },
+          "semester": {
+            "type": "number",
+            "description": "The semester of the course"
+          },
+          "credits": {
+            "type": "number",
+            "description": "The number of credits"
+          },
+          "total_hours": {
+            "type": "number",
+            "description": "Total hours for the course"
+          },
+          "instructor_id": {
+            "type": "number",
+            "description": "The ID of the instructor"
+          },
+          "room_id": {
+            "type": "number",
+            "description": "The ID of the room"
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the course",
+            "enum": ["Active", "Inactive"]
+          }
+        },
+        "required": [
+          "name",
+          "code",
+          "program_id",
+          "semester",
+          "credits",
+          "total_hours",
+          "instructor_id",
+          "room_id",
+          "status"
+        ]
+      },
+      "CourseListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CourseResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdateCourseDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "EnrollmentResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "student_id": {
+            "type": "number"
+          },
+          "course_id": {
+            "type": "number"
+          },
+          "semester": {
+            "type": "number"
+          },
+          "academic_year": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "enrollment_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "student_id",
+          "course_id",
+          "semester",
+          "academic_year",
+          "status",
+          "enrollment_date",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "CreateEnrollmentRequestDto": {
+        "type": "object",
+        "properties": {
+          "student_id": {
+            "type": "number",
+            "description": "The ID of the student"
+          },
+          "course_id": {
+            "type": "number",
+            "description": "The ID of the course"
+          },
+          "semester": {
+            "type": "number",
+            "description": "The semester"
+          },
+          "academic_year": {
+            "type": "number",
+            "description": "The academic year"
+          },
+          "status": {
+            "type": "string",
+            "description": "The enrollment status",
+            "enum": ["In progress", "Validated"]
+          },
+          "enrollment_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The enrollment date"
+          }
+        },
+        "required": [
+          "student_id",
+          "course_id",
+          "semester",
+          "academic_year",
+          "status",
+          "enrollment_date"
+        ]
+      },
+      "EnrollmentListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EnrollmentResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdateEnrollmentDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "GradeResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "enrollment_id": {
+            "type": "number"
+          },
+          "grade": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "enrollment_id", "grade", "name"]
+      },
+      "CreateGradeRequestDto": {
+        "type": "object",
+        "properties": {
+          "enrollment_id": {
+            "type": "number",
+            "description": "The ID of the enrollment"
+          },
+          "grade": {
+            "type": "number",
+            "description": "The grade value"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the grade"
+          }
+        },
+        "required": ["enrollment_id", "grade", "name"]
+      },
+      "GradeListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GradeResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdateGradeDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "BuildingResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "campus_id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "campus_id", "name"]
+      },
+      "CreateBuildingRequestDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the building"
+          },
+          "campus_id": {
+            "type": "number",
+            "description": "The ID of the campus"
+          }
+        },
+        "required": ["name", "campus_id"]
+      },
+      "BuildingListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuildingResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdateBuildingDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CampusResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "zip_code": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "director": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "student_capacity": {
+            "type": "number"
+          },
+          "opening_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "address",
+          "city",
+          "zip_code",
+          "region",
+          "director",
+          "phone",
+          "email",
+          "student_capacity",
+          "opening_date",
+          "status",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "CreateCampusRequestDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the campus"
+          },
+          "address": {
+            "type": "string",
+            "description": "The street address of the campus"
+          },
+          "city": {
+            "type": "string",
+            "description": "The city where the campus is located"
+          },
+          "zip_code": {
+            "type": "string",
+            "description": "The postal code"
+          },
+          "region": {
+            "type": "string",
+            "description": "The region of the campus"
+          },
+          "director": {
+            "type": "string",
+            "description": "The name of the campus director"
+          },
+          "phone": {
+            "type": "string",
+            "description": "The phone number of the campus"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the campus"
+          },
+          "student_capacity": {
+            "type": "number",
+            "description": "The maximum student capacity"
+          },
+          "opening_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The opening date of the campus"
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the campus",
+            "enum": ["Active", "Inactive"]
+          }
+        },
+        "required": [
+          "name",
+          "address",
+          "city",
+          "zip_code",
+          "region",
+          "director",
+          "phone",
+          "email",
+          "student_capacity",
+          "opening_date",
+          "status"
+        ]
+      },
+      "CampusListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CampusResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdateCampusDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "RoomTypeResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "campus_id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "campus_id", "name"]
+      },
+      "CreateRoomTypeRequestDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the room type"
+          },
+          "campus_id": {
+            "type": "number",
+            "description": "The ID of the campus"
+          }
+        },
+        "required": ["name", "campus_id"]
+      },
+      "RoomTypeListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoomTypeResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdateRoomTypeDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "RoomResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "campus_id": {
+            "type": "number"
+          },
+          "building_id": {
+            "type": "number"
+          },
+          "floor": {
+            "type": "number"
+          },
+          "capacity": {
+            "type": "number"
+          },
+          "room_type_id": {
+            "type": "number"
+          },
+          "equipement": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "campus_id",
+          "building_id",
+          "floor",
+          "capacity",
+          "room_type_id",
+          "equipement",
+          "status",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "CreateRoomRequestDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the room"
+          },
+          "campus_id": {
+            "type": "number",
+            "description": "The ID of the campus"
+          },
+          "building_id": {
+            "type": "number",
+            "description": "The ID of the building"
+          },
+          "floor": {
+            "type": "number",
+            "description": "The floor number"
+          },
+          "capacity": {
+            "type": "number",
+            "description": "The seating capacity of the room"
+          },
+          "room_type_id": {
+            "type": "number",
+            "description": "The ID of the room type"
+          },
+          "equipement": {
+            "type": "string",
+            "description": "Equipment available in the room"
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the room",
+            "enum": ["Booked", "Available", "Unavailable"]
+          }
+        },
+        "required": [
+          "name",
+          "campus_id",
+          "building_id",
+          "floor",
+          "capacity",
+          "room_type_id",
+          "equipement",
+          "status"
+        ]
+      },
+      "RoomListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoomResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdateRoomDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "ScheduleResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "event_id": {
+            "type": "number"
+          },
+          "course_id": {
+            "type": "number"
+          },
+          "instructor_id": {
+            "type": "number"
+          },
+          "room_id": {
+            "type": "number"
+          },
+          "start_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "end_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "semester": {
+            "type": "number"
+          },
+          "academic_year": {
+            "type": "number"
+          },
+          "status": {
+            "type": "number"
+          },
+          "last_modified": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "event_id",
+          "course_id",
+          "instructor_id",
+          "room_id",
+          "start_date",
+          "end_date",
+          "semester",
+          "academic_year",
+          "status",
+          "last_modified",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "CreateScheduleRequestDto": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "number",
+            "description": "The ID of the event"
+          },
+          "course_id": {
+            "type": "number",
+            "description": "The ID of the course"
+          },
+          "instructor_id": {
+            "type": "number",
+            "description": "The ID of the instructor"
+          },
+          "room_id": {
+            "type": "number",
+            "description": "The ID of the room"
+          },
+          "start_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The start date and time"
+          },
+          "end_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The end date and time"
+          },
+          "semester": {
+            "type": "number",
+            "description": "The semester"
+          },
+          "academic_year": {
+            "type": "number",
+            "description": "The academic year"
+          },
+          "status": {
+            "type": "number",
+            "description": "The schedule status",
+            "enum": []
+          }
+        },
+        "required": [
+          "event_id",
+          "course_id",
+          "instructor_id",
+          "room_id",
+          "start_date",
+          "end_date",
+          "semester",
+          "academic_year",
+          "status"
+        ]
+      },
+      "ScheduleListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScheduleResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdateScheduleDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UserResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "birthday": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "campus_id": {
+            "type": "number"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "first_name",
+          "last_name",
+          "email",
+          "phone",
+          "birthday",
+          "campus_id",
+          "is_active",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "CreateStudentResponseDto": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/UserResponseDto"
+          },
+          "program_id": {
+            "type": "number"
+          },
+          "enrollment_year": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "zip_code": {
+            "type": "string"
+          },
+          "emergency_contact": {
+            "type": "string"
+          },
+          "emergency_phone": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "user",
+          "program_id",
+          "enrollment_year",
+          "status",
+          "address",
+          "city",
+          "zip_code",
+          "emergency_contact",
+          "emergency_phone"
+        ]
+      },
+      "CreateStudentDto": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the user"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password for the user's account"
+          },
+          "phone": {
+            "type": "string",
+            "description": "The phone number of the user"
+          },
+          "birthday": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The birthday of the user"
+          },
+          "campus_id": {
+            "type": "number",
+            "description": "The ID of the campus the user is associated with"
+          },
+          "program_id": {
+            "type": "number",
+            "description": "The ID of the program the student is enrolled in"
+          },
+          "enrollment_year": {
+            "type": "number",
+            "description": "The year the student enrolled in the program"
+          },
+          "status": {
+            "type": "string",
+            "description": "The current status of the student",
+            "enum": ["Active", "Inactive"]
+          },
+          "address": {
+            "type": "string",
+            "description": "The address of the student"
+          },
+          "city": {
+            "type": "string",
+            "description": "The city where the student resides"
+          },
+          "zip_code": {
+            "type": "string",
+            "description": "The zip code of the student's residence"
+          },
+          "emergency_contact": {
+            "type": "string",
+            "description": "The name of the student's emergency contact"
+          },
+          "emergency_phone": {
+            "type": "string",
+            "description": "The phone number of the student's emergency contact"
+          }
+        },
+        "required": [
+          "first_name",
+          "last_name",
+          "email",
+          "password",
+          "phone",
+          "birthday",
+          "campus_id",
+          "program_id",
+          "enrollment_year",
+          "status",
+          "address",
+          "city",
+          "zip_code",
+          "emergency_contact",
+          "emergency_phone"
+        ]
+      },
+      "StudentResponseDto": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "number"
+          },
+          "program_id": {
+            "type": "number"
+          },
+          "enrollment_year": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "zip_code": {
+            "type": "string"
+          },
+          "emergency_contact": {
+            "type": "string"
+          },
+          "emergency_phone": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "user_id",
+          "program_id",
+          "enrollment_year",
+          "status",
+          "address",
+          "city",
+          "zip_code",
+          "emergency_contact",
+          "emergency_phone"
+        ]
+      },
+      "StudentListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudentResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdateStudentDto": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the user"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password for the user's account"
+          },
+          "phone": {
+            "type": "string",
+            "description": "The phone number of the user"
+          },
+          "birthday": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The birthday of the user"
+          },
+          "campus_id": {
+            "type": "number",
+            "description": "The ID of the campus the user is associated with"
+          },
+          "program_id": {
+            "type": "number",
+            "description": "The ID of the program the student is enrolled in"
+          },
+          "enrollment_year": {
+            "type": "number",
+            "description": "The year the student enrolled in the program"
+          },
+          "status": {
+            "type": "string",
+            "description": "The current status of the student",
+            "enum": ["Active", "Inactive"]
+          },
+          "address": {
+            "type": "string",
+            "description": "The address of the student"
+          },
+          "city": {
+            "type": "string",
+            "description": "The city where the student resides"
+          },
+          "zip_code": {
+            "type": "string",
+            "description": "The zip code of the student's residence"
+          },
+          "emergency_contact": {
+            "type": "string",
+            "description": "The name of the student's emergency contact"
+          },
+          "emergency_phone": {
+            "type": "string",
+            "description": "The phone number of the student's emergency contact"
+          }
+        }
+      },
+      "CreateInstructorResponseDto": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/UserResponseDto"
+          },
+          "department_id": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "hire_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "specialization_id": {
+            "type": "number"
+          }
+        },
+        "required": ["user", "department_id", "status", "hire_date", "specialization_id"]
+      },
+      "CreateInstructorDto": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the user"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password for the user's account"
+          },
+          "phone": {
+            "type": "string",
+            "description": "The phone number of the user"
+          },
+          "birthday": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The birthday of the user"
+          },
+          "campus_id": {
+            "type": "number",
+            "description": "The ID of the campus the user is associated with"
+          },
+          "department_id": {
+            "type": "number",
+            "description": "The ID of the department the instructor belongs to"
+          },
+          "status": {
+            "type": "string",
+            "description": "The current status of the instructor",
+            "enum": ["Active", "Inactive"]
+          },
+          "hire_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The date the instructor was hired"
+          },
+          "specialization_id": {
+            "type": "number",
+            "description": "The ID of the instructor's specialization"
+          }
+        },
+        "required": [
+          "first_name",
+          "last_name",
+          "email",
+          "password",
+          "phone",
+          "birthday",
+          "campus_id",
+          "department_id",
+          "status",
+          "hire_date",
+          "specialization_id"
+        ]
+      },
+      "InstructorResponseDto": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "number"
+          },
+          "department_id": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "hire_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "specialization_id": {
+            "type": "number"
+          }
+        },
+        "required": ["user_id", "department_id", "status", "hire_date", "specialization_id"]
+      },
+      "InstructorListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InstructorResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdateInstructorDto": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "description": "The first name of the user"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The last name of the user"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the user"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password for the user's account"
+          },
+          "phone": {
+            "type": "string",
+            "description": "The phone number of the user"
+          },
+          "birthday": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The birthday of the user"
+          },
+          "campus_id": {
+            "type": "number",
+            "description": "The ID of the campus the user is associated with"
+          },
+          "department_id": {
+            "type": "number",
+            "description": "The ID of the department the instructor belongs to"
+          },
+          "status": {
+            "type": "string",
+            "description": "The current status of the instructor",
+            "enum": ["Active", "Inactive"]
+          },
+          "hire_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The date the instructor was hired"
+          },
+          "specialization_id": {
+            "type": "number",
+            "description": "The ID of the instructor's specialization"
+          }
+        }
+      },
+      "LogoutResponseDto": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Logout success message"
+          }
+        },
+        "required": ["message"]
+      },
+      "LogoutDto": {
+        "type": "object",
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "description": "Refresh token given by the backend"
+          }
+        },
+        "required": ["refresh_token"]
+      },
+      "TokenResponseDto": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "Access token given by the backend"
+          },
+          "refresh_token": {
+            "type": "string",
+            "description": "Refresh token given by the backend"
+          },
+          "user_id": {
+            "type": "number",
+            "description": "The user ID"
+          },
+          "email": {
+            "type": "string",
+            "description": "The user email"
+          }
+        },
+        "required": ["access_token", "refresh_token", "user_id", "email"]
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The email address of the account"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password of the account"
+          }
+        },
+        "required": ["email", "password"]
+      },
+      "RefreshTokenDto": {
+        "type": "object",
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "description": "Refresh token given by the backend addressed to the refresh endpoint"
+          }
+        },
+        "required": ["refresh_token"]
+      },
+      "RoleResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "name", "description"]
+      },
+      "CreateRoleDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the role"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the role"
+          }
+        },
+        "required": ["name", "description"]
+      },
+      "UpdateRoleDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the role"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the role"
+          }
+        }
+      },
+      "UserRoleResponseDto": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "number"
+          },
+          "role_id": {
+            "type": "number"
+          }
+        },
+        "required": ["user_id", "role_id"]
+      },
+      "AddRoleToUserDto": {
+        "type": "object",
+        "properties": {
+          "role_id": {
+            "type": "number",
+            "description": "The ID of the role"
+          }
+        },
+        "required": ["role_id"]
+      },
+      "AssignRolesDto": {
+        "type": "object",
+        "properties": {
+          "role_ids": {
+            "description": "The ID of the role",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["role_ids"]
+      },
+      "NotificationResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "number"
+          },
+          "user_id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "read_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "_v": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "_id",
+          "user_id",
+          "title",
+          "message",
+          "read_at",
+          "createdAt",
+          "updatedAt",
+          "_v"
+        ]
+      },
+      "CreateNotificationDto": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "number",
+            "description": "The id of the user to notify"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the notification"
+          },
+          "message": {
+            "type": "string",
+            "description": "The message of the notification"
+          }
+        },
+        "required": ["user_id", "title", "message"]
+      },
+      "GetNotificationResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "number"
+          },
+          "user_id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "read_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "_v": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "_id",
+          "user_id",
+          "title",
+          "message",
+          "read_at",
+          "createdAt",
+          "updatedAt",
+          "_v"
+        ]
+      },
+      "GetNotificationListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetNotificationResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdateNotificationDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "read_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        }
+      },
+      "DeleteNotificationResponseDto": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  }
+}

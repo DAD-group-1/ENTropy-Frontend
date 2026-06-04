@@ -1,10 +1,12 @@
-<app-header />
-<main class="main">
-  @if (layoutService.showLoggedLayout()) {
-    <app-sidebar />
-  }
+@if (authService.authReady()) {
+  <app-header />
+  <main class="main">
+    @if (layoutService.showLoggedLayout()) {
+      <app-sidebar />
+    }
 
-  <div class="content">
-    <router-outlet />
-  </div>
-</main>
+    <div class="content">
+      <router-outlet />
+    </div>
+  </main>
+}

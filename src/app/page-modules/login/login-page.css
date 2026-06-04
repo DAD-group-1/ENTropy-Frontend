@@ -76,6 +76,14 @@
       }
     }
   }
+
+  .loading-container {
+    @apply flex flex-col justify-center gap-4;
+
+    .loading-text {
+      @apply text-xl;
+    }
+  }
 }
 
 /* Very small phones (<=420px) — tiny padding, full-width card */

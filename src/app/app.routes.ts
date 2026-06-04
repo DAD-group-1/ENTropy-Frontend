@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-// import { authGuard } from './guards/auth/auth-guard';
+import { authCanMatchGuard, authCanActivateGuard } from './guards/auth/auth-guard';
+import { roleGuard } from './guards/roles/role-guard';
 import { HomePage } from './page-modules/home/home-page';
 import { LoginPage } from './page-modules/login/login-page';
 import { CalendarPage } from './page-modules/calendar/calendar-page';
@@ -10,20 +11,18 @@ import { NotFoundPage } from './page-modules/not-found/not-found-page';
 import { ForbiddenPage } from './page-modules/forbidden/forbidden-page';
 import { NotificationsPage } from './page-modules/notifications/notifications-page';
 
+// import { Roles } from './shared-modules/service/auth.service';
+
 export const routes: Routes = [
   {
     path: 'login',
     component: LoginPage,
   },
-  {
-    path: 'forbidden',
-    component: ForbiddenPage,
-  },
 
   {
     path: '',
-    // TODO: Activate authGuard when auth service is implemented
-    // canMatch: [authGuard],
+    canMatch: [authCanMatchGuard],
+    canActivateChild: [authCanActivateGuard, roleGuard],
     children: [
       {
         path: '',
@@ -38,7 +37,7 @@ export const routes: Routes = [
         path: 'calendar',
         component: CalendarPage,
         // TODO: See how to implement permissions check
-        // data: { roles: ['USER', 'ADMIN'] },
+        // data: { roles: [Roles.STUDENT, Roles.ADMIN] },
       },
       {
         path: 'grades',
@@ -71,6 +70,11 @@ export const routes: Routes = [
         component: NotificationsPage,
       },
     ],
+  },
+
+  {
+    path: 'forbidden',
+    component: ForbiddenPage,
   },
 
   {

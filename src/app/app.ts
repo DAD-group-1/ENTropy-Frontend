@@ -1,10 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { RouterOutlet } from '@angular/router';
 import { PrimeNG } from 'primeng/config';
-import { LayoutService } from './shared-modules/service/layout.service';
+import { AuthService } from './shared-modules/service/auth.service';
 import { Header } from './shared-modules/layout/header/header';
 import { Sidebar } from './shared-modules/layout/sidebar/sidebar';
+import { LayoutService } from './shared-modules/service/layout.service';
 
 @Component({
   selector: 'app-root',
@@ -13,26 +13,13 @@ import { Sidebar } from './shared-modules/layout/sidebar/sidebar';
   styleUrl: './app.css',
 })
 export class App implements OnInit {
-  router = inject(Router);
   primeng = inject(PrimeNG);
+  authService = inject(AuthService);
   layoutService = inject(LayoutService);
-
-  // TODO: Handle showing the sidebar if not logged in
-  private shouldShowLayout(url: string): boolean {
-    const excluded = ['/login', '/not-found'];
-
-    return !excluded.some((r) => url.startsWith(r));
-  }
 
   ngOnInit() {
     this.primeng.ripple.set(true);
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        const url = event.urlAfterRedirects;
-
-        this.layoutService.setLoggedLayout(this.shouldShowLayout(url));
-      });
+    this.authService.updateTokenData();
   }
 
   protected readonly title = signal('ENTropy-Frontend');
