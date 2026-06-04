@@ -20,7 +20,7 @@ interface TokenData {
   iat: string;
   exp: string;
   data: {
-    role: Roles;
+    roles: Roles[];
   };
 }
 
@@ -129,7 +129,7 @@ export class AuthService {
     this.refreshSubject.next(null);
 
     return this.api
-      .authenticationRefreshToken({ refresh_token: refreshToken }, 'body', false, {
+      .authenticationRefreshToken({ refreshTokenDto: { refresh_token: refreshToken } }, 'body', false, {
         context: new HttpContext().set(SKIP_INTERCEPTOR, true),
       })
       .pipe(
@@ -164,7 +164,7 @@ export class AuthService {
 
     if (refreshToken) {
       this.api
-        .authenticationLogout({ refresh_token: refreshToken })
+        .authenticationLogout({ logoutDto: { refresh_token: refreshToken } })
         .pipe(catchError(() => of(null)))
         .subscribe();
     }

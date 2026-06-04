@@ -9,9 +9,9 @@ export const roleGuard: CanActivateFn = (route) => {
 
   const allowedRoles = route.data?.['roles'] as Roles[] | undefined;
 
-  const userRole = authService.tokenPersonalizedData?.role;
+  const userRoles = authService.tokenPersonalizedData?.roles;
 
   if (!allowedRoles) return true;
 
-  return allowedRoles.includes(userRole as Roles) ? true : router.createUrlTree(['/forbidden']);
+  return allowedRoles.some((role) => userRoles?.includes(role)) ? true : router.createUrlTree(['/forbidden']);
 };
