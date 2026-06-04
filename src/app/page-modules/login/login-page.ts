@@ -110,8 +110,10 @@ export class LoginPage implements OnInit {
 
     this.authenticationService
       .authenticationLogin({
-        email,
-        password,
+        loginDto: {
+          email,
+          password,
+        },
       })
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
