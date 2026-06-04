@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Profile, ProfileData, ProfileType } from '../../shared-modules/app-common/profile/profile';
 import { ActivatedRoute } from '@angular/router';
-import { NavigationService } from '../../shared-modules/service/navigation.service';
+import { FrontNavigationService } from '../../shared-modules/service/front-navigation.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -14,7 +14,7 @@ export class ProfilePage implements OnInit {
   userType!: ProfileType;
 
   route = inject(ActivatedRoute);
-  navigationService = inject(NavigationService);
+  frontNavigationService = inject(FrontNavigationService);
 
   ngOnInit() {
     let userId: string | number | null = this.route.snapshot.paramMap.get('id');
@@ -25,7 +25,7 @@ export class ProfilePage implements OnInit {
 
         //TODO: Call query based on userId
       } catch {
-        this.navigationService.navigate('/not-found');
+        this.frontNavigationService.navigate('/not-found');
       }
 
       //TODO: Fetch specific user data from backend using userId and populate userData and userType

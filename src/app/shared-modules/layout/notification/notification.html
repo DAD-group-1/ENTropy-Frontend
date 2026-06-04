@@ -5,12 +5,12 @@
         (click)="toggle($event, notificationButton)"
 >
   <i class="notification-icon pi pi-bell" aria-hidden="true">
-    @if (notificationService.latestNotificationsCount() > 0) {
+    @if (frontNotificationService.latestNotificationsCount() > 0) {
       <span
         class="notification-count"
-        aria-label="{{ notificationService.latestNotificationsCount() }} new notifications"
+        aria-label="{{ frontNotificationService.latestNotificationsCount() }} new notifications"
       >
-        {{ notificationService.latestNotificationsCount() }}
+        {{ frontNotificationService.latestNotificationsCount() }}
       </span>
     }
   </i>
@@ -35,7 +35,7 @@
     </div>
 
     <div class="notification-list">
-      @for (notification of notificationService.latestNotifications(); track notification._id) {
+      @for (notification of frontNotificationService.latestNotifications(); track notification._id) {
         <a
           class="notification-item"
           (click)="onNotificationClick(notification)"
@@ -63,7 +63,7 @@
         </a>
       }
 
-      @if (notificationService.latestNotificationsCount() === 0) {
+      @if (frontNotificationService.latestNotificationsCount() === 0) {
         <div class="empty-notifications">
           No notifications
         </div>

@@ -1,10 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { PrimeNG } from 'primeng/config';
-import { AuthService } from './shared-modules/service/auth.service';
+import { FrontAuthService } from './shared-modules/service/front-auth.service';
 import { Header } from './shared-modules/layout/header/header';
 import { Sidebar } from './shared-modules/layout/sidebar/sidebar';
-import { LayoutService } from './shared-modules/service/layout.service';
+import { FrontLayoutService } from './shared-modules/service/front-layout.service';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +14,12 @@ import { LayoutService } from './shared-modules/service/layout.service';
 })
 export class App implements OnInit {
   primeng = inject(PrimeNG);
-  authService = inject(AuthService);
-  layoutService = inject(LayoutService);
+  frontAuthService = inject(FrontAuthService);
+  frontLayoutService = inject(FrontLayoutService);
 
   ngOnInit() {
     this.primeng.ripple.set(true);
-    this.authService.updateTokenData();
+    this.frontAuthService.updateTokenData();
   }
 
   protected readonly title = signal('ENTropy-Frontend');

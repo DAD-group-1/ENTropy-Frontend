@@ -1,7 +1,7 @@
-@if (authService.authReady()) {
+@if (frontAuthService.authReady()) {
   <app-header />
   <main class="main">
-    @if (layoutService.showLoggedLayout()) {
+    @if (frontLayoutService.showLoggedLayout()) {
       <app-sidebar />
     }
 

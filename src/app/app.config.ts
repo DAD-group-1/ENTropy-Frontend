@@ -12,7 +12,7 @@ import { routes } from './app.routes';
 import { provideApi } from './core/data-services';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptors/jwt-interceptor';
-import { AuthService } from './shared-modules/service/auth.service';
+import { FrontAuthService } from './shared-modules/service/front-auth.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -38,27 +38,27 @@ export const appConfig: ApplicationConfig = {
 };
 
 function initAuth() {
-  const authService = inject(AuthService);
+  const frontAuthService = inject(FrontAuthService);
 
-  if (!authService.hasOneTokenAndNotExpired()) {
-    authService.logout();
-    authService.authReady.set(true);
+  if (!frontAuthService.hasOneTokenAndNotExpired()) {
+    frontAuthService.logout();
+    frontAuthService.authReady.set(true);
     return;
   }
 
-  authService.isLoggedVerified().subscribe({
+  frontAuthService.isLoggedVerified().subscribe({
     next: (isVerified) => {
       if (!isVerified) {
-        authService.logout();
+        frontAuthService.logout();
       } else {
-        authService.loadingLogginYouBackIn.set(true);
+        frontAuthService.loadingLogginYouBackIn.set(true);
       }
     },
     error: () => {
-      authService.logout();
+      frontAuthService.logout();
     },
     complete: () => {
-      authService.authReady.set(true);
+      frontAuthService.authReady.set(true);
     }
   });
 }

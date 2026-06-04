@@ -1,25 +1,25 @@
 import { CanActivateFn, CanMatchFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { AuthService } from '../../shared-modules/service/auth.service';
+import { FrontAuthService } from '../../shared-modules/service/front-auth.service';
 import { catchError, map, of } from 'rxjs';
 
 export const authCanMatchGuard: CanMatchFn = () => {
-  const authService = inject(AuthService);
+  const frontAuthService = inject(FrontAuthService);
   const router = inject(Router);
 
-  if (authService.hasOneTokenAndNotExpired()) return true;
+  if (frontAuthService.hasOneTokenAndNotExpired()) return true;
 
   return router.createUrlTree(['/login']);
 };
 
 export const authCanActivateGuard: CanActivateFn = () => {
-  const authService = inject(AuthService);
+  const frontAuthService = inject(FrontAuthService);
   const router = inject(Router);
 
-  return authService.isLoggedVerified().pipe(
+  return frontAuthService.isLoggedVerified().pipe(
     map((isValid) => (isValid ? true : router.createUrlTree(['/login']))),
     catchError(() => {
-      authService.logout();
+      frontAuthService.logout();
       return of(router.createUrlTree(['/login']));
     }),
   );

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { NgmMotionDirective } from '@scripttype/ng-motion';
-import { LayoutService } from '../../service/layout.service';
+import { FrontLayoutService } from '../../service/front-layout.service';
 import { RouterLink } from '@angular/router';
 import { Notification } from '../notification/notification';
 import { NgOptimizedImage } from '@angular/common';
@@ -12,7 +12,7 @@ import { NgOptimizedImage } from '@angular/common';
   styleUrl: './header.css',
 })
 export class Header {
-  layoutService = inject(LayoutService);
+  frontLayoutService = inject(FrontLayoutService);
 
   public schoolName = 'Nova Campus';
 }

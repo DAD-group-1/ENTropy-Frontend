@@ -1,15 +1,15 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { Roles } from '../../shared-modules/service/auth.service';
-import { AuthService } from '../../shared-modules/service/auth.service';
+import { Roles } from '../../shared-modules/service/front-auth.service';
+import { FrontAuthService } from '../../shared-modules/service/front-auth.service';
 
 export const roleGuard: CanActivateFn = (route) => {
   const router = inject(Router);
-  const authService = inject(AuthService);
+  const frontAuthService = inject(FrontAuthService);
 
   const allowedRoles = route.data?.['roles'] as Roles[] | undefined;
 
-  const userRoles = authService.tokenPersonalizedData?.roles;
+  const userRoles = frontAuthService.tokenPersonalizedData?.roles;
 
   if (!allowedRoles) return true;
 

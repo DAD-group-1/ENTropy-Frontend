@@ -1,11 +1,11 @@
 import { Component, effect, ElementRef, inject, OnDestroy } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { LayoutService } from '../../service/layout.service';
+import { FrontLayoutService } from '../../service/front-layout.service';
 import { Subject } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
-import { NavigationService } from '../../service/navigation.service';
-import { AuthService } from '../../service/auth.service';
+import { FrontNavigationService } from '../../service/front-navigation.service';
+import { FrontAuthService } from '../../service/front-auth.service';
 
 interface MenuItem {
   icon: string;
@@ -21,9 +21,9 @@ interface MenuItem {
   styleUrl: './sidebar.css',
 })
 export class Sidebar implements OnDestroy {
-  layoutService = inject(LayoutService);
-  navigationService = inject(NavigationService);
-  authService = inject(AuthService);
+  frontLayoutService = inject(FrontLayoutService);
+  frontNavigationService = inject(FrontNavigationService);
+  frontAuthService = inject(FrontAuthService);
   el = inject(ElementRef);
 
   //TODO: Get from Auth service
@@ -36,9 +36,9 @@ export class Sidebar implements OnDestroy {
 
   constructor() {
     effect(() => {
-      const state = this.layoutService.layoutState();
+      const state = this.frontLayoutService.layoutState();
 
-      if (this.layoutService.isDesktop()) {
+      if (this.frontLayoutService.isDesktop()) {
         if (state.overlayMenuActive) {
           this.bindOutsideClickListener();
         } else {
@@ -64,7 +64,7 @@ export class Sidebar implements OnDestroy {
     if (!this.outsideClickListener) {
       this.outsideClickListener = (event: MouseEvent) => {
         if (this.isOutsideClicked(event)) {
-          this.layoutService.layoutState.update((val) => ({
+          this.frontLayoutService.layoutState.update((val) => ({
             ...val,
             overlayMenuActive: false,
             staticMenuMobileActive: false,
@@ -98,7 +98,7 @@ export class Sidebar implements OnDestroy {
   }
 
   onLogout() {
-    this.authService.logout();
+    this.frontAuthService.logout();
   }
 
   menuItems: MenuItem[] = [

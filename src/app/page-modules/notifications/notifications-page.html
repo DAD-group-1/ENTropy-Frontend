@@ -3,16 +3,16 @@
     <h1>Notifications</h1>
 
     <div class="header-right">
-      <span class="count">Page {{ notificationService.paginationResults()?.page }} - {{ notificationService.currentNotifications().length }} notifications</span>
+      <span class="count">Page {{ frontNotificationService.paginationResults()?.page }} - {{ frontNotificationService.currentNotifications().length }} notifications</span>
 
-      <button class="btn btn-primary" [disabled]="!notificationService.canMarkAllAsRead()" (click)="notificationService.markAllAsRead()">
+      <button class="btn btn-primary" [disabled]="!frontNotificationService.canMarkAllAsRead()" (click)="frontNotificationService.markAllAsRead()">
         Mark all as read
       </button>
     </div>
   </div>
 
   <div class="list">
-    @for (notification of notificationService.currentNotifications(); track notification._id) {
+    @for (notification of frontNotificationService.currentNotifications(); track notification._id) {
       <a
         class="card"
         [routerLink]="notification.target_url || null"
@@ -53,7 +53,7 @@
       </a>
     }
 
-    @if (notificationService.currentNotifications().length === 0) {
+    @if (frontNotificationService.currentNotifications().length === 0) {
       <div class="empty">
         No notifications yet
       </div>
@@ -63,7 +63,7 @@
     <p-paginator
       [first]="firstRow()"
       [rows]="numberOfRows()"
-      [totalRecords]="notificationService.paginationResults()?.total || 0"
+      [totalRecords]="frontNotificationService.paginationResults()?.total || 0"
       [rowsPerPageOptions]="[10, 20, 30]"
       (onPageChange)="loadNewNotifications($event)"
     ></p-paginator>

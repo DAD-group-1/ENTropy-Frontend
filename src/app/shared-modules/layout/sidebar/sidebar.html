@@ -1,5 +1,5 @@
-<div class="sidebar-backdrop" (click)="layoutService.onMenuToggle()"
-     [ngClass]="{ 'active': layoutService.layoutState().mobileMenuActive }"
+<div class="sidebar-backdrop" (click)="frontLayoutService.onMenuToggle()"
+     [ngClass]="{ 'active': frontLayoutService.layoutState().mobileMenuActive }"
      aria-hidden="true"></div>
 
 <nav
@@ -7,14 +7,14 @@
   role="navigation"
   aria-label="Main sidebar"
   [ngClass]="{
-    'mobile-active': layoutService.layoutState().mobileMenuActive,
-    'desktop-inactive': layoutService.layoutState().staticMenuDesktopInactive && layoutService.isDesktop()
+    'mobile-active': frontLayoutService.layoutState().mobileMenuActive,
+    'desktop-inactive': frontLayoutService.layoutState().staticMenuDesktopInactive && frontLayoutService.isDesktop()
   }"
 >
   <!-- Avatar and Student Name (Tailwind classes) -->
   <header>
     <button type="button" class="flex items-center gap-3 overflow-hidden cursor-pointer"
-             (click)="navigationService.navigate('/profile')">
+             (click)="frontNavigationService.navigate('/profile')">
       <img src="assets/user-avatar.png" alt="Student Avatar"
            class="w-12 h-12 rounded-full object-cover border-2 border-white/6" />
       <section class="truncate text-left">
@@ -22,7 +22,7 @@
         <p class="sidebar-entropy">{{ role }} · ENTropy</p>
       </section>
     </button>
-    <button class="close-button" (click)="layoutService.onMenuToggle()">
+    <button class="close-button" (click)="frontLayoutService.onMenuToggle()">
       <i class="pi pi-times"></i>
     </button>
   </header>
@@ -33,9 +33,9 @@
         <li class="sidebar-menu-item cursor-pointer" tabindex="0"
             role="button"
             routerLinkActive="active-link"
-            (keydown.enter)="navigationService.navigate(item.route)"
-            (keydown.space)="navigationService.navigate(item.route); $event.preventDefault()"
-            (click)="navigationService.navigate(item.route)"
+            (keydown.enter)="frontNavigationService.navigate(item.route)"
+            (keydown.space)="frontNavigationService.navigate(item.route); $event.preventDefault()"
+            (click)="frontNavigationService.navigate(item.route)"
         >
           <div role="none" class="hidden pointer-events-none" [routerLink]="item.route || '/home'"
                aria-hidden="true"></div>

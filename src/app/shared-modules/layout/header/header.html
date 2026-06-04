@@ -1,10 +1,10 @@
 <header class="header">
-  @if (layoutService.showLoggedLayout()) {
+  @if (frontLayoutService.showLoggedLayout()) {
     <section class="menu-toggle-section">
       <button
         type="button"
         class="layout-menu-button"
-        (click)="layoutService.onMenuToggle()"
+        (click)="frontLayoutService.onMenuToggle()"
         aria-label="Open navigation menu"
         aria-haspopup="true"
         tabindex="0"
@@ -17,7 +17,7 @@
   }
 
   <section class="notif-logo-section">
-    @if (layoutService.showLoggedLayout()) {
+    @if (frontLayoutService.showLoggedLayout()) {
       <app-notification></app-notification>
     }
 

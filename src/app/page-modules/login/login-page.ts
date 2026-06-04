@@ -14,11 +14,11 @@ import {
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { NgmMotionDirective } from '@scripttype/ng-motion';
 import { AuthenticationService } from '../../core/data-services';
-import { NavigationService } from '../../shared-modules/service/navigation.service';
+import { FrontNavigationService } from '../../shared-modules/service/front-navigation.service';
 import { finalize } from 'rxjs/operators';
-import { AuthService } from '../../shared-modules/service/auth.service';
+import { FrontAuthService } from '../../shared-modules/service/front-auth.service';
 import { ProgressSpinner } from 'primeng/progressspinner';
-import { LayoutService } from '../../shared-modules/service/layout.service';
+import { FrontLayoutService } from '../../shared-modules/service/front-layout.service';
 
 @Component({
   selector: 'app-login-page',
@@ -39,11 +39,11 @@ import { LayoutService } from '../../shared-modules/service/layout.service';
   styleUrl: './login-page.css',
 })
 export class LoginPage implements OnInit {
-  private readonly layoutService = inject(LayoutService);
+  private readonly frontLayoutService = inject(FrontLayoutService);
   private readonly authenticationService = inject(AuthenticationService);
-  private readonly navigationService = inject(NavigationService);
+  private readonly frontNavigationService = inject(FrontNavigationService);
   private readonly fb = inject(FormBuilder);
-  public readonly authService = inject(AuthService);
+  public readonly frontAuthService = inject(FrontAuthService);
 
   loading = signal<boolean>(false);
   loginError = signal<string>('');
@@ -56,9 +56,9 @@ export class LoginPage implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
 
-    if (this.authService.loadingLogginYouBackIn())
+    if (this.frontAuthService.loadingLogginYouBackIn())
       setTimeout(() => {
-        this.navigationService.navigate('/');
+        this.frontNavigationService.navigate('/');
       }, 1000);
   }
 
@@ -118,15 +118,15 @@ export class LoginPage implements OnInit {
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (response) => {
-          this.authService.setTokens(
+          this.frontAuthService.setTokens(
             response?.data?.access_token ?? '',
             response?.data?.refresh_token,
           );
-          this.authService.updateTokenData();
+          this.frontAuthService.updateTokenData();
 
-          this.navigationService.navigate('/');
-          this.layoutService.setLoggedLayout(true);
-          this.authService.loadingLogginYouBackIn.set(true);
+          this.frontNavigationService.navigate('/');
+          this.frontLayoutService.setLoggedLayout(true);
+          this.frontAuthService.loadingLogginYouBackIn.set(true);
         },
         error: (err) => {
           this.loginError.set(err?.error?.message || 'Invalid email or password');

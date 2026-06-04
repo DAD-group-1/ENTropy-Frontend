@@ -6,18 +6,18 @@ import {
   NotificationsFindAllForUserRequestParams,
   NotificationsService,
 } from '../../core/data-services';
-import { AuthService } from './auth.service';
+import { FrontAuthService } from './front-auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NotificationService {
+export class FrontNotificationService {
   constructor() {
     this.loadInitialNotifications();
   }
 
-  private readonly notificationService = inject(NotificationsService);
-  private readonly authService = inject(AuthService);
+  private readonly frontNotificationService = inject(NotificationsService);
+  private readonly frontAuthService = inject(FrontAuthService);
 
   private _latestNotifications: WritableSignal<GetNotificationResponseDto[]> = signal([]);
 
@@ -54,12 +54,12 @@ export class NotificationService {
 
   private loadInitialNotifications() {
     const notificationQuery: NotificationsFindAllForUserRequestParams = {
-      userId: parseInt(this.authService.tokenData?.sub ?? '0', 10),
+      userId: parseInt(this.frontAuthService.tokenData?.sub ?? '0', 10),
       page: 1,
       limit: 10,
     };
 
-    this.notificationService.notificationsFindAllForUser(notificationQuery).subscribe({
+    this.frontNotificationService.notificationsFindAllForUser(notificationQuery).subscribe({
       next: (result: NotificationsFindAllDefaultResponse) => {
         const resultData = result.data;
 
@@ -79,7 +79,7 @@ export class NotificationService {
     const id = String(notificationId);
     const date = new Date().toISOString();
 
-    this.notificationService
+    this.frontNotificationService
       .notificationsUpdate({
         id: id,
         updateNotificationDto: {

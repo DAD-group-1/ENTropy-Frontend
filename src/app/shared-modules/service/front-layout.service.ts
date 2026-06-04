@@ -13,7 +13,7 @@ interface LayoutState {
 @Injectable({
   providedIn: 'root',
 })
-export class LayoutService {
+export class FrontLayoutService {
   constructor() {
     this.handleResize();
     window.addEventListener('resize', this.handleResize.bind(this));

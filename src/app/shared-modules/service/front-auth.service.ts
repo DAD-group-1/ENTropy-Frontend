@@ -1,9 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, of, take, tap, throwError } from 'rxjs';
 import { AuthenticationService } from '../../core/data-services';
-import { NavigationService } from './navigation.service';
+import { FrontNavigationService } from './front-navigation.service';
 import { filter } from 'rxjs/operators';
-import { LayoutService } from './layout.service';
+import { FrontLayoutService } from './front-layout.service';
 import { HttpContext } from '@angular/common/http';
 import { SKIP_INTERCEPTOR } from '../../core/interceptors/jwt-interceptor';
 
@@ -25,9 +25,9 @@ interface TokenData {
 }
 
 @Injectable({ providedIn: 'root' })
-export class AuthService {
-  private layoutService = inject(LayoutService);
-  private navigationService = inject(NavigationService);
+export class FrontAuthService {
+  private frontLayoutService = inject(FrontLayoutService);
+  private frontNavigationService = inject(FrontNavigationService);
   private api = inject(AuthenticationService);
 
   private isRefreshing = false;
@@ -169,9 +169,9 @@ export class AuthService {
         .subscribe();
     }
 
-    this.layoutService.setLoggedLayout(false);
+    this.frontLayoutService.setLoggedLayout(false);
     this.loadingLogginYouBackIn.set(false);
-    this.navigationService.navigate('/login');
+    this.frontNavigationService.navigate('/login');
   }
 
   isLoggedVerified(): Observable<boolean> {

@@ -1,9 +1,9 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Location, NgClass } from '@angular/common';
-import { LayoutService } from '../../service/layout.service';
+import { FrontLayoutService } from '../../service/front-layout.service';
 import { ButtonModule } from 'primeng/button';
-import { AuthService } from '../../service/auth.service';
+import { FrontAuthService } from '../../service/front-auth.service';
 
 type ErrorColor = 'red' | 'blue' | 'yellow' | 'gray';
 
@@ -21,8 +21,8 @@ export class Error implements OnInit, OnDestroy {
 
   router = inject(Router);
   location = inject(Location);
-  authService = inject(AuthService);
-  layoutService = inject(LayoutService);
+  frontAuthService = inject(FrontAuthService);
+  frontLayoutService = inject(FrontLayoutService);
 
   public readonly colorMap: Record<
     ErrorColor,
@@ -50,18 +50,18 @@ export class Error implements OnInit, OnDestroy {
   };
 
   ngOnInit() {
-    if (!this.authService.hasOneTokenAndNotExpired()) {
-      this.layoutService.setLoggedLayout(false);
+    if (!this.frontAuthService.hasOneTokenAndNotExpired()) {
+      this.frontLayoutService.setLoggedLayout(false);
       return;
     }
 
-    this.authService.isLoggedVerified().subscribe((isVerified) => {
-      this.layoutService.setLoggedLayout(isVerified);
+    this.frontAuthService.isLoggedVerified().subscribe((isVerified) => {
+      this.frontLayoutService.setLoggedLayout(isVerified);
     });
   }
 
   ngOnDestroy() {
-    this.layoutService.setLoggedLayout(true);
+    this.frontLayoutService.setLoggedLayout(true);
   }
 
   get styles() {

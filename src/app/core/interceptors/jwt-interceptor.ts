@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, switchMap, throwError } from 'rxjs';
-import { AuthService } from '../../shared-modules/service/auth.service';
+import { FrontAuthService } from '../../shared-modules/service/front-auth.service';
 
 export const SKIP_INTERCEPTOR = new HttpContextToken(() => false);
 
@@ -15,7 +15,7 @@ export const JwtInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn,
 ) => {
-  const auth = inject(AuthService);
+  const auth = inject(FrontAuthService);
 
   const skip = req.context.get(SKIP_INTERCEPTOR);
 

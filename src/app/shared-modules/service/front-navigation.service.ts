@@ -1,17 +1,17 @@
 import { inject, Injectable } from '@angular/core';
-import { LayoutService } from './layout.service';
+import { FrontLayoutService } from './front-layout.service';
 import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NavigationService {
-  private layoutService = inject(LayoutService);
+export class FrontNavigationService {
+  private frontLayoutService = inject(FrontLayoutService);
   private router = inject(Router);
 
   public navigate(route?: string) {
-    if (!this.layoutService.isDesktop() && this.layoutService.layoutState().mobileMenuActive) {
-      this.layoutService.onMenuToggle();
+    if (!this.frontLayoutService.isDesktop() && this.frontLayoutService.layoutState().mobileMenuActive) {
+      this.frontLayoutService.onMenuToggle();
     }
 
     const target = route || '/home';

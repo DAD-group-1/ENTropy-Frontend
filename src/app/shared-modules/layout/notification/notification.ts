@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { Popover, PopoverModule } from 'primeng/popover';
-import { NotificationService } from '../../service/notification.service';
+import { FrontNotificationService } from '../../service/front-notification.service';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { GetNotificationResponseDto } from '../../../core/data-services';
@@ -23,14 +23,14 @@ export interface NotificationItem {
 export class Notification implements OnInit{
   @ViewChild('notificationPopover') notificationPopover!: Popover;
 
-  public notificationService = inject(NotificationService);
+  public frontNotificationService = inject(FrontNotificationService);
 
   ngOnInit() {
     window.addEventListener('resize', this.hide.bind(this));
   }
 
   onNotificationClick(notification: GetNotificationResponseDto) {
-    this.notificationService.readNotification(notification._id);
+    this.frontNotificationService.readNotification(notification._id);
 
     if (notification.target_url) {
       this.notificationPopover.hide();
