@@ -29,6 +29,25 @@ import { Configuration }                                     from '../configurat
 import { BaseService } from '../api.base.service';
 
 
+export interface UserRoleAddRoleToUserRequestParams {
+    id: string;
+    addRoleToUserDto: AddRoleToUserDto;
+}
+
+export interface UserRoleAssignRolesRequestParams {
+    id: string;
+    assignRolesDto: AssignRolesDto;
+}
+
+export interface UserRoleGetUserRolesRequestParams {
+    id: string;
+}
+
+export interface UserRoleRemoveUserRoleRequestParams {
+    id: string;
+    roleId: string;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,19 +62,20 @@ export class UserRoleService extends BaseService {
      * Add role to user
      * Assign a specific role to a user.
      * @endpoint post /api/users/{id}/roles/add
-     * @param id 
-     * @param addRoleToUserDto 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public userRoleAddRoleToUser(id: string, addRoleToUserDto: AddRoleToUserDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserRoleAddRoleToUserDefaultResponse>;
-    public userRoleAddRoleToUser(id: string, addRoleToUserDto: AddRoleToUserDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserRoleAddRoleToUserDefaultResponse>>;
-    public userRoleAddRoleToUser(id: string, addRoleToUserDto: AddRoleToUserDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserRoleAddRoleToUserDefaultResponse>>;
-    public userRoleAddRoleToUser(id: string, addRoleToUserDto: AddRoleToUserDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public userRoleAddRoleToUser(requestParameters: UserRoleAddRoleToUserRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserRoleAddRoleToUserDefaultResponse>;
+    public userRoleAddRoleToUser(requestParameters: UserRoleAddRoleToUserRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserRoleAddRoleToUserDefaultResponse>>;
+    public userRoleAddRoleToUser(requestParameters: UserRoleAddRoleToUserRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserRoleAddRoleToUserDefaultResponse>>;
+    public userRoleAddRoleToUser(requestParameters: UserRoleAddRoleToUserRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling userRoleAddRoleToUser.');
         }
+        const addRoleToUserDto = requestParameters?.addRoleToUserDto;
         if (addRoleToUserDto === null || addRoleToUserDto === undefined) {
             throw new Error('Required parameter addRoleToUserDto was null or undefined when calling userRoleAddRoleToUser.');
         }
@@ -117,19 +137,20 @@ export class UserRoleService extends BaseService {
      * Assign roles to user
      * Assign multiple roles to a user, replacing existing roles.
      * @endpoint put /api/users/{id}/roles/assign
-     * @param id 
-     * @param assignRolesDto 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public userRoleAssignRoles(id: string, assignRolesDto: AssignRolesDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserRoleAddRoleToUserDefaultResponse>;
-    public userRoleAssignRoles(id: string, assignRolesDto: AssignRolesDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserRoleAddRoleToUserDefaultResponse>>;
-    public userRoleAssignRoles(id: string, assignRolesDto: AssignRolesDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserRoleAddRoleToUserDefaultResponse>>;
-    public userRoleAssignRoles(id: string, assignRolesDto: AssignRolesDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public userRoleAssignRoles(requestParameters: UserRoleAssignRolesRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserRoleAddRoleToUserDefaultResponse>;
+    public userRoleAssignRoles(requestParameters: UserRoleAssignRolesRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserRoleAddRoleToUserDefaultResponse>>;
+    public userRoleAssignRoles(requestParameters: UserRoleAssignRolesRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserRoleAddRoleToUserDefaultResponse>>;
+    public userRoleAssignRoles(requestParameters: UserRoleAssignRolesRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling userRoleAssignRoles.');
         }
+        const assignRolesDto = requestParameters?.assignRolesDto;
         if (assignRolesDto === null || assignRolesDto === undefined) {
             throw new Error('Required parameter assignRolesDto was null or undefined when calling userRoleAssignRoles.');
         }
@@ -191,15 +212,16 @@ export class UserRoleService extends BaseService {
      * Get user roles
      * Retrieve all roles assigned to a specific user.
      * @endpoint get /api/users/{id}/roles
-     * @param id 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public userRoleGetUserRoles(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserRoleAddRoleToUserDefaultResponse>;
-    public userRoleGetUserRoles(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserRoleAddRoleToUserDefaultResponse>>;
-    public userRoleGetUserRoles(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserRoleAddRoleToUserDefaultResponse>>;
-    public userRoleGetUserRoles(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public userRoleGetUserRoles(requestParameters: UserRoleGetUserRolesRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserRoleAddRoleToUserDefaultResponse>;
+    public userRoleGetUserRoles(requestParameters: UserRoleGetUserRolesRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserRoleAddRoleToUserDefaultResponse>>;
+    public userRoleGetUserRoles(requestParameters: UserRoleGetUserRolesRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserRoleAddRoleToUserDefaultResponse>>;
+    public userRoleGetUserRoles(requestParameters: UserRoleGetUserRolesRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling userRoleGetUserRoles.');
         }
@@ -251,19 +273,20 @@ export class UserRoleService extends BaseService {
      * Remove role from user
      * Remove a specific role from a user.
      * @endpoint delete /api/users/{id}/roles/{roleId}/remove
-     * @param id 
-     * @param roleId 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public userRoleRemoveUserRole(id: string, roleId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<object>;
-    public userRoleRemoveUserRole(id: string, roleId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<object>>;
-    public userRoleRemoveUserRole(id: string, roleId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<object>>;
-    public userRoleRemoveUserRole(id: string, roleId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public userRoleRemoveUserRole(requestParameters: UserRoleRemoveUserRoleRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<object>;
+    public userRoleRemoveUserRole(requestParameters: UserRoleRemoveUserRoleRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<object>>;
+    public userRoleRemoveUserRole(requestParameters: UserRoleRemoveUserRoleRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<object>>;
+    public userRoleRemoveUserRole(requestParameters: UserRoleRemoveUserRoleRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling userRoleRemoveUserRole.');
         }
+        const roleId = requestParameters?.roleId;
         if (roleId === null || roleId === undefined) {
             throw new Error('Required parameter roleId was null or undefined when calling userRoleRemoveUserRole.');
         }
