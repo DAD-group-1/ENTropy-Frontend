@@ -8,10 +8,10 @@ import { HttpContext } from '@angular/common/http';
 import { SKIP_INTERCEPTOR } from '../../core/interceptors/jwt-interceptor';
 
 export enum Roles {
-  STUDENT = 'student',
-  INSTRUCTOR = 'instructor',
-  MANAGER = 'manager',
-  ADMIN = 'admin',
+  STUDENT = 'Student',
+  INSTRUCTOR = 'Instructor',
+  MANAGER = 'Manager',
+  ADMIN = 'Admin',
 }
 
 interface TokenData {
@@ -38,28 +38,32 @@ export class FrontAuthService {
 
   public authReady = signal<boolean>(false);
   public loadingLogginYouBackIn = signal<boolean>(false);
-  private _tokenData: TokenData | null = null;
+  private _tokenData = signal<TokenData | null>(null);
 
   get tokenData(): TokenData | null {
-    return this._tokenData;
+    return this._tokenData();
   }
 
   get tokenPersonalizedData(): TokenData['data'] | null {
-    return this._tokenData?.data ?? null;
+    return this.tokenData?.data ?? null;
+  }
+
+  get userId(): TokenData['sub'] | undefined {
+    return this.tokenData?.sub;
   }
 
   updateTokenData(): void {
     const token = this.getAccessToken();
 
     if (!token) {
-      this._tokenData = null;
+      this._tokenData.set(null);
       return;
     }
 
     try {
-      this._tokenData = JSON.parse(atob(token.split('.')[1])) as TokenData;
+      this._tokenData.set(JSON.parse(atob(token.split('.')[1])) as TokenData);
     } catch {
-      this._tokenData = null;
+      this._tokenData.set(null);
     }
   }
 
@@ -129,9 +133,14 @@ export class FrontAuthService {
     this.refreshSubject.next(null);
 
     return this.api
-      .authenticationRefreshToken({ refreshTokenDto: { refresh_token: refreshToken } }, 'body', false, {
-        context: new HttpContext().set(SKIP_INTERCEPTOR, true),
-      })
+      .authenticationRefreshToken(
+        { refreshTokenDto: { refresh_token: refreshToken } },
+        'body',
+        false,
+        {
+          context: new HttpContext().set(SKIP_INTERCEPTOR, true),
+        },
+      )
       .pipe(
         map((response) => {
           this.setTokens(response?.data?.access_token ?? '', response?.data?.refresh_token);

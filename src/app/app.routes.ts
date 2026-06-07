@@ -11,7 +11,7 @@ import { NotFoundPage } from './page-modules/not-found/not-found-page';
 import { ForbiddenPage } from './page-modules/forbidden/forbidden-page';
 import { NotificationsPage } from './page-modules/notifications/notifications-page';
 
-// import { Roles } from './shared-modules/service/auth.service';
+import { Roles } from './shared-modules/service/front-auth.service';
 
 export const routes: Routes = [
   {
@@ -36,20 +36,34 @@ export const routes: Routes = [
       {
         path: 'calendar',
         component: CalendarPage,
-        // TODO: See how to implement permissions check
-        // data: { roles: [Roles.STUDENT, Roles.ADMIN] },
       },
       {
         path: 'grades',
-        component: GradesPage,
-        // TODO: See how to implement permissions check
-        // data: { roles: ['USER', 'ADMIN'] },
+        children: [
+          {
+            path: '',
+            component: GradesPage,
+          },
+          {
+            path: ':id',
+            component: GradesPage,
+            data: { allowed_roles: [Roles.INSTRUCTOR] },
+          },
+        ],
       },
       {
         path: 'absences',
-        component: AbsencesPage,
-        // TODO: See how to implement permissions check
-        // data: { roles: ['USER', 'ADMIN'] },
+        children: [
+          {
+            path: '',
+            component: AbsencesPage,
+          },
+          {
+            path: ':id',
+            component: AbsencesPage,
+            data: { allowed_roles: [Roles.INSTRUCTOR] },
+          },
+        ],
       },
       {
         path: 'profile',
@@ -61,6 +75,7 @@ export const routes: Routes = [
           {
             path: ':id',
             component: ProfilePage,
+            data: { allowed_roles: [Roles.INSTRUCTOR] },
           },
         ],
       },
