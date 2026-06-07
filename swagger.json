@@ -297,16 +297,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreatePaymentMethodDto"
-              }
-            }
-          }
-        },
         "responses": {
           "default": {
             "description": "",
@@ -2105,16 +2095,6 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateRoomRequestDto"
-              }
-            }
-          }
-        },
         "responses": {
           "default": {
             "description": "",
@@ -3890,7 +3870,8 @@
             "type": "string"
           },
           "note": {
-            "type": "string"
+            "type": "object",
+            "nullable": true
           },
           "created_at": {
             "format": "date-time",
@@ -3928,8 +3909,9 @@
             "enum": ["PRESENT", "ABSENT", "LATE", "EXCUSED"]
           },
           "note": {
-            "type": "string",
-            "description": "Optional note about attendance"
+            "type": "object",
+            "description": "Optional note about attendance",
+            "nullable": true
           }
         },
         "required": ["schedule_id", "student_id", "status", "note"]
@@ -3960,7 +3942,26 @@
       },
       "UpdateAttendanceDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "schedule_id": {
+            "type": "number",
+            "description": "The ID of the schedule"
+          },
+          "student_id": {
+            "type": "number",
+            "description": "The ID of the student"
+          },
+          "status": {
+            "type": "string",
+            "description": "The attendance status",
+            "enum": ["PRESENT", "ABSENT", "LATE", "EXCUSED"]
+          },
+          "note": {
+            "type": "object",
+            "description": "Optional note about attendance",
+            "nullable": true
+          }
+        }
       },
       "PaymentMethodResponseDto": {
         "type": "object",
@@ -4010,7 +4011,12 @@
       },
       "UpdatePaymentMethodDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the payment method"
+          }
+        }
       },
       "PaymentResponseDto": {
         "type": "object",
@@ -4036,8 +4042,8 @@
             "type": "number"
           },
           "payment_date": {
-            "format": "date-time",
-            "type": "string"
+            "type": "object",
+            "nullable": true
           },
           "payment_method_id": {
             "type": "number"
@@ -4103,9 +4109,9 @@
             "enum": []
           },
           "payment_date": {
-            "format": "date-time",
-            "type": "string",
-            "description": "The actual payment date"
+            "type": "object",
+            "description": "The actual payment date",
+            "nullable": true
           },
           "payment_method_id": {
             "type": "number",
@@ -4163,7 +4169,52 @@
       },
       "UpdatePaymentDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "student_id": {
+            "type": "number",
+            "description": "The ID of the student"
+          },
+          "invoice_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The invoice date"
+          },
+          "due_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The due date for payment"
+          },
+          "amount": {
+            "type": "number",
+            "description": "The payment amount"
+          },
+          "status": {
+            "type": "number",
+            "description": "The payment status",
+            "enum": []
+          },
+          "payment_date": {
+            "type": "object",
+            "description": "The actual payment date",
+            "nullable": true
+          },
+          "payment_method_id": {
+            "type": "number",
+            "description": "The ID of the payment method"
+          },
+          "academic_year": {
+            "type": "number",
+            "description": "The academic year"
+          },
+          "semester": {
+            "type": "number",
+            "description": "The semester"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes about the payment"
+          }
+        }
       },
       "CourseResponseDto": {
         "type": "object",
@@ -4301,7 +4352,45 @@
       },
       "UpdateCourseDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the course"
+          },
+          "code": {
+            "type": "string",
+            "description": "The course code"
+          },
+          "program_id": {
+            "type": "number",
+            "description": "The ID of the program"
+          },
+          "semester": {
+            "type": "number",
+            "description": "The semester of the course"
+          },
+          "credits": {
+            "type": "number",
+            "description": "The number of credits"
+          },
+          "total_hours": {
+            "type": "number",
+            "description": "Total hours for the course"
+          },
+          "instructor_id": {
+            "type": "number",
+            "description": "The ID of the instructor"
+          },
+          "room_id": {
+            "type": "number",
+            "description": "The ID of the room"
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the course",
+            "enum": ["Active", "Inactive"]
+          }
+        }
       },
       "EnrollmentResponseDto": {
         "type": "object",
@@ -4414,7 +4503,34 @@
       },
       "UpdateEnrollmentDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "student_id": {
+            "type": "number",
+            "description": "The ID of the student"
+          },
+          "course_id": {
+            "type": "number",
+            "description": "The ID of the course"
+          },
+          "semester": {
+            "type": "number",
+            "description": "The semester"
+          },
+          "academic_year": {
+            "type": "number",
+            "description": "The academic year"
+          },
+          "status": {
+            "type": "string",
+            "description": "The enrollment status",
+            "enum": ["In progress", "Validated"]
+          },
+          "enrollment_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The enrollment date"
+          }
+        }
       },
       "GradeResponseDto": {
         "type": "object",
@@ -4426,7 +4542,8 @@
             "type": "number"
           },
           "grade": {
-            "type": "number"
+            "type": "object",
+            "nullable": true
           },
           "name": {
             "type": "string"
@@ -4442,8 +4559,9 @@
             "description": "The ID of the enrollment"
           },
           "grade": {
-            "type": "number",
-            "description": "The grade value"
+            "type": "object",
+            "description": "The grade value",
+            "nullable": true
           },
           "name": {
             "type": "string",
@@ -4478,7 +4596,21 @@
       },
       "UpdateGradeDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "enrollment_id": {
+            "type": "number",
+            "description": "The ID of the enrollment"
+          },
+          "grade": {
+            "type": "object",
+            "description": "The grade value",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the grade"
+          }
+        }
       },
       "BuildingResponseDto": {
         "type": "object",
@@ -4535,7 +4667,16 @@
       },
       "UpdateBuildingDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the building"
+          },
+          "campus_id": {
+            "type": "number",
+            "description": "The ID of the campus"
+          }
+        }
       },
       "CampusResponseDto": {
         "type": "object",
@@ -4693,7 +4834,54 @@
       },
       "UpdateCampusDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the campus"
+          },
+          "address": {
+            "type": "string",
+            "description": "The street address of the campus"
+          },
+          "city": {
+            "type": "string",
+            "description": "The city where the campus is located"
+          },
+          "zip_code": {
+            "type": "string",
+            "description": "The postal code"
+          },
+          "region": {
+            "type": "string",
+            "description": "The region of the campus"
+          },
+          "director": {
+            "type": "string",
+            "description": "The name of the campus director"
+          },
+          "phone": {
+            "type": "string",
+            "description": "The phone number of the campus"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the campus"
+          },
+          "student_capacity": {
+            "type": "number",
+            "description": "The maximum student capacity"
+          },
+          "opening_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The opening date of the campus"
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the campus",
+            "enum": ["Active", "Inactive"]
+          }
+        }
       },
       "RoomTypeResponseDto": {
         "type": "object",
@@ -4750,7 +4938,16 @@
       },
       "UpdateRoomTypeDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the room type"
+          },
+          "campus_id": {
+            "type": "number",
+            "description": "The ID of the campus"
+          }
+        }
       },
       "RoomResponseDto": {
         "type": "object",
@@ -4879,7 +5076,41 @@
       },
       "UpdateRoomDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the room"
+          },
+          "campus_id": {
+            "type": "number",
+            "description": "The ID of the campus"
+          },
+          "building_id": {
+            "type": "number",
+            "description": "The ID of the building"
+          },
+          "floor": {
+            "type": "number",
+            "description": "The floor number"
+          },
+          "capacity": {
+            "type": "number",
+            "description": "The seating capacity of the room"
+          },
+          "room_type_id": {
+            "type": "number",
+            "description": "The ID of the room type"
+          },
+          "equipement": {
+            "type": "string",
+            "description": "Equipment available in the room"
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the room",
+            "enum": ["Booked", "Available", "Unavailable"]
+          }
+        }
       },
       "ScheduleResponseDto": {
         "type": "object",
@@ -5026,7 +5257,47 @@
       },
       "UpdateScheduleDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "event_id": {
+            "type": "number",
+            "description": "The ID of the event"
+          },
+          "course_id": {
+            "type": "number",
+            "description": "The ID of the course"
+          },
+          "instructor_id": {
+            "type": "number",
+            "description": "The ID of the instructor"
+          },
+          "room_id": {
+            "type": "number",
+            "description": "The ID of the room"
+          },
+          "start_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The start date and time"
+          },
+          "end_date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "The end date and time"
+          },
+          "semester": {
+            "type": "number",
+            "description": "The semester"
+          },
+          "academic_year": {
+            "type": "number",
+            "description": "The academic year"
+          },
+          "status": {
+            "type": "number",
+            "description": "The schedule status",
+            "enum": []
+          }
+        }
       },
       "UserResponseDto": {
         "type": "object",

@@ -29,23 +29,6 @@ import { Configuration }                                     from '../configurat
 import { BaseService } from '../api.base.service';
 
 
-export interface AuthorizationCreateRequestParams {
-    createRoleDto: CreateRoleDto;
-}
-
-export interface AuthorizationFindOneRequestParams {
-    id: string;
-}
-
-export interface AuthorizationRemoveRequestParams {
-    id: string;
-}
-
-export interface AuthorizationUpdateRequestParams {
-    id: string;
-    updateRoleDto: UpdateRoleDto;
-}
-
 
 @Injectable({
   providedIn: 'root'
@@ -60,16 +43,15 @@ export class AuthorizationService extends BaseService {
      * Create a new role
      * Add a new role to the system.
      * @endpoint post /api/roles
-     * @param requestParameters
+     * @param createRoleDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public authorizationCreate(requestParameters: AuthorizationCreateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AuthorizationFindAllDefaultResponse>;
-    public authorizationCreate(requestParameters: AuthorizationCreateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AuthorizationFindAllDefaultResponse>>;
-    public authorizationCreate(requestParameters: AuthorizationCreateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AuthorizationFindAllDefaultResponse>>;
-    public authorizationCreate(requestParameters: AuthorizationCreateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const createRoleDto = requestParameters?.createRoleDto;
+    public authorizationCreate(createRoleDto: CreateRoleDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AuthorizationFindAllDefaultResponse>;
+    public authorizationCreate(createRoleDto: CreateRoleDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AuthorizationFindAllDefaultResponse>>;
+    public authorizationCreate(createRoleDto: CreateRoleDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AuthorizationFindAllDefaultResponse>>;
+    public authorizationCreate(createRoleDto: CreateRoleDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createRoleDto === null || createRoleDto === undefined) {
             throw new Error('Required parameter createRoleDto was null or undefined when calling authorizationCreate.');
         }
@@ -187,16 +169,15 @@ export class AuthorizationService extends BaseService {
      * Get role by ID
      * Retrieve a specific role by its ID.
      * @endpoint get /api/roles/{id}
-     * @param requestParameters
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public authorizationFindOne(requestParameters: AuthorizationFindOneRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AuthorizationFindAllDefaultResponse>;
-    public authorizationFindOne(requestParameters: AuthorizationFindOneRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AuthorizationFindAllDefaultResponse>>;
-    public authorizationFindOne(requestParameters: AuthorizationFindOneRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AuthorizationFindAllDefaultResponse>>;
-    public authorizationFindOne(requestParameters: AuthorizationFindOneRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public authorizationFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AuthorizationFindAllDefaultResponse>;
+    public authorizationFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AuthorizationFindAllDefaultResponse>>;
+    public authorizationFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AuthorizationFindAllDefaultResponse>>;
+    public authorizationFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling authorizationFindOne.');
         }
@@ -248,16 +229,15 @@ export class AuthorizationService extends BaseService {
      * Delete role
      * Remove a role from the system.
      * @endpoint delete /api/roles/{id}
-     * @param requestParameters
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public authorizationRemove(requestParameters: AuthorizationRemoveRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<object>;
-    public authorizationRemove(requestParameters: AuthorizationRemoveRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<object>>;
-    public authorizationRemove(requestParameters: AuthorizationRemoveRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<object>>;
-    public authorizationRemove(requestParameters: AuthorizationRemoveRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public authorizationRemove(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<object>;
+    public authorizationRemove(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<object>>;
+    public authorizationRemove(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<object>>;
+    public authorizationRemove(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling authorizationRemove.');
         }
@@ -309,20 +289,19 @@ export class AuthorizationService extends BaseService {
      * Update role
      * Update the details of an existing role.
      * @endpoint patch /api/roles/{id}
-     * @param requestParameters
+     * @param id 
+     * @param updateRoleDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public authorizationUpdate(requestParameters: AuthorizationUpdateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AuthorizationFindAllDefaultResponse>;
-    public authorizationUpdate(requestParameters: AuthorizationUpdateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AuthorizationFindAllDefaultResponse>>;
-    public authorizationUpdate(requestParameters: AuthorizationUpdateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AuthorizationFindAllDefaultResponse>>;
-    public authorizationUpdate(requestParameters: AuthorizationUpdateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public authorizationUpdate(id: string, updateRoleDto: UpdateRoleDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AuthorizationFindAllDefaultResponse>;
+    public authorizationUpdate(id: string, updateRoleDto: UpdateRoleDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AuthorizationFindAllDefaultResponse>>;
+    public authorizationUpdate(id: string, updateRoleDto: UpdateRoleDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AuthorizationFindAllDefaultResponse>>;
+    public authorizationUpdate(id: string, updateRoleDto: UpdateRoleDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling authorizationUpdate.');
         }
-        const updateRoleDto = requestParameters?.updateRoleDto;
         if (updateRoleDto === null || updateRoleDto === undefined) {
             throw new Error('Required parameter updateRoleDto was null or undefined when calling authorizationUpdate.');
         }

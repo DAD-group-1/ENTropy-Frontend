@@ -22,34 +22,14 @@ import { CreateScheduleRequestDto } from '../model/createScheduleRequestDto';
 import { ScheduleCreateDefaultResponse } from '../model/scheduleCreateDefaultResponse';
 // @ts-ignore
 import { ScheduleFindAllDefaultResponse } from '../model/scheduleFindAllDefaultResponse';
+// @ts-ignore
+import { UpdateScheduleDto } from '../model/updateScheduleDto';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 import { BaseService } from '../api.base.service';
 
-
-export interface ScheduleCreateRequestParams {
-    createScheduleRequestDto: CreateScheduleRequestDto;
-}
-
-export interface ScheduleFindAllRequestParams {
-    page?: number;
-    limit?: number;
-}
-
-export interface ScheduleFindOneRequestParams {
-    id: string;
-}
-
-export interface ScheduleRemoveRequestParams {
-    id: string;
-}
-
-export interface ScheduleUpdateRequestParams {
-    id: string;
-    body: object;
-}
 
 
 @Injectable({
@@ -65,16 +45,15 @@ export class ScheduleService extends BaseService {
      * Create a new schedule record
      * Add a new schedule record to the system.
      * @endpoint post /api/schedules
-     * @param requestParameters
+     * @param createScheduleRequestDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public scheduleCreate(requestParameters: ScheduleCreateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ScheduleCreateDefaultResponse>;
-    public scheduleCreate(requestParameters: ScheduleCreateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ScheduleCreateDefaultResponse>>;
-    public scheduleCreate(requestParameters: ScheduleCreateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ScheduleCreateDefaultResponse>>;
-    public scheduleCreate(requestParameters: ScheduleCreateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const createScheduleRequestDto = requestParameters?.createScheduleRequestDto;
+    public scheduleCreate(createScheduleRequestDto: CreateScheduleRequestDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ScheduleCreateDefaultResponse>;
+    public scheduleCreate(createScheduleRequestDto: CreateScheduleRequestDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ScheduleCreateDefaultResponse>>;
+    public scheduleCreate(createScheduleRequestDto: CreateScheduleRequestDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ScheduleCreateDefaultResponse>>;
+    public scheduleCreate(createScheduleRequestDto: CreateScheduleRequestDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createScheduleRequestDto === null || createScheduleRequestDto === undefined) {
             throw new Error('Required parameter createScheduleRequestDto was null or undefined when calling scheduleCreate.');
         }
@@ -136,17 +115,16 @@ export class ScheduleService extends BaseService {
      * Get all schedule records
      * Retrieve a list of all schedule records in the system.
      * @endpoint get /api/schedules
-     * @param requestParameters
+     * @param page 
+     * @param limit 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public scheduleFindAll(requestParameters?: ScheduleFindAllRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ScheduleFindAllDefaultResponse>;
-    public scheduleFindAll(requestParameters?: ScheduleFindAllRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ScheduleFindAllDefaultResponse>>;
-    public scheduleFindAll(requestParameters?: ScheduleFindAllRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ScheduleFindAllDefaultResponse>>;
-    public scheduleFindAll(requestParameters?: ScheduleFindAllRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const page = requestParameters?.page;
-        const limit = requestParameters?.limit;
+    public scheduleFindAll(page?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ScheduleFindAllDefaultResponse>;
+    public scheduleFindAll(page?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ScheduleFindAllDefaultResponse>>;
+    public scheduleFindAll(page?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ScheduleFindAllDefaultResponse>>;
+    public scheduleFindAll(page?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
 
@@ -216,16 +194,15 @@ export class ScheduleService extends BaseService {
      * Get a schedule record by ID
      * Retrieve a single schedule record by its unique ID.
      * @endpoint get /api/schedules/{id}
-     * @param requestParameters
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public scheduleFindOne(requestParameters: ScheduleFindOneRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ScheduleCreateDefaultResponse>;
-    public scheduleFindOne(requestParameters: ScheduleFindOneRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ScheduleCreateDefaultResponse>>;
-    public scheduleFindOne(requestParameters: ScheduleFindOneRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ScheduleCreateDefaultResponse>>;
-    public scheduleFindOne(requestParameters: ScheduleFindOneRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public scheduleFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ScheduleCreateDefaultResponse>;
+    public scheduleFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ScheduleCreateDefaultResponse>>;
+    public scheduleFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ScheduleCreateDefaultResponse>>;
+    public scheduleFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling scheduleFindOne.');
         }
@@ -277,16 +254,15 @@ export class ScheduleService extends BaseService {
      * Delete a schedule record
      * Remove a schedule record from the system by its unique ID.
      * @endpoint delete /api/schedules/{id}
-     * @param requestParameters
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public scheduleRemove(requestParameters: ScheduleRemoveRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public scheduleRemove(requestParameters: ScheduleRemoveRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public scheduleRemove(requestParameters: ScheduleRemoveRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public scheduleRemove(requestParameters: ScheduleRemoveRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public scheduleRemove(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public scheduleRemove(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public scheduleRemove(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public scheduleRemove(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling scheduleRemove.');
         }
@@ -337,22 +313,21 @@ export class ScheduleService extends BaseService {
      * Update a schedule record
      * Update an existing schedule record by its unique ID.
      * @endpoint patch /api/schedules/{id}
-     * @param requestParameters
+     * @param id 
+     * @param updateScheduleDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public scheduleUpdate(requestParameters: ScheduleUpdateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ScheduleCreateDefaultResponse>;
-    public scheduleUpdate(requestParameters: ScheduleUpdateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ScheduleCreateDefaultResponse>>;
-    public scheduleUpdate(requestParameters: ScheduleUpdateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ScheduleCreateDefaultResponse>>;
-    public scheduleUpdate(requestParameters: ScheduleUpdateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public scheduleUpdate(id: string, updateScheduleDto: UpdateScheduleDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ScheduleCreateDefaultResponse>;
+    public scheduleUpdate(id: string, updateScheduleDto: UpdateScheduleDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ScheduleCreateDefaultResponse>>;
+    public scheduleUpdate(id: string, updateScheduleDto: UpdateScheduleDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ScheduleCreateDefaultResponse>>;
+    public scheduleUpdate(id: string, updateScheduleDto: UpdateScheduleDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling scheduleUpdate.');
         }
-        const body = requestParameters?.body;
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling scheduleUpdate.');
+        if (updateScheduleDto === null || updateScheduleDto === undefined) {
+            throw new Error('Required parameter updateScheduleDto was null or undefined when calling scheduleUpdate.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -397,7 +372,7 @@ export class ScheduleService extends BaseService {
         return this.httpClient.request<ScheduleCreateDefaultResponse>('patch', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: body,
+                body: updateScheduleDto,
                 responseType: <any>responseType_,
                 ...(withCredentials ? { withCredentials } : {}),
                 headers: localVarHeaders,

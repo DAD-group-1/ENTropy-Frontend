@@ -22,34 +22,14 @@ import { CreateRoomTypeRequestDto } from '../model/createRoomTypeRequestDto';
 import { RoomTypeCreateDefaultResponse } from '../model/roomTypeCreateDefaultResponse';
 // @ts-ignore
 import { RoomTypeFindAllDefaultResponse } from '../model/roomTypeFindAllDefaultResponse';
+// @ts-ignore
+import { UpdateRoomTypeDto } from '../model/updateRoomTypeDto';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 import { BaseService } from '../api.base.service';
 
-
-export interface RoomTypeCreateRequestParams {
-    createRoomTypeRequestDto: CreateRoomTypeRequestDto;
-}
-
-export interface RoomTypeFindAllRequestParams {
-    page?: number;
-    limit?: number;
-}
-
-export interface RoomTypeFindOneRequestParams {
-    id: string;
-}
-
-export interface RoomTypeRemoveRequestParams {
-    id: string;
-}
-
-export interface RoomTypeUpdateRequestParams {
-    id: string;
-    body: object;
-}
 
 
 @Injectable({
@@ -65,16 +45,15 @@ export class RoomTypeService extends BaseService {
      * Create a new room type record
      * Add a new room type record to the system.
      * @endpoint post /api/room-types
-     * @param requestParameters
+     * @param createRoomTypeRequestDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public roomTypeCreate(requestParameters: RoomTypeCreateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<RoomTypeCreateDefaultResponse>;
-    public roomTypeCreate(requestParameters: RoomTypeCreateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<RoomTypeCreateDefaultResponse>>;
-    public roomTypeCreate(requestParameters: RoomTypeCreateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<RoomTypeCreateDefaultResponse>>;
-    public roomTypeCreate(requestParameters: RoomTypeCreateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const createRoomTypeRequestDto = requestParameters?.createRoomTypeRequestDto;
+    public roomTypeCreate(createRoomTypeRequestDto: CreateRoomTypeRequestDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<RoomTypeCreateDefaultResponse>;
+    public roomTypeCreate(createRoomTypeRequestDto: CreateRoomTypeRequestDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<RoomTypeCreateDefaultResponse>>;
+    public roomTypeCreate(createRoomTypeRequestDto: CreateRoomTypeRequestDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<RoomTypeCreateDefaultResponse>>;
+    public roomTypeCreate(createRoomTypeRequestDto: CreateRoomTypeRequestDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createRoomTypeRequestDto === null || createRoomTypeRequestDto === undefined) {
             throw new Error('Required parameter createRoomTypeRequestDto was null or undefined when calling roomTypeCreate.');
         }
@@ -136,17 +115,16 @@ export class RoomTypeService extends BaseService {
      * Get all room types
      * Retrieve a list of all room types with pagination.
      * @endpoint get /api/room-types
-     * @param requestParameters
+     * @param page 
+     * @param limit 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public roomTypeFindAll(requestParameters?: RoomTypeFindAllRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<RoomTypeFindAllDefaultResponse>;
-    public roomTypeFindAll(requestParameters?: RoomTypeFindAllRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<RoomTypeFindAllDefaultResponse>>;
-    public roomTypeFindAll(requestParameters?: RoomTypeFindAllRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<RoomTypeFindAllDefaultResponse>>;
-    public roomTypeFindAll(requestParameters?: RoomTypeFindAllRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const page = requestParameters?.page;
-        const limit = requestParameters?.limit;
+    public roomTypeFindAll(page?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<RoomTypeFindAllDefaultResponse>;
+    public roomTypeFindAll(page?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<RoomTypeFindAllDefaultResponse>>;
+    public roomTypeFindAll(page?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<RoomTypeFindAllDefaultResponse>>;
+    public roomTypeFindAll(page?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
 
@@ -216,16 +194,15 @@ export class RoomTypeService extends BaseService {
      * Get a room type by ID
      * Retrieve a single room type record by its unique ID.
      * @endpoint get /api/room-types/{id}
-     * @param requestParameters
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public roomTypeFindOne(requestParameters: RoomTypeFindOneRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public roomTypeFindOne(requestParameters: RoomTypeFindOneRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public roomTypeFindOne(requestParameters: RoomTypeFindOneRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public roomTypeFindOne(requestParameters: RoomTypeFindOneRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public roomTypeFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public roomTypeFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public roomTypeFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public roomTypeFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling roomTypeFindOne.');
         }
@@ -276,16 +253,15 @@ export class RoomTypeService extends BaseService {
      * Delete a room type
      * Remove a room type record from the system by its unique ID.
      * @endpoint delete /api/room-types/{id}
-     * @param requestParameters
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public roomTypeRemove(requestParameters: RoomTypeRemoveRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public roomTypeRemove(requestParameters: RoomTypeRemoveRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public roomTypeRemove(requestParameters: RoomTypeRemoveRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public roomTypeRemove(requestParameters: RoomTypeRemoveRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public roomTypeRemove(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public roomTypeRemove(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public roomTypeRemove(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public roomTypeRemove(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling roomTypeRemove.');
         }
@@ -336,22 +312,21 @@ export class RoomTypeService extends BaseService {
      * Update a room type
      * Update an existing room type record by its unique ID.
      * @endpoint patch /api/room-types/{id}
-     * @param requestParameters
+     * @param id 
+     * @param updateRoomTypeDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public roomTypeUpdate(requestParameters: RoomTypeUpdateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<RoomTypeCreateDefaultResponse>;
-    public roomTypeUpdate(requestParameters: RoomTypeUpdateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<RoomTypeCreateDefaultResponse>>;
-    public roomTypeUpdate(requestParameters: RoomTypeUpdateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<RoomTypeCreateDefaultResponse>>;
-    public roomTypeUpdate(requestParameters: RoomTypeUpdateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public roomTypeUpdate(id: string, updateRoomTypeDto: UpdateRoomTypeDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<RoomTypeCreateDefaultResponse>;
+    public roomTypeUpdate(id: string, updateRoomTypeDto: UpdateRoomTypeDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<RoomTypeCreateDefaultResponse>>;
+    public roomTypeUpdate(id: string, updateRoomTypeDto: UpdateRoomTypeDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<RoomTypeCreateDefaultResponse>>;
+    public roomTypeUpdate(id: string, updateRoomTypeDto: UpdateRoomTypeDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling roomTypeUpdate.');
         }
-        const body = requestParameters?.body;
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling roomTypeUpdate.');
+        if (updateRoomTypeDto === null || updateRoomTypeDto === undefined) {
+            throw new Error('Required parameter updateRoomTypeDto was null or undefined when calling roomTypeUpdate.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -396,7 +371,7 @@ export class RoomTypeService extends BaseService {
         return this.httpClient.request<RoomTypeCreateDefaultResponse>('patch', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: body,
+                body: updateRoomTypeDto,
                 responseType: <any>responseType_,
                 ...(withCredentials ? { withCredentials } : {}),
                 headers: localVarHeaders,

@@ -9,25 +9,25 @@
  */
 
 
-export interface CreateAttendanceRequestDto { 
+export interface UpdateAttendanceDto { 
     /**
      * The ID of the schedule
      */
-    schedule_id: number;
+    schedule_id?: number;
     /**
      * The ID of the student
      */
-    student_id: number;
+    student_id?: number;
     /**
      * The attendance status
      */
-    status: CreateAttendanceRequestDto.StatusEnum;
+    status?: UpdateAttendanceDto.StatusEnum;
     /**
      * Optional note about attendance
      */
-    note: object | null;
+    note?: object | null;
 }
-export namespace CreateAttendanceRequestDto {
+export namespace UpdateAttendanceDto {
     export const StatusEnum = {
         Present: 'PRESENT',
         Absent: 'ABSENT',

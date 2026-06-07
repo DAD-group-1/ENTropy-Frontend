@@ -9,46 +9,46 @@
  */
 
 
-export interface CreatePaymentDto { 
+export interface UpdatePaymentDto { 
     /**
      * The ID of the student
      */
-    student_id: number;
+    student_id?: number;
     /**
      * The invoice date
      */
-    invoice_date: string;
+    invoice_date?: string;
     /**
      * The due date for payment
      */
-    due_date: string;
+    due_date?: string;
     /**
      * The payment amount
      */
-    amount: number;
+    amount?: number;
     /**
      * The payment status
      */
-    status: number;
+    status?: number;
     /**
      * The actual payment date
      */
-    payment_date: object | null;
+    payment_date?: object | null;
     /**
      * The ID of the payment method
      */
-    payment_method_id: number;
+    payment_method_id?: number;
     /**
      * The academic year
      */
-    academic_year: number;
+    academic_year?: number;
     /**
      * The semester
      */
-    semester: number;
+    semester?: number;
     /**
      * Additional notes about the payment
      */
-    notes: string;
+    notes?: string;
 }
 

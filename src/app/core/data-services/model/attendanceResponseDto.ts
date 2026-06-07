@@ -14,7 +14,7 @@ export interface AttendanceResponseDto {
     schedule_id: number;
     student_id: number;
     status: string;
-    note: string;
+    note: object | null;
     created_at: string;
     updated_at: string;
 }

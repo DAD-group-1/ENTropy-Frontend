@@ -9,10 +9,10 @@
  */
 
 
-export interface GradeResponseDto { 
-    id: number;
-    enrollment_id: number;
-    grade: object | null;
-    name: string;
+export interface UpdatePaymentMethodDto { 
+    /**
+     * The name of the payment method
+     */
+    name?: string;
 }
 

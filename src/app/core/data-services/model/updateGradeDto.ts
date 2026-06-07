@@ -9,18 +9,18 @@
  */
 
 
-export interface CreateGradeRequestDto { 
+export interface UpdateGradeDto { 
     /**
      * The ID of the enrollment
      */
-    enrollment_id: number;
+    enrollment_id?: number;
     /**
      * The grade value
      */
-    grade: object | null;
+    grade?: object | null;
     /**
      * The name of the grade
      */
-    name: string;
+    name?: string;
 }
 

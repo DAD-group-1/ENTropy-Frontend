@@ -125,11 +125,11 @@ export const appConfig: ApplicationConfig = {
         provideHttpClient(),
         {
             provide: Configuration,
-            useFactory: (frontAuthService: AuthService) => new Configuration({
+            useFactory: (authService: AuthService) => new Configuration({
                     basePath: 'http://localhost:9999',
                     withCredentials: true,
-                    username: frontAuthService.getUsername(),
-                    password: frontAuthService.getPassword(),
+                    username: authService.getUsername(),
+                    password: authService.getPassword(),
             }),
             deps: [AuthService],
             multi: false

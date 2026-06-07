@@ -35,34 +35,6 @@ import { Configuration }                                     from '../configurat
 import { BaseService } from '../api.base.service';
 
 
-export interface NotificationsCreateRequestParams {
-    createNotificationDto: CreateNotificationDto;
-}
-
-export interface NotificationsFindAllRequestParams {
-    page?: number;
-    limit?: number;
-}
-
-export interface NotificationsFindAllForUserRequestParams {
-    userId: number;
-    page?: number;
-    limit?: number;
-}
-
-export interface NotificationsFindOneRequestParams {
-    id: string;
-}
-
-export interface NotificationsRemoveRequestParams {
-    id: string;
-}
-
-export interface NotificationsUpdateRequestParams {
-    id: string;
-    updateNotificationDto: UpdateNotificationDto;
-}
-
 
 @Injectable({
   providedIn: 'root'
@@ -77,16 +49,15 @@ export class NotificationsService extends BaseService {
      * Create a new notification record
      * Add a new notification record to the system.
      * @endpoint post /api/notifications
-     * @param requestParameters
+     * @param createNotificationDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public notificationsCreate(requestParameters: NotificationsCreateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<NotificationsCreateDefaultResponse>;
-    public notificationsCreate(requestParameters: NotificationsCreateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<NotificationsCreateDefaultResponse>>;
-    public notificationsCreate(requestParameters: NotificationsCreateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<NotificationsCreateDefaultResponse>>;
-    public notificationsCreate(requestParameters: NotificationsCreateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const createNotificationDto = requestParameters?.createNotificationDto;
+    public notificationsCreate(createNotificationDto: CreateNotificationDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<NotificationsCreateDefaultResponse>;
+    public notificationsCreate(createNotificationDto: CreateNotificationDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<NotificationsCreateDefaultResponse>>;
+    public notificationsCreate(createNotificationDto: CreateNotificationDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<NotificationsCreateDefaultResponse>>;
+    public notificationsCreate(createNotificationDto: CreateNotificationDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createNotificationDto === null || createNotificationDto === undefined) {
             throw new Error('Required parameter createNotificationDto was null or undefined when calling notificationsCreate.');
         }
@@ -148,17 +119,16 @@ export class NotificationsService extends BaseService {
      * Get a list of notifications
      * Retrieve a paginated list of notifications.
      * @endpoint get /api/notifications
-     * @param requestParameters
+     * @param page 
+     * @param limit 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public notificationsFindAll(requestParameters?: NotificationsFindAllRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<NotificationsFindAllDefaultResponse>;
-    public notificationsFindAll(requestParameters?: NotificationsFindAllRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<NotificationsFindAllDefaultResponse>>;
-    public notificationsFindAll(requestParameters?: NotificationsFindAllRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<NotificationsFindAllDefaultResponse>>;
-    public notificationsFindAll(requestParameters?: NotificationsFindAllRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const page = requestParameters?.page;
-        const limit = requestParameters?.limit;
+    public notificationsFindAll(page?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<NotificationsFindAllDefaultResponse>;
+    public notificationsFindAll(page?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<NotificationsFindAllDefaultResponse>>;
+    public notificationsFindAll(page?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<NotificationsFindAllDefaultResponse>>;
+    public notificationsFindAll(page?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
 
@@ -228,21 +198,20 @@ export class NotificationsService extends BaseService {
      * Get notifications for a specific user
      * Retrieve a paginated list of notifications for a specific user.
      * @endpoint get /api/notifications/user/{userId}
-     * @param requestParameters
+     * @param userId 
+     * @param page 
+     * @param limit 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public notificationsFindAllForUser(requestParameters: NotificationsFindAllForUserRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<NotificationsFindAllDefaultResponse>;
-    public notificationsFindAllForUser(requestParameters: NotificationsFindAllForUserRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<NotificationsFindAllDefaultResponse>>;
-    public notificationsFindAllForUser(requestParameters: NotificationsFindAllForUserRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<NotificationsFindAllDefaultResponse>>;
-    public notificationsFindAllForUser(requestParameters: NotificationsFindAllForUserRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const userId = requestParameters?.userId;
+    public notificationsFindAllForUser(userId: number, page?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<NotificationsFindAllDefaultResponse>;
+    public notificationsFindAllForUser(userId: number, page?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<NotificationsFindAllDefaultResponse>>;
+    public notificationsFindAllForUser(userId: number, page?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<NotificationsFindAllDefaultResponse>>;
+    public notificationsFindAllForUser(userId: number, page?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (userId === null || userId === undefined) {
             throw new Error('Required parameter userId was null or undefined when calling notificationsFindAllForUser.');
         }
-        const page = requestParameters?.page;
-        const limit = requestParameters?.limit;
 
         let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
 
@@ -312,16 +281,15 @@ export class NotificationsService extends BaseService {
      * Get a notification by ID
      * Retrieve a single notification by its unique ID.
      * @endpoint get /api/notifications/{id}
-     * @param requestParameters
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public notificationsFindOne(requestParameters: NotificationsFindOneRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<NotificationsFindOneDefaultResponse>;
-    public notificationsFindOne(requestParameters: NotificationsFindOneRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<NotificationsFindOneDefaultResponse>>;
-    public notificationsFindOne(requestParameters: NotificationsFindOneRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<NotificationsFindOneDefaultResponse>>;
-    public notificationsFindOne(requestParameters: NotificationsFindOneRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public notificationsFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<NotificationsFindOneDefaultResponse>;
+    public notificationsFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<NotificationsFindOneDefaultResponse>>;
+    public notificationsFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<NotificationsFindOneDefaultResponse>>;
+    public notificationsFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling notificationsFindOne.');
         }
@@ -373,16 +341,15 @@ export class NotificationsService extends BaseService {
      * Delete a notification
      * Remove a notification from the system by its unique ID.
      * @endpoint delete /api/notifications/{id}
-     * @param requestParameters
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public notificationsRemove(requestParameters: NotificationsRemoveRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<NotificationsRemoveDefaultResponse>;
-    public notificationsRemove(requestParameters: NotificationsRemoveRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<NotificationsRemoveDefaultResponse>>;
-    public notificationsRemove(requestParameters: NotificationsRemoveRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<NotificationsRemoveDefaultResponse>>;
-    public notificationsRemove(requestParameters: NotificationsRemoveRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public notificationsRemove(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<NotificationsRemoveDefaultResponse>;
+    public notificationsRemove(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<NotificationsRemoveDefaultResponse>>;
+    public notificationsRemove(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<NotificationsRemoveDefaultResponse>>;
+    public notificationsRemove(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling notificationsRemove.');
         }
@@ -434,20 +401,19 @@ export class NotificationsService extends BaseService {
      * Update a notification
      * Update the details of an existing notification.
      * @endpoint patch /api/notifications/{id}
-     * @param requestParameters
+     * @param id 
+     * @param updateNotificationDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public notificationsUpdate(requestParameters: NotificationsUpdateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<NotificationsCreateDefaultResponse>;
-    public notificationsUpdate(requestParameters: NotificationsUpdateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<NotificationsCreateDefaultResponse>>;
-    public notificationsUpdate(requestParameters: NotificationsUpdateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<NotificationsCreateDefaultResponse>>;
-    public notificationsUpdate(requestParameters: NotificationsUpdateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public notificationsUpdate(id: string, updateNotificationDto: UpdateNotificationDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<NotificationsCreateDefaultResponse>;
+    public notificationsUpdate(id: string, updateNotificationDto: UpdateNotificationDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<NotificationsCreateDefaultResponse>>;
+    public notificationsUpdate(id: string, updateNotificationDto: UpdateNotificationDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<NotificationsCreateDefaultResponse>>;
+    public notificationsUpdate(id: string, updateNotificationDto: UpdateNotificationDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling notificationsUpdate.');
         }
-        const updateNotificationDto = requestParameters?.updateNotificationDto;
         if (updateNotificationDto === null || updateNotificationDto === undefined) {
             throw new Error('Required parameter updateNotificationDto was null or undefined when calling notificationsUpdate.');
         }

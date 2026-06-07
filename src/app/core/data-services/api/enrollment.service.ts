@@ -22,34 +22,14 @@ import { CreateEnrollmentRequestDto } from '../model/createEnrollmentRequestDto'
 import { EnrollmentCreateDefaultResponse } from '../model/enrollmentCreateDefaultResponse';
 // @ts-ignore
 import { EnrollmentFindAllDefaultResponse } from '../model/enrollmentFindAllDefaultResponse';
+// @ts-ignore
+import { UpdateEnrollmentDto } from '../model/updateEnrollmentDto';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 import { BaseService } from '../api.base.service';
 
-
-export interface EnrollmentCreateRequestParams {
-    createEnrollmentRequestDto: CreateEnrollmentRequestDto;
-}
-
-export interface EnrollmentFindAllRequestParams {
-    page?: number;
-    limit?: number;
-}
-
-export interface EnrollmentFindOneRequestParams {
-    id: string;
-}
-
-export interface EnrollmentRemoveRequestParams {
-    id: string;
-}
-
-export interface EnrollmentUpdateRequestParams {
-    id: string;
-    body: object;
-}
 
 
 @Injectable({
@@ -65,16 +45,15 @@ export class EnrollmentService extends BaseService {
      * Create a new enrollment record
      * Add a new enrollment record to the system.
      * @endpoint post /api/enrollments
-     * @param requestParameters
+     * @param createEnrollmentRequestDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public enrollmentCreate(requestParameters: EnrollmentCreateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<EnrollmentCreateDefaultResponse>;
-    public enrollmentCreate(requestParameters: EnrollmentCreateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<EnrollmentCreateDefaultResponse>>;
-    public enrollmentCreate(requestParameters: EnrollmentCreateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<EnrollmentCreateDefaultResponse>>;
-    public enrollmentCreate(requestParameters: EnrollmentCreateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const createEnrollmentRequestDto = requestParameters?.createEnrollmentRequestDto;
+    public enrollmentCreate(createEnrollmentRequestDto: CreateEnrollmentRequestDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<EnrollmentCreateDefaultResponse>;
+    public enrollmentCreate(createEnrollmentRequestDto: CreateEnrollmentRequestDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<EnrollmentCreateDefaultResponse>>;
+    public enrollmentCreate(createEnrollmentRequestDto: CreateEnrollmentRequestDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<EnrollmentCreateDefaultResponse>>;
+    public enrollmentCreate(createEnrollmentRequestDto: CreateEnrollmentRequestDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createEnrollmentRequestDto === null || createEnrollmentRequestDto === undefined) {
             throw new Error('Required parameter createEnrollmentRequestDto was null or undefined when calling enrollmentCreate.');
         }
@@ -136,17 +115,16 @@ export class EnrollmentService extends BaseService {
      * Get a list of enrollments
      * Retrieve a paginated list of enrollments.
      * @endpoint get /api/enrollments
-     * @param requestParameters
+     * @param page 
+     * @param limit 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public enrollmentFindAll(requestParameters?: EnrollmentFindAllRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<EnrollmentFindAllDefaultResponse>;
-    public enrollmentFindAll(requestParameters?: EnrollmentFindAllRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<EnrollmentFindAllDefaultResponse>>;
-    public enrollmentFindAll(requestParameters?: EnrollmentFindAllRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<EnrollmentFindAllDefaultResponse>>;
-    public enrollmentFindAll(requestParameters?: EnrollmentFindAllRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const page = requestParameters?.page;
-        const limit = requestParameters?.limit;
+    public enrollmentFindAll(page?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<EnrollmentFindAllDefaultResponse>;
+    public enrollmentFindAll(page?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<EnrollmentFindAllDefaultResponse>>;
+    public enrollmentFindAll(page?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<EnrollmentFindAllDefaultResponse>>;
+    public enrollmentFindAll(page?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
 
@@ -216,16 +194,15 @@ export class EnrollmentService extends BaseService {
      * Get a specific enrollment
      * Retrieve details of a specific enrollment by its ID.
      * @endpoint get /api/enrollments/{id}
-     * @param requestParameters
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public enrollmentFindOne(requestParameters: EnrollmentFindOneRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<EnrollmentCreateDefaultResponse>;
-    public enrollmentFindOne(requestParameters: EnrollmentFindOneRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<EnrollmentCreateDefaultResponse>>;
-    public enrollmentFindOne(requestParameters: EnrollmentFindOneRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<EnrollmentCreateDefaultResponse>>;
-    public enrollmentFindOne(requestParameters: EnrollmentFindOneRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public enrollmentFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<EnrollmentCreateDefaultResponse>;
+    public enrollmentFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<EnrollmentCreateDefaultResponse>>;
+    public enrollmentFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<EnrollmentCreateDefaultResponse>>;
+    public enrollmentFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling enrollmentFindOne.');
         }
@@ -277,16 +254,15 @@ export class EnrollmentService extends BaseService {
      * Delete an enrollment
      * Remove an enrollment from the system by its ID.
      * @endpoint delete /api/enrollments/{id}
-     * @param requestParameters
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public enrollmentRemove(requestParameters: EnrollmentRemoveRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public enrollmentRemove(requestParameters: EnrollmentRemoveRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public enrollmentRemove(requestParameters: EnrollmentRemoveRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public enrollmentRemove(requestParameters: EnrollmentRemoveRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public enrollmentRemove(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public enrollmentRemove(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public enrollmentRemove(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public enrollmentRemove(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling enrollmentRemove.');
         }
@@ -337,22 +313,21 @@ export class EnrollmentService extends BaseService {
      * Update an enrollment
      * Update details of an existing enrollment by its ID.
      * @endpoint patch /api/enrollments/{id}
-     * @param requestParameters
+     * @param id 
+     * @param updateEnrollmentDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public enrollmentUpdate(requestParameters: EnrollmentUpdateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<EnrollmentCreateDefaultResponse>;
-    public enrollmentUpdate(requestParameters: EnrollmentUpdateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<EnrollmentCreateDefaultResponse>>;
-    public enrollmentUpdate(requestParameters: EnrollmentUpdateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<EnrollmentCreateDefaultResponse>>;
-    public enrollmentUpdate(requestParameters: EnrollmentUpdateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public enrollmentUpdate(id: string, updateEnrollmentDto: UpdateEnrollmentDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<EnrollmentCreateDefaultResponse>;
+    public enrollmentUpdate(id: string, updateEnrollmentDto: UpdateEnrollmentDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<EnrollmentCreateDefaultResponse>>;
+    public enrollmentUpdate(id: string, updateEnrollmentDto: UpdateEnrollmentDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<EnrollmentCreateDefaultResponse>>;
+    public enrollmentUpdate(id: string, updateEnrollmentDto: UpdateEnrollmentDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling enrollmentUpdate.');
         }
-        const body = requestParameters?.body;
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling enrollmentUpdate.');
+        if (updateEnrollmentDto === null || updateEnrollmentDto === undefined) {
+            throw new Error('Required parameter updateEnrollmentDto was null or undefined when calling enrollmentUpdate.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -397,7 +372,7 @@ export class EnrollmentService extends BaseService {
         return this.httpClient.request<EnrollmentCreateDefaultResponse>('patch', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: body,
+                body: updateEnrollmentDto,
                 responseType: <any>responseType_,
                 ...(withCredentials ? { withCredentials } : {}),
                 headers: localVarHeaders,

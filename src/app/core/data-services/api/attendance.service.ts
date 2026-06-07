@@ -22,34 +22,14 @@ import { AttendanceCreateDefaultResponse } from '../model/attendanceCreateDefaul
 import { AttendanceFindAllDefaultResponse } from '../model/attendanceFindAllDefaultResponse';
 // @ts-ignore
 import { CreateAttendanceRequestDto } from '../model/createAttendanceRequestDto';
+// @ts-ignore
+import { UpdateAttendanceDto } from '../model/updateAttendanceDto';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 import { BaseService } from '../api.base.service';
 
-
-export interface AttendanceCreateRequestParams {
-    createAttendanceRequestDto: CreateAttendanceRequestDto;
-}
-
-export interface AttendanceFindAllRequestParams {
-    page?: number;
-    limit?: number;
-}
-
-export interface AttendanceFindOneRequestParams {
-    id: string;
-}
-
-export interface AttendanceRemoveRequestParams {
-    id: string;
-}
-
-export interface AttendanceUpdateRequestParams {
-    id: string;
-    body: object;
-}
 
 
 @Injectable({
@@ -65,16 +45,15 @@ export class AttendanceService extends BaseService {
      * Create a new attendance record
      * Add a new attendance record to the system.
      * @endpoint post /api/attendances
-     * @param requestParameters
+     * @param createAttendanceRequestDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public attendanceCreate(requestParameters: AttendanceCreateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AttendanceCreateDefaultResponse>;
-    public attendanceCreate(requestParameters: AttendanceCreateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AttendanceCreateDefaultResponse>>;
-    public attendanceCreate(requestParameters: AttendanceCreateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AttendanceCreateDefaultResponse>>;
-    public attendanceCreate(requestParameters: AttendanceCreateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const createAttendanceRequestDto = requestParameters?.createAttendanceRequestDto;
+    public attendanceCreate(createAttendanceRequestDto: CreateAttendanceRequestDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AttendanceCreateDefaultResponse>;
+    public attendanceCreate(createAttendanceRequestDto: CreateAttendanceRequestDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AttendanceCreateDefaultResponse>>;
+    public attendanceCreate(createAttendanceRequestDto: CreateAttendanceRequestDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AttendanceCreateDefaultResponse>>;
+    public attendanceCreate(createAttendanceRequestDto: CreateAttendanceRequestDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createAttendanceRequestDto === null || createAttendanceRequestDto === undefined) {
             throw new Error('Required parameter createAttendanceRequestDto was null or undefined when calling attendanceCreate.');
         }
@@ -136,17 +115,16 @@ export class AttendanceService extends BaseService {
      * Get all attendance records
      * Retrieve a paginated list of all attendance records.
      * @endpoint get /api/attendances
-     * @param requestParameters
+     * @param page 
+     * @param limit 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public attendanceFindAll(requestParameters?: AttendanceFindAllRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AttendanceFindAllDefaultResponse>;
-    public attendanceFindAll(requestParameters?: AttendanceFindAllRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AttendanceFindAllDefaultResponse>>;
-    public attendanceFindAll(requestParameters?: AttendanceFindAllRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AttendanceFindAllDefaultResponse>>;
-    public attendanceFindAll(requestParameters?: AttendanceFindAllRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const page = requestParameters?.page;
-        const limit = requestParameters?.limit;
+    public attendanceFindAll(page?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AttendanceFindAllDefaultResponse>;
+    public attendanceFindAll(page?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AttendanceFindAllDefaultResponse>>;
+    public attendanceFindAll(page?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AttendanceFindAllDefaultResponse>>;
+    public attendanceFindAll(page?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
 
@@ -216,16 +194,15 @@ export class AttendanceService extends BaseService {
      * Get a specific attendance record
      * Retrieve details of a specific attendance record by its ID.
      * @endpoint get /api/attendances/{id}
-     * @param requestParameters
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public attendanceFindOne(requestParameters: AttendanceFindOneRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AttendanceCreateDefaultResponse>;
-    public attendanceFindOne(requestParameters: AttendanceFindOneRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AttendanceCreateDefaultResponse>>;
-    public attendanceFindOne(requestParameters: AttendanceFindOneRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AttendanceCreateDefaultResponse>>;
-    public attendanceFindOne(requestParameters: AttendanceFindOneRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public attendanceFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AttendanceCreateDefaultResponse>;
+    public attendanceFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AttendanceCreateDefaultResponse>>;
+    public attendanceFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AttendanceCreateDefaultResponse>>;
+    public attendanceFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling attendanceFindOne.');
         }
@@ -277,16 +254,15 @@ export class AttendanceService extends BaseService {
      * Delete an attendance record
      * Remove an attendance record from the system by its ID.
      * @endpoint delete /api/attendances/{id}
-     * @param requestParameters
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public attendanceRemove(requestParameters: AttendanceRemoveRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public attendanceRemove(requestParameters: AttendanceRemoveRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public attendanceRemove(requestParameters: AttendanceRemoveRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public attendanceRemove(requestParameters: AttendanceRemoveRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public attendanceRemove(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public attendanceRemove(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public attendanceRemove(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public attendanceRemove(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling attendanceRemove.');
         }
@@ -337,22 +313,21 @@ export class AttendanceService extends BaseService {
      * Update an attendance record
      * Update the details of an existing attendance record by its ID.
      * @endpoint patch /api/attendances/{id}
-     * @param requestParameters
+     * @param id 
+     * @param updateAttendanceDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public attendanceUpdate(requestParameters: AttendanceUpdateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AttendanceCreateDefaultResponse>;
-    public attendanceUpdate(requestParameters: AttendanceUpdateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AttendanceCreateDefaultResponse>>;
-    public attendanceUpdate(requestParameters: AttendanceUpdateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AttendanceCreateDefaultResponse>>;
-    public attendanceUpdate(requestParameters: AttendanceUpdateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public attendanceUpdate(id: string, updateAttendanceDto: UpdateAttendanceDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AttendanceCreateDefaultResponse>;
+    public attendanceUpdate(id: string, updateAttendanceDto: UpdateAttendanceDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AttendanceCreateDefaultResponse>>;
+    public attendanceUpdate(id: string, updateAttendanceDto: UpdateAttendanceDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AttendanceCreateDefaultResponse>>;
+    public attendanceUpdate(id: string, updateAttendanceDto: UpdateAttendanceDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling attendanceUpdate.');
         }
-        const body = requestParameters?.body;
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling attendanceUpdate.');
+        if (updateAttendanceDto === null || updateAttendanceDto === undefined) {
+            throw new Error('Required parameter updateAttendanceDto was null or undefined when calling attendanceUpdate.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -397,7 +372,7 @@ export class AttendanceService extends BaseService {
         return this.httpClient.request<AttendanceCreateDefaultResponse>('patch', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: body,
+                body: updateAttendanceDto,
                 responseType: <any>responseType_,
                 ...(withCredentials ? { withCredentials } : {}),
                 headers: localVarHeaders,

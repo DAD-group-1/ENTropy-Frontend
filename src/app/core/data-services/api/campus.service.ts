@@ -22,34 +22,14 @@ import { CampusCreateDefaultResponse } from '../model/campusCreateDefaultRespons
 import { CampusFindAllDefaultResponse } from '../model/campusFindAllDefaultResponse';
 // @ts-ignore
 import { CreateCampusRequestDto } from '../model/createCampusRequestDto';
+// @ts-ignore
+import { UpdateCampusDto } from '../model/updateCampusDto';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 import { BaseService } from '../api.base.service';
 
-
-export interface CampusCreateRequestParams {
-    createCampusRequestDto: CreateCampusRequestDto;
-}
-
-export interface CampusFindAllRequestParams {
-    page?: number;
-    limit?: number;
-}
-
-export interface CampusFindOneRequestParams {
-    id: string;
-}
-
-export interface CampusRemoveRequestParams {
-    id: string;
-}
-
-export interface CampusUpdateRequestParams {
-    id: string;
-    body: object;
-}
 
 
 @Injectable({
@@ -65,16 +45,15 @@ export class CampusService extends BaseService {
      * Create a new campus record
      * Add a new campus record to the system.
      * @endpoint post /api/campuses
-     * @param requestParameters
+     * @param createCampusRequestDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public campusCreate(requestParameters: CampusCreateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CampusCreateDefaultResponse>;
-    public campusCreate(requestParameters: CampusCreateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CampusCreateDefaultResponse>>;
-    public campusCreate(requestParameters: CampusCreateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CampusCreateDefaultResponse>>;
-    public campusCreate(requestParameters: CampusCreateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const createCampusRequestDto = requestParameters?.createCampusRequestDto;
+    public campusCreate(createCampusRequestDto: CreateCampusRequestDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CampusCreateDefaultResponse>;
+    public campusCreate(createCampusRequestDto: CreateCampusRequestDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CampusCreateDefaultResponse>>;
+    public campusCreate(createCampusRequestDto: CreateCampusRequestDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CampusCreateDefaultResponse>>;
+    public campusCreate(createCampusRequestDto: CreateCampusRequestDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createCampusRequestDto === null || createCampusRequestDto === undefined) {
             throw new Error('Required parameter createCampusRequestDto was null or undefined when calling campusCreate.');
         }
@@ -136,17 +115,16 @@ export class CampusService extends BaseService {
      * Get all campuses
      * Retrieve a list of all campuses with pagination support.
      * @endpoint get /api/campuses
-     * @param requestParameters
+     * @param page 
+     * @param limit 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public campusFindAll(requestParameters?: CampusFindAllRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CampusFindAllDefaultResponse>;
-    public campusFindAll(requestParameters?: CampusFindAllRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CampusFindAllDefaultResponse>>;
-    public campusFindAll(requestParameters?: CampusFindAllRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CampusFindAllDefaultResponse>>;
-    public campusFindAll(requestParameters?: CampusFindAllRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const page = requestParameters?.page;
-        const limit = requestParameters?.limit;
+    public campusFindAll(page?: number, limit?: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CampusFindAllDefaultResponse>;
+    public campusFindAll(page?: number, limit?: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CampusFindAllDefaultResponse>>;
+    public campusFindAll(page?: number, limit?: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CampusFindAllDefaultResponse>>;
+    public campusFindAll(page?: number, limit?: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
 
@@ -216,16 +194,15 @@ export class CampusService extends BaseService {
      * Get a campus by ID
      * Retrieve a single campus record by its unique ID.
      * @endpoint get /api/campuses/{id}
-     * @param requestParameters
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public campusFindOne(requestParameters: CampusFindOneRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CampusCreateDefaultResponse>;
-    public campusFindOne(requestParameters: CampusFindOneRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CampusCreateDefaultResponse>>;
-    public campusFindOne(requestParameters: CampusFindOneRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CampusCreateDefaultResponse>>;
-    public campusFindOne(requestParameters: CampusFindOneRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public campusFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CampusCreateDefaultResponse>;
+    public campusFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CampusCreateDefaultResponse>>;
+    public campusFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CampusCreateDefaultResponse>>;
+    public campusFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling campusFindOne.');
         }
@@ -277,16 +254,15 @@ export class CampusService extends BaseService {
      * Delete a campus record
      * Remove an existing campus record by its unique ID.
      * @endpoint delete /api/campuses/{id}
-     * @param requestParameters
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public campusRemove(requestParameters: CampusRemoveRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public campusRemove(requestParameters: CampusRemoveRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public campusRemove(requestParameters: CampusRemoveRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public campusRemove(requestParameters: CampusRemoveRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public campusRemove(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public campusRemove(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public campusRemove(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public campusRemove(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling campusRemove.');
         }
@@ -337,22 +313,21 @@ export class CampusService extends BaseService {
      * Update a campus record
      * Update an existing campus record by its unique ID.
      * @endpoint patch /api/campuses/{id}
-     * @param requestParameters
+     * @param id 
+     * @param updateCampusDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public campusUpdate(requestParameters: CampusUpdateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CampusCreateDefaultResponse>;
-    public campusUpdate(requestParameters: CampusUpdateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CampusCreateDefaultResponse>>;
-    public campusUpdate(requestParameters: CampusUpdateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CampusCreateDefaultResponse>>;
-    public campusUpdate(requestParameters: CampusUpdateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
+    public campusUpdate(id: string, updateCampusDto: UpdateCampusDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<CampusCreateDefaultResponse>;
+    public campusUpdate(id: string, updateCampusDto: UpdateCampusDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<CampusCreateDefaultResponse>>;
+    public campusUpdate(id: string, updateCampusDto: UpdateCampusDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<CampusCreateDefaultResponse>>;
+    public campusUpdate(id: string, updateCampusDto: UpdateCampusDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling campusUpdate.');
         }
-        const body = requestParameters?.body;
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling campusUpdate.');
+        if (updateCampusDto === null || updateCampusDto === undefined) {
+            throw new Error('Required parameter updateCampusDto was null or undefined when calling campusUpdate.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -397,7 +372,7 @@ export class CampusService extends BaseService {
         return this.httpClient.request<CampusCreateDefaultResponse>('patch', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: body,
+                body: updateCampusDto,
                 responseType: <any>responseType_,
                 ...(withCredentials ? { withCredentials } : {}),
                 headers: localVarHeaders,

@@ -16,7 +16,7 @@ export interface PaymentResponseDto {
     due_date: string;
     amount: number;
     status: number;
-    payment_date: string;
+    payment_date: object | null;
     payment_method_id: number;
     academic_year: number;
     semester: number;
