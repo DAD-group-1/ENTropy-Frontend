@@ -1,8 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { NgClass, TitleCasePipe } from '@angular/common';
+import { Component, Input, Signal } from '@angular/core';
+import { DatePipe, NgClass, TitleCasePipe } from '@angular/common';
 import { Card } from 'primeng/card';
+import { Roles } from '../../service/front-auth.service';
+import { RouterLink } from '@angular/router';
 
-export type ProfileType = 'student' | 'instructor';
+export type ProfileType = Roles.STUDENT | Roles.INSTRUCTOR;
 
 export interface ProfileData {
   firstname: string;
@@ -27,16 +29,20 @@ export interface ProfileData {
 
 @Component({
   selector: 'app-profile',
-  imports: [TitleCasePipe, Card, NgClass],
+  imports: [TitleCasePipe, Card, NgClass, RouterLink, DatePipe],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
 export class Profile {
-  @Input({ required: true }) userData!: ProfileData;
-  @Input({ required: true }) profileType!: ProfileType;
+  @Input({ required: true }) userData!: Signal<ProfileData | null>;
+  @Input({ required: true }) profileType!: Signal<ProfileType | null>;
+  @Input({ required: true }) userId!: string | undefined;
+  @Input({ required: true }) isMyProfile!: boolean;
+
+  public Roles = Roles;
 
   public readonly roleMap: Record<ProfileType, string> = {
-    student: 'bg-blue-100 text-blue-700',
-    instructor: 'bg-green-100 text-green-700',
+    Student: 'bg-blue-100 text-blue-700',
+    Instructor: 'bg-green-100 text-green-700',
   };
 }

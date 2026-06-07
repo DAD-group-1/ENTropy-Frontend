@@ -1,1 +1,5 @@
-<app-profile [userData]="userData" [profileType]="userType" />
+<app-profile [userData]="userData"
+             [profileType]="userType"
+             [userId]="frontAuthService.userId"
+             [isMyProfile]="!(!!userId)"
+/>
