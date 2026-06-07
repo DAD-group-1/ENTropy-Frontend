@@ -24,18 +24,21 @@
         </div>
       </section>
       <section class="buttons">
-        @if (profileType() === Roles.INSTRUCTOR) {
+        @switch (profileType()) {
+          @case(Roles.STUDENT) {
+            <button class="p-button p-button-outlined"
+                    [routerLink]="isMyProfile ? ['/grades'] : ['/grades', userId]">
+              See Grades
+            </button>
 
-        } @else {
-          <button class="p-button p-button-outlined"
-                  [routerLink]="isMyProfile ? ['/grades'] : ['/grades', userId]">
-            See Grades
-          </button>
+            <button class="p-button p-button-outlined"
+                    [routerLink]="isMyProfile ? ['/absences'] : ['/absences', userId]">
+              See Absences
+            </button>
+          }
+          @default {
 
-          <button class="p-button p-button-outlined"
-                  [routerLink]="isMyProfile ? ['/absences'] : ['/absences', userId]">
-            See Absences
-          </button>
+          }
         }
       </section>
     </header>

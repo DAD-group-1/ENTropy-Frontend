@@ -34,39 +34,54 @@ export class ProfilePage implements OnInit {
     if (this.userId) {
       try {
         //TODO: get role based on userId
-        const isStudent = true;
-        this.getData(isStudent, this.userId);
+        const userRole = Roles.STUDENT;
+        this.getData(userRole, this.userId);
       } catch {
         this.frontNavigationService.navigate('/not-found');
       }
     } else {
-      const userRole = this.frontAuthService.tokenPersonalizedData?.roles[0];
+      const userRole = this.frontAuthService.tokenPersonalizedData?.roles?.[0];
 
       const isStudent = userRole === Roles.STUDENT;
       const isInstructor = userRole === Roles.INSTRUCTOR;
+      const isManager = userRole === Roles.MANAGER;
+      const isAdmin = userRole === Roles.ADMIN;
 
-      if (!userRole || (!isStudent && !isInstructor)) {
+      if (!userRole || (!isStudent && !isInstructor && !isManager && !isAdmin)) {
         this.frontNavigationService.navigate('/not-found');
+        return;
       }
 
       const userId = this.frontAuthService.userId ?? '';
 
-      this.getData(isStudent, userId);
+      this.getData(userRole, userId);
     }
   }
 
-  private getData(isStudent: boolean, userId: string) {
-    if (isStudent) {
-      this.studentService.studentFindOne({ id: userId }).subscribe({
-        next: (result) => this.handleProfile<StudentFindOneDefaultResponse>(result, Roles.STUDENT),
-        error: () => this.frontNavigationService.navigate('/not-found'),
-      });
-    } else {
-      this.instructorService.instructorFindOne({ id: userId }).subscribe({
-        next: (result) =>
-          this.handleProfile<InstructorFindOneDefaultResponse>(result, Roles.INSTRUCTOR),
-        error: () => this.frontNavigationService.navigate('/not-found'),
-      });
+  private getData(role: Roles, userId: string) {
+    switch (role) {
+      case Roles.STUDENT:
+        this.studentService.studentFindOne({ id: userId }).subscribe({
+          next: (result) =>
+            this.handleProfile<StudentFindOneDefaultResponse>(result, Roles.STUDENT),
+          error: () => this.frontNavigationService.navigate('/not-found'),
+        });
+        break;
+      case Roles.INSTRUCTOR:
+        this.instructorService.instructorFindOne({ id: userId }).subscribe({
+          next: (result) =>
+            this.handleProfile<InstructorFindOneDefaultResponse>(result, Roles.INSTRUCTOR),
+          error: () => this.frontNavigationService.navigate('/not-found'),
+        });
+        break;
+      default:
+        //TODO Get user
+        // this.userService.userFindOne({ id: userId }).subscribe({
+        //   next: (result) =>
+        //     this.handleProfile<UserFindOneDefaultResponse>(result, role),
+        //   error: () => this.frontNavigationService.navigate('/not-found'),
+        // });
+        break;
     }
   }
 
@@ -76,6 +91,7 @@ export class ProfilePage implements OnInit {
   ) {
     const student = result as StudentFindOneDefaultResponse;
     const instructor = result as InstructorFindOneDefaultResponse;
+    // const user = result as InstructorFindOneDefaultResponse;
 
     // TODO Remove
     /* eslint-disable @typescript-eslint/no-explicit-any */
