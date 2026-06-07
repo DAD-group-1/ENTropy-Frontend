@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FrontNotificationService } from '../../shared-modules/service/front-notification.service';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -9,6 +9,7 @@ import {
 } from '../../core/data-services';
 import { Paginator, PaginatorState } from 'primeng/paginator';
 import { FrontAuthService } from '../../shared-modules/service/front-auth.service';
+import { FrontWebsocketService } from '../../shared-modules/service/front-websocket.service';
 
 @Component({
   selector: 'app-notifications-page',
@@ -16,15 +17,25 @@ import { FrontAuthService } from '../../shared-modules/service/front-auth.servic
   templateUrl: './notifications-page.html',
   styleUrl: './notifications-page.css',
 })
-export class NotificationsPage {
+export class NotificationsPage implements OnInit {
   private readonly api = inject(NotificationsService);
   private readonly frontAuthService = inject(FrontAuthService);
   public frontNotificationService = inject(FrontNotificationService);
+  private readonly frontWebsocketService = inject(FrontWebsocketService);
 
   public isLoading = signal(false);
 
+  public page = signal(1);
   public numberOfRows = signal(10);
   public firstRow = signal(1);
+
+  ngOnInit() {
+    this.frontNotificationService.loadInitialNotifications();
+
+    this.frontWebsocketService.on<GetNotificationResponseDto>('notification:new', () => {
+      this.loadNotifications(undefined, true);
+    });
+  }
 
   markAsRead(notification: GetNotificationResponseDto, event: Event) {
     event.preventDefault();
@@ -33,19 +44,20 @@ export class NotificationsPage {
     this.frontNotificationService.readNotification(notification._id);
   }
 
-  loadNewNotifications(event: PaginatorState) {
-    if (!event) return;
+  loadNotifications(event?: PaginatorState, reload?: boolean) {
+    if (!reload && event) {
+      this.page.set((event.page ?? 0) + 1);
+    }
 
     const notificationQuery: NotificationsFindAllForUserRequestParams = {
-      userId: parseInt(this.frontAuthService.tokenData?.sub ?? '0', 10),
-      page: (event.page ?? 0) + 1,
-      limit: event.rows,
+      userId: parseInt(this.frontAuthService.userId ?? '0', 10),
+      page: this.page(),
+      limit: this.numberOfRows(),
     };
 
     this.isLoading.set(true);
     this.api.notificationsFindAllForUser(notificationQuery).subscribe({
       next: (result) => {
-        console.log(result);
         this.frontNotificationService.setPaginationResults(result?.data ?? null);
         this.frontNotificationService.setCurrentNotifications(result?.data?.items ?? []);
       },

@@ -52,7 +52,7 @@ export class FrontNotificationService {
     return Math.ceil(res.total / res.limit) > 1;
   });
 
-  private loadInitialNotifications() {
+  public loadInitialNotifications() {
     const notificationQuery: NotificationsFindAllForUserRequestParams = {
       userId: parseInt(this.frontAuthService.tokenData?.sub ?? '0', 10),
       page: 1,

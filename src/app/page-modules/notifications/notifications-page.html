@@ -65,6 +65,6 @@
       [rows]="numberOfRows()"
       [totalRecords]="frontNotificationService.paginationResults()?.total || 0"
       [rowsPerPageOptions]="[10, 20, 30]"
-      (onPageChange)="loadNewNotifications($event)"
+      (onPageChange)="loadNotifications($event)"
     ></p-paginator>
 </div>

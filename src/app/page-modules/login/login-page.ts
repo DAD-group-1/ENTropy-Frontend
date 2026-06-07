@@ -19,6 +19,7 @@ import { finalize } from 'rxjs/operators';
 import { FrontAuthService } from '../../shared-modules/service/front-auth.service';
 import { ProgressSpinner } from 'primeng/progressspinner';
 import { FrontLayoutService } from '../../shared-modules/service/front-layout.service';
+import { FrontWebsocketService } from '../../shared-modules/service/front-websocket.service';
 
 @Component({
   selector: 'app-login-page',
@@ -42,8 +43,9 @@ export class LoginPage implements OnInit {
   private readonly frontLayoutService = inject(FrontLayoutService);
   private readonly authenticationService = inject(AuthenticationService);
   private readonly frontNavigationService = inject(FrontNavigationService);
-  private readonly fb = inject(FormBuilder);
   public readonly frontAuthService = inject(FrontAuthService);
+  private readonly frontWebsocketService = inject(FrontWebsocketService);
+  private readonly fb = inject(FormBuilder);
 
   loading = signal<boolean>(false);
   loginError = signal<string>('');
@@ -127,6 +129,7 @@ export class LoginPage implements OnInit {
           this.frontNavigationService.navigate('/');
           this.frontLayoutService.setLoggedLayout(true);
           this.frontAuthService.loadingLogginYouBackIn.set(true);
+          this.frontWebsocketService.connect(this.frontAuthService.userId as string);
         },
         error: (err) => {
           this.loginError.set(err?.error?.message || 'Invalid email or password');

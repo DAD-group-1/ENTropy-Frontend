@@ -4,15 +4,7 @@ import { FrontNotificationService } from '../../service/front-notification.servi
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { GetNotificationResponseDto } from '../../../core/data-services';
-
-export interface NotificationItem {
-  id: number,
-  title: string,
-  message: string,
-  redirectUrl: string,
-  read: boolean,
-  publishDate: Date
-}
+import { FrontWebsocketService } from '../../service/front-websocket.service';
 
 @Component({
   selector: 'app-notification',
@@ -20,13 +12,24 @@ export interface NotificationItem {
   templateUrl: './notification.html',
   styleUrl: './notification.css',
 })
-export class Notification implements OnInit{
+export class Notification implements OnInit {
   @ViewChild('notificationPopover') notificationPopover!: Popover;
 
+  private readonly frontWebsocketService = inject(FrontWebsocketService);
   public frontNotificationService = inject(FrontNotificationService);
 
   ngOnInit() {
     window.addEventListener('resize', this.hide.bind(this));
+
+    this.frontWebsocketService.on<GetNotificationResponseDto>(
+      'notification:new',
+      (notification) => {
+        const updated = [notification, ...this.frontNotificationService.latestNotifications()];
+        const result = updated.slice(0, 10);
+
+        this.frontNotificationService.setLatestNotifications(result);
+      },
+    );
   }
 
   onNotificationClick(notification: GetNotificationResponseDto) {

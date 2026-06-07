@@ -6,6 +6,7 @@ import { filter } from 'rxjs/operators';
 import { FrontLayoutService } from './front-layout.service';
 import { HttpContext } from '@angular/common/http';
 import { SKIP_INTERCEPTOR } from '../../core/interceptors/jwt-interceptor';
+import { FrontWebsocketService } from './front-websocket.service';
 
 export enum Roles {
   STUDENT = 'Student',
@@ -28,6 +29,7 @@ interface TokenData {
 export class FrontAuthService {
   private frontLayoutService = inject(FrontLayoutService);
   private frontNavigationService = inject(FrontNavigationService);
+  private frontWebsocketService = inject(FrontWebsocketService);
   private api = inject(AuthenticationService);
 
   private isRefreshing = false;
@@ -180,6 +182,7 @@ export class FrontAuthService {
 
     this.frontLayoutService.setLoggedLayout(false);
     this.loadingLogginYouBackIn.set(false);
+    this.frontWebsocketService.disconnect();
     this.frontNavigationService.navigate('/login');
   }
 
