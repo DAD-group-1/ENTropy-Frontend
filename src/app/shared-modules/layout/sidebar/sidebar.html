@@ -11,21 +11,44 @@
     'desktop-inactive': frontLayoutService.layoutState().staticMenuDesktopInactive && frontLayoutService.isDesktop()
   }"
 >
-  <!-- Avatar and Student Name (Tailwind classes) -->
-  <header>
-    <button type="button" class="flex items-center gap-3 overflow-hidden cursor-pointer"
-             (click)="frontNavigationService.navigate('/profile')">
-      <img src="assets/user-avatar.png" alt="Student Avatar"
-           class="w-12 h-12 rounded-full object-cover border-2 border-white/6" />
-      <section class="truncate text-left">
-        <p class="sidebar-student-name">{{ studentName || 'Student Name' }}</p>
-        <p class="sidebar-entropy">{{ role }} · ENTropy</p>
-      </section>
-    </button>
-    <button class="close-button" (click)="frontLayoutService.onMenuToggle()">
-      <i class="pi pi-times"></i>
-    </button>
-  </header>
+  @if (profileLoading()) {
+    <header>
+      <div class="flex items-center gap-3 p-2">
+        <!-- Avatar skeleton -->
+        <p-skeleton
+          shape="circle"
+          width="3.5rem"
+          height="3rem">
+        </p-skeleton>
+
+        <!-- Text skeleton -->
+        <section class="flex flex-col gap-2 w-full">
+          <p-skeleton width="10rem" height="0.8rem"></p-skeleton>
+          <p-skeleton width="6rem" height="0.6rem"></p-skeleton>
+        </section>
+      </div>
+
+      <button class="close-button" (click)="frontLayoutService.onMenuToggle()">
+        <i class="pi pi-times"></i>
+      </button>
+    </header>
+  } @else {
+    <!-- Avatar and Student Name (Tailwind classes) -->
+    <header>
+      <button type="button" class="flex items-center gap-3 overflow-hidden cursor-pointer"
+              (click)="frontNavigationService.navigate('/profile')">
+        <img src="assets/user-avatar.png" alt="Student Avatar"
+             class="w-12 h-12 rounded-full object-cover border-2 border-white/6" />
+        <section class="truncate text-left">
+          <p class="sidebar-student-name">{{ userName() || 'Student Name' }}</p>
+          <p class="sidebar-entropy">{{ role() }} · ENTropy</p>
+        </section>
+      </button>
+      <button class="close-button" (click)="frontLayoutService.onMenuToggle()">
+        <i class="pi pi-times"></i>
+      </button>
+    </header>
+  }
 
   <ul class="layout-menu p-2 space-y-2" role="menu">
     <ng-container>

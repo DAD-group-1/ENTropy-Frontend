@@ -1,11 +1,13 @@
-import { Component, effect, ElementRef, inject, OnDestroy } from '@angular/core';
+import { Component, effect, ElementRef, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { FrontLayoutService } from '../../service/front-layout.service';
 import { Subject } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
+import { FrontLayoutService } from '../../service/front-layout.service';
 import { FrontNavigationService } from '../../service/front-navigation.service';
-import { FrontAuthService } from '../../service/front-auth.service';
+import { FrontAuthService, Roles } from '../../service/front-auth.service';
+import { UserService } from '../../../core/data-services';
+import { SkeletonModule } from 'primeng/skeleton';
 
 interface MenuItem {
   icon: string;
@@ -16,19 +18,20 @@ interface MenuItem {
 
 @Component({
   selector: 'app-sidebar',
-  imports: [NgClass, ButtonModule, RouterModule],
+  imports: [NgClass, ButtonModule, RouterModule, SkeletonModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
-export class Sidebar implements OnDestroy {
+export class Sidebar implements OnInit, OnDestroy {
   frontLayoutService = inject(FrontLayoutService);
   frontNavigationService = inject(FrontNavigationService);
   frontAuthService = inject(FrontAuthService);
   el = inject(ElementRef);
+  userService = inject(UserService);
 
-  //TODO: Get from Auth service
-  protected studentName = 'John Doe';
-  protected role = 'Student';
+  protected profileLoading = signal<boolean>(true);
+  protected userName = signal('');
+  protected role: WritableSignal<Roles | ''> = signal('');
 
   private outsideClickListener: ((event: MouseEvent) => void) | null = null;
 
@@ -51,6 +54,21 @@ export class Sidebar implements OnDestroy {
           this.unbindOutsideClickListener();
         }
       }
+    });
+  }
+
+  ngOnInit() {
+    this.userService.userFindOne({ id: this.frontAuthService.tokenData!.sub }).subscribe({
+      next: (result) => {
+        const userName = `${result?.data?.first_name} ${result?.data?.last_name?.toUpperCase()}`;
+        this.userName.set(userName);
+        this.role.set(this.frontAuthService.tokenPersonalizedData!.role);
+      },
+      complete: () => {
+        setTimeout(() => {
+          this.profileLoading.set(false);
+        }, 1000);
+      },
     });
   }
 
