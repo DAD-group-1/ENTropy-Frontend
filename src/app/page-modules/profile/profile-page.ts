@@ -1,15 +1,25 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
-import { Profile, ProfileData, ProfileType } from '../../shared-modules/app-common/profile/profile';
+import { Profile, ProfileData } from '../../shared-modules/app-common/profile/profile';
 import { ActivatedRoute } from '@angular/router';
 import { FrontNavigationService } from '../../shared-modules/service/front-navigation.service';
 import { FrontAuthService, Roles } from '../../shared-modules/service/front-auth.service';
 import {
   InstructorFindOneDefaultResponse,
+  InstructorResponseDto,
   InstructorService,
   StudentFindOneDefaultResponse,
+  StudentResponseDto,
   StudentService,
+  UserFindOneDefaultResponse,
+  UserResponseDto,
   UserRoleService,
+  UserService,
 } from '../../core/data-services';
+
+type ProfileResponse =
+  | UserFindOneDefaultResponse
+  | StudentFindOneDefaultResponse
+  | InstructorFindOneDefaultResponse;
 
 @Component({
   selector: 'app-profile-page',
@@ -19,12 +29,13 @@ import {
 })
 export class ProfilePage implements OnInit {
   userData: WritableSignal<ProfileData | null> = signal(null);
-  userType: WritableSignal<ProfileType | null> = signal(null);
+  userType: WritableSignal<Roles | null> = signal(null);
 
   route = inject(ActivatedRoute);
   frontNavigationService = inject(FrontNavigationService);
   frontAuthService = inject(FrontAuthService);
   userRoleService = inject(UserRoleService);
+  userService = inject(UserService);
   studentService = inject(StudentService);
   instructorService = inject(InstructorService);
 
@@ -46,8 +57,6 @@ export class ProfilePage implements OnInit {
     } else {
       const userRole = this.frontAuthService.tokenPersonalizedData?.role;
 
-      console.log(userRole);
-
       const isStudent = userRole === Roles.STUDENT;
       const isInstructor = userRole === Roles.INSTRUCTOR;
       const isManagement = userRole === Roles.MANAGEMENT;
@@ -68,70 +77,68 @@ export class ProfilePage implements OnInit {
     switch (role) {
       case Roles.STUDENT:
         this.studentService.studentFindOne({ id: userId }).subscribe({
-          next: (result) =>
-            this.handleProfile<StudentFindOneDefaultResponse>(result, Roles.STUDENT),
+          next: (result) => this.handleProfile(result, Roles.STUDENT),
           error: () => this.frontNavigationService.navigate('/not-found'),
         });
         break;
       case Roles.INSTRUCTOR:
         this.instructorService.instructorFindOne({ id: userId }).subscribe({
-          next: (result) =>
-            this.handleProfile<InstructorFindOneDefaultResponse>(result, Roles.INSTRUCTOR),
+          next: (result) => this.handleProfile(result, Roles.INSTRUCTOR),
           error: () => this.frontNavigationService.navigate('/not-found'),
         });
         break;
       default:
-        //TODO Get user
-        // this.userService.userFindOne({ id: userId }).subscribe({
-        //   next: (result) =>
-        //     this.handleProfile<UserFindOneDefaultResponse>(result, role),
-        //   error: () => this.frontNavigationService.navigate('/not-found'),
-        // });
+        this.userService.userFindOne({ id: userId }).subscribe({
+          next: (result) => this.handleProfile(result, role),
+          error: () => this.frontNavigationService.navigate('/not-found'),
+        });
         break;
     }
   }
 
-  private handleProfile<T extends StudentFindOneDefaultResponse | InstructorFindOneDefaultResponse>(
-    result: T,
-    role: ProfileType,
-  ) {
-    const student = result as StudentFindOneDefaultResponse;
-    const instructor = result as InstructorFindOneDefaultResponse;
-    // const user = result as InstructorFindOneDefaultResponse;
+  private extractUser(
+    data: UserResponseDto | StudentResponseDto | InstructorResponseDto,
+  ): UserResponseDto {
+    if ('user' in data) {
+      return data.user;
+    }
+    return data;
+  }
 
-    // TODO Remove
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-    /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-    /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+  private handleProfile(result: ProfileResponse, role: Roles) {
+    const data = result.data;
 
-    const data = result.data as any;
+    if (!data) {
+      this.frontNavigationService.navigate('/not-found');
+      return;
+    }
 
-    /* eslint-enable @typescript-eslint/no-explicit-any */
-    /* eslint-enable @typescript-eslint/no-unsafe-assignment */
-    /* eslint-enable @typescript-eslint/no-unsafe-member-access */
+    const user = this.extractUser(data);
+    const student = data as StudentResponseDto;
+    const instructor = data as InstructorResponseDto;
 
     this.userData.set({
-      firstname: data?.user?.last_name,
-      lastname: data?.user?.first_name,
-      email: data?.user?.email,
-      phone: data?.user?.phone,
-      birthday: data?.user?.birthday,
-      campus: data?.user?.campus_id,
+      firstname: user.first_name,
+      lastname: user.last_name,
+      email: user.email,
+      phone: user.phone,
+      birthday: user.birthday,
+      campus: user.campus.name,
 
       ...(role === Roles.STUDENT && {
-        program: String(student.data?.program_id),
-        enrollmentYear: student.data?.enrollment_year,
-        emergency_phone: student.data?.emergency_phone,
-        emergency_contact: student.data?.emergency_contact,
-        address: student.data?.address,
-        city: student.data?.city,
-        zipCode: student.data?.zip_code,
+        program: String(student.program.name),
+        enrollmentYear: student.enrollment_year,
+        emergency_phone: student.emergency_phone,
+        emergency_contact: student.emergency_contact,
+        address: student.address,
+        city: student.city,
+        zipCode: student.zip_code,
       }),
 
       ...(role === Roles.INSTRUCTOR && {
-        department: String(instructor.data?.department_id),
-        hire_date: instructor.data?.hire_date,
-        specialization: String(instructor.data?.specialization_id),
+        department: String(instructor.department.name),
+        hire_date: instructor.hire_date,
+        specialization: String(instructor.specialization.name),
       }),
     });
 

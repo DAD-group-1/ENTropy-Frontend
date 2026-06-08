@@ -35,14 +35,16 @@ export interface ProfileData {
 })
 export class Profile {
   @Input({ required: true }) userData!: Signal<ProfileData | null>;
-  @Input({ required: true }) profileType!: Signal<ProfileType | null>;
+  @Input({ required: true }) profileType!: Signal<Roles | null>;
   @Input({ required: true }) userId!: string | undefined;
   @Input({ required: true }) isMyProfile!: boolean;
 
   public Roles = Roles;
 
-  public readonly roleMap: Record<ProfileType, string> = {
+  public readonly roleMap: Record<Roles, string> = {
     Student: 'bg-blue-100 text-blue-700',
     Instructor: 'bg-green-100 text-green-700',
+    Management: 'bg-amber-100 text-amber-800',
+    Admin: 'bg-red-100 text-red-800',
   };
 }
