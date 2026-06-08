@@ -12,6 +12,7 @@ import { ForbiddenPage } from './page-modules/forbidden/forbidden-page';
 import { NotificationsPage } from './page-modules/notifications/notifications-page';
 
 import { Roles } from './shared-modules/service/front-auth.service';
+import { ResourcesPage } from './page-modules/resources/resources-page';
 
 export const routes: Routes = [
   {
@@ -83,6 +84,11 @@ export const routes: Routes = [
       {
         path: 'notifications',
         component: NotificationsPage,
+      },
+
+      {
+        path: 'resources',
+        component: ResourcesPage,
       },
     ],
   },
