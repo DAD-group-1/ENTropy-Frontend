@@ -14,6 +14,7 @@ interface MenuItem {
   label: string;
   isOpen?: boolean;
   route?: string;
+  allowedRoles?: Roles[];
 }
 
 @Component({
@@ -117,6 +118,16 @@ export class Sidebar implements OnInit, OnDestroy {
 
   onLogout() {
     this.frontAuthService.logout();
+  }
+
+  canShow(item: MenuItem): boolean {
+    const role = this.frontAuthService.tokenPersonalizedData?.role;
+
+    if (!item.allowedRoles || item.allowedRoles.length === 0) {
+      return true;
+    }
+
+    return !!role && item.allowedRoles.includes(role);
   }
 
   menuItems: MenuItem[] = [
