@@ -13,18 +13,21 @@ export const roleGuard: CanActivateFn = (route) => {
   const allowedRoles = route.data?.['allowed_roles'] as Roles[] | undefined;
   const excludedRoles = route.data?.['excluded_roles'] as Roles[] | undefined;
 
-  const userRoles = normalizeRoles(frontAuthService.tokenPersonalizedData?.roles ?? []);
+  const userRole = frontAuthService.tokenPersonalizedData?.role?.toLowerCase();
 
   const normalizedAllowed = allowedRoles ? normalizeRoles(allowedRoles) : undefined;
+
   const normalizedExcluded = excludedRoles ? normalizeRoles(excludedRoles) : undefined;
 
-  if (normalizedExcluded?.some((role) => userRoles.includes(role))) {
+  if (userRole && normalizedExcluded?.includes(userRole)) {
     return router.createUrlTree(['/forbidden']);
   }
 
-  if (!normalizedAllowed) return true;
+  if (!normalizedAllowed) {
+    return true;
+  }
 
-  const isAllowed = normalizedAllowed.some((role) => userRoles.includes(role));
+  const isAllowed = !!userRole && normalizedAllowed.includes(userRole);
 
   return isAllowed ? true : router.createUrlTree(['/forbidden']);
 };

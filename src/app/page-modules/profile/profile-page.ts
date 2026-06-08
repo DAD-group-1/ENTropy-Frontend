@@ -40,7 +40,7 @@ export class ProfilePage implements OnInit {
         this.frontNavigationService.navigate('/not-found');
       }
     } else {
-      const userRole = this.frontAuthService.tokenPersonalizedData?.roles?.[0];
+      const userRole = this.frontAuthService.tokenPersonalizedData?.role;
 
       const isStudent = userRole === Roles.STUDENT;
       const isInstructor = userRole === Roles.INSTRUCTOR;

@@ -21,7 +21,7 @@ interface TokenData {
   iat: string;
   exp: string;
   data: {
-    roles: Roles[];
+    role: Roles;
   };
 }
 
