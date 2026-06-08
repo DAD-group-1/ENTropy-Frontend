@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -39,7 +39,7 @@ import { FrontWebsocketService } from '../../shared-modules/service/front-websoc
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
   private readonly frontLayoutService = inject(FrontLayoutService);
   private readonly authenticationService = inject(AuthenticationService);
   private readonly frontNavigationService = inject(FrontNavigationService);
@@ -53,6 +53,8 @@ export class LoginPage implements OnInit {
   loginForm!: FormGroup;
 
   ngOnInit(): void {
+    this.frontLayoutService.setLoggedLayout(false);
+
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -62,6 +64,10 @@ export class LoginPage implements OnInit {
       setTimeout(() => {
         this.frontNavigationService.navigate('/');
       }, 1000);
+  }
+
+  ngOnDestroy() {
+    this.frontLayoutService.setLoggedLayout(true);
   }
 
   get email() {
