@@ -7,6 +7,8 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { UserResponseDto } from './userResponseDto';
+import { PaymentMethodResponseDto } from './paymentMethodResponseDto';
 
 
 export interface PaymentResponseDto { 
@@ -16,12 +18,14 @@ export interface PaymentResponseDto {
     due_date: string;
     amount: number;
     status: number;
-    payment_date: object | null;
+    payment_date: string | null;
     payment_method_id: number;
     academic_year: number;
     semester: number;
     notes: string;
     created_at: string;
     updated_at: string;
+    user: UserResponseDto;
+    payment_method: PaymentMethodResponseDto;
 }
 

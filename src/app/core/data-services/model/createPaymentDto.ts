@@ -33,7 +33,7 @@ export interface CreatePaymentDto {
     /**
      * The actual payment date
      */
-    payment_date: object | null;
+    payment_date: string | null;
     /**
      * The ID of the payment method
      */
