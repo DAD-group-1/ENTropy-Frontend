@@ -5,12 +5,12 @@
         (click)="toggle($event, notificationButton)"
 >
   <i class="notification-icon pi pi-bell" aria-hidden="true">
-    @if (frontNotificationService.latestNotificationsCount() > 0) {
+    @if (frontNotificationService.latestNotificationsNotReadCount() > 0) {
       <span
         class="notification-count"
-        aria-label="{{ frontNotificationService.latestNotificationsCount() }} new notifications"
+        aria-label="{{ frontNotificationService.latestNotificationsNotReadCount() }} new notifications"
       >
-        {{ frontNotificationService.latestNotificationsCount() }}
+        {{ frontNotificationService.latestNotificationsNotReadCount() }}
       </span>
     }
   </i>

@@ -24,6 +24,10 @@ export class FrontNotificationService {
   public latestNotifications = this._latestNotifications.asReadonly();
 
   public latestNotificationsCount: Signal<number> = computed(
+    () => this._latestNotifications().length,
+  );
+
+  public latestNotificationsNotReadCount: Signal<number> = computed(
     () => this._latestNotifications().filter((n) => !n.read_at).length,
   );
 
