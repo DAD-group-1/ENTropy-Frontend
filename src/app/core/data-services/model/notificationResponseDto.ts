@@ -10,14 +10,41 @@
 
 
 export interface NotificationResponseDto { 
+    /**
+     * Unique identifier of the notification
+     */
     _id: number;
+    /**
+     * ID of the user who owns the notification
+     */
     user_id: number;
+    /**
+     * Title of the notification
+     */
     title: string;
+    /**
+     * Message content of the notification
+     */
     message: string;
+    /**
+     * Target URL associated with the notification
+     */
     target_url?: string;
+    /**
+     * Timestamp when the notification was read (null if unread)
+     */
     read_at?: string;
+    /**
+     * Creation timestamp of the notification
+     */
     createdAt: string;
+    /**
+     * Last update timestamp of the notification
+     */
     updatedAt: string;
+    /**
+     * Internal version field (e.g. MongoDB document version)
+     */
     _v: number;
 }
 

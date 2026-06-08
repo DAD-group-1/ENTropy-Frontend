@@ -27,6 +27,10 @@ export interface UpdateInstructorDto {
      */
     password?: string;
     /**
+     * The ID of the role assigned to the user
+     */
+    role_id?: number;
+    /**
      * The phone number of the user
      */
     phone?: string;

@@ -7,9 +7,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { UserResponseDto } from './userResponseDto';
+import { ProgramResponseDto } from './programResponseDto';
 
 
 export interface StudentResponseDto { 
+    program: ProgramResponseDto;
+    user: UserResponseDto;
     user_id: number;
     program_id: number;
     enrollment_year: number;

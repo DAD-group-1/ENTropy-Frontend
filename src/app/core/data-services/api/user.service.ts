@@ -17,9 +17,7 @@ import { Observable }                                        from 'rxjs';
 import { OpenApiHttpParams, QueryParamStyle } from '../query.params';
 
 // @ts-ignore
-import { AssignRoleRequestDto } from '../model/assignRoleRequestDto';
-// @ts-ignore
-import { AuthorizationFindAllDefaultResponse } from '../model/authorizationFindAllDefaultResponse';
+import { UserFindAllDefaultResponse } from '../model/userFindAllDefaultResponse';
 // @ts-ignore
 import { UserFindOneDefaultResponse } from '../model/userFindOneDefaultResponse';
 
@@ -29,12 +27,12 @@ import { Configuration }                                     from '../configurat
 import { BaseService } from '../api.base.service';
 
 
-export interface UserRoleAssignRoleRequestParams {
-    id: string;
-    assignRoleRequestDto: AssignRoleRequestDto;
+export interface UserFindAllRequestParams {
+    page?: number;
+    limit?: number;
 }
 
-export interface UserRoleGetUserRoleRequestParams {
+export interface UserFindOneRequestParams {
     id: string;
 }
 
@@ -42,33 +40,47 @@ export interface UserRoleGetUserRoleRequestParams {
 @Injectable({
   providedIn: 'root'
 })
-export class UserRoleService extends BaseService {
+export class UserService extends BaseService {
 
     constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string|string[], @Optional() configuration?: Configuration) {
         super(basePath, configuration);
     }
 
     /**
-     * Assign role to user
-     * Assign role to a user, replacing existing role.
-     * @endpoint put /api/users/{id}/roles/assign
+     * Get all user records
+     * Retrieve a paginated list of all user records.
+     * @endpoint get /api/users
      * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public userRoleAssignRole(requestParameters: UserRoleAssignRoleRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserFindOneDefaultResponse>;
-    public userRoleAssignRole(requestParameters: UserRoleAssignRoleRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserFindOneDefaultResponse>>;
-    public userRoleAssignRole(requestParameters: UserRoleAssignRoleRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserFindOneDefaultResponse>>;
-    public userRoleAssignRole(requestParameters: UserRoleAssignRoleRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters?.id;
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling userRoleAssignRole.');
-        }
-        const assignRoleRequestDto = requestParameters?.assignRoleRequestDto;
-        if (assignRoleRequestDto === null || assignRoleRequestDto === undefined) {
-            throw new Error('Required parameter assignRoleRequestDto was null or undefined when calling userRoleAssignRole.');
-        }
+    public userFindAll(requestParameters?: UserFindAllRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserFindAllDefaultResponse>;
+    public userFindAll(requestParameters?: UserFindAllRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserFindAllDefaultResponse>>;
+    public userFindAll(requestParameters?: UserFindAllRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserFindAllDefaultResponse>>;
+    public userFindAll(requestParameters?: UserFindAllRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const page = requestParameters?.page;
+        const limit = requestParameters?.limit;
+
+        let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'page',
+            <any>page,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'limit',
+            <any>limit,
+            QueryParamStyle.Form,
+            true,
+        );
+
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -87,15 +99,6 @@ export class UserRoleService extends BaseService {
         const localVarTransferCache: boolean = options?.transferCache ?? true;
 
 
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
-        }
-
         let responseType_: 'text' | 'json' | 'blob' = 'json';
         if (localVarHttpHeaderAcceptSelected) {
             if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -107,12 +110,12 @@ export class UserRoleService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/roles/assign`;
+        let localVarPath = `/api/users`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<UserFindOneDefaultResponse>('put', `${basePath}${localVarPath}`,
+        return this.httpClient.request<UserFindAllDefaultResponse>('get', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: assignRoleRequestDto,
+                params: localVarQueryParameters.toHttpParams(),
                 responseType: <any>responseType_,
                 ...(withCredentials ? { withCredentials } : {}),
                 headers: localVarHeaders,
@@ -124,21 +127,21 @@ export class UserRoleService extends BaseService {
     }
 
     /**
-     * Get user role
-     * Retrieve the role assigned to a specific user.
-     * @endpoint get /api/users/{id}/role
+     * Get a specific user record
+     * Retrieve details of a specific user record by its ID.
+     * @endpoint get /api/users/{id}
      * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public userRoleGetUserRole(requestParameters: UserRoleGetUserRoleRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AuthorizationFindAllDefaultResponse>;
-    public userRoleGetUserRole(requestParameters: UserRoleGetUserRoleRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AuthorizationFindAllDefaultResponse>>;
-    public userRoleGetUserRole(requestParameters: UserRoleGetUserRoleRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AuthorizationFindAllDefaultResponse>>;
-    public userRoleGetUserRole(requestParameters: UserRoleGetUserRoleRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public userFindOne(requestParameters: UserFindOneRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<UserFindOneDefaultResponse>;
+    public userFindOne(requestParameters: UserFindOneRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<UserFindOneDefaultResponse>>;
+    public userFindOne(requestParameters: UserFindOneRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<UserFindOneDefaultResponse>>;
+    public userFindOne(requestParameters: UserFindOneRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         const id = requestParameters?.id;
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling userRoleGetUserRole.');
+            throw new Error('Required parameter id was null or undefined when calling userFindOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -169,9 +172,9 @@ export class UserRoleService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/role`;
+        let localVarPath = `/api/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<AuthorizationFindAllDefaultResponse>('get', `${basePath}${localVarPath}`,
+        return this.httpClient.request<UserFindOneDefaultResponse>('get', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

@@ -10,9 +10,21 @@
 
 
 export interface UpdateNotificationDto { 
+    /**
+     * Title of the notification
+     */
     title?: string;
+    /**
+     * Message content of the notification
+     */
     message?: string;
+    /**
+     * Target URL associated with the notification
+     */
     target_url?: string;
+    /**
+     * Timestamp when the notification was read (null if unread)
+     */
     read_at?: string;
 }
 

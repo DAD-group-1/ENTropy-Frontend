@@ -7,9 +7,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { UserResponseDto } from './userResponseDto';
+import { SpecializationResponseDto } from './specializationResponseDto';
+import { DepartmentResponseDto } from './departmentResponseDto';
 
 
 export interface InstructorResponseDto { 
+    department: DepartmentResponseDto;
+    specialization: SpecializationResponseDto;
+    user: UserResponseDto;
     user_id: number;
     department_id: number;
     status: string;

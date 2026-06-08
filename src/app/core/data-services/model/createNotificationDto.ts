@@ -11,16 +11,20 @@
 
 export interface CreateNotificationDto { 
     /**
-     * The id of the user to notify
+     * ID of the user to notify
      */
     user_id: number;
     /**
-     * The title of the notification
+     * Title of the notification
      */
     title: string;
     /**
-     * The message of the notification
+     * Message content of the notification
      */
     message: string;
+    /**
+     * Target URL associated with the notification
+     */
+    target_url?: string;
 }
 

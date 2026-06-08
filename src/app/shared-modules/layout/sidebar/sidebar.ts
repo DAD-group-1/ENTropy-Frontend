@@ -131,10 +131,10 @@ export class Sidebar implements OnDestroy {
       label: 'Resources',
       route: 'resources',
     },
-    {
-      icon: 'pi pi-info-circle',
-      label: 'Informations',
-      route: 'informations',
-    },
+    // {
+    //   icon: 'pi pi-info-circle',
+    //   label: 'Informations',
+    //   route: 'informations',
+    // },
   ];
 }

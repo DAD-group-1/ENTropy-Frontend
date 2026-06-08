@@ -8,6 +8,7 @@ import {
   InstructorService,
   StudentFindOneDefaultResponse,
   StudentService,
+  UserRoleService,
 } from '../../core/data-services';
 
 @Component({
@@ -23,6 +24,7 @@ export class ProfilePage implements OnInit {
   route = inject(ActivatedRoute);
   frontNavigationService = inject(FrontNavigationService);
   frontAuthService = inject(FrontAuthService);
+  userRoleService = inject(UserRoleService);
   studentService = inject(StudentService);
   instructorService = inject(InstructorService);
 
@@ -32,15 +34,19 @@ export class ProfilePage implements OnInit {
     this.userId = this.route.snapshot.paramMap.get('id');
 
     if (this.userId) {
-      try {
-        //TODO: get role based on userId
-        const userRole = Roles.STUDENT;
-        this.getData(userRole, this.userId);
-      } catch {
-        this.frontNavigationService.navigate('/not-found');
-      }
+      this.userRoleService.userRoleGetUserRole({ id: this.userId }).subscribe({
+        next: (result) => {
+          const userRole = result?.data?.name as Roles;
+          this.getData(userRole, this.userId as string);
+        },
+        error: () => {
+          this.frontNavigationService.navigate('/not-found');
+        },
+      });
     } else {
       const userRole = this.frontAuthService.tokenPersonalizedData?.role;
+
+      console.log(userRole);
 
       const isStudent = userRole === Roles.STUDENT;
       const isInstructor = userRole === Roles.INSTRUCTOR;

@@ -7,14 +7,18 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { RoleResponseDto } from './roleResponseDto';
+import { CampusResponseDto } from './campusResponseDto';
 
 
 export interface UserResponseDto { 
+    campus: CampusResponseDto;
     id: number;
     first_name: string;
     last_name: string;
     email: string;
     phone: string;
+    role: RoleResponseDto;
     birthday: string;
     campus_id: number;
     is_active: boolean;

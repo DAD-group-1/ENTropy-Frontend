@@ -19,13 +19,13 @@ api/room.service.ts
 api/roomType.service.ts
 api/schedule.service.ts
 api/student.service.ts
+api/user.service.ts
 api/userRole.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
 index.ts
-model/addRoleToUserDto.ts
-model/assignRolesDto.ts
+model/assignRoleRequestDto.ts
 model/attendanceCreateDefaultResponse.ts
 model/attendanceFindAllDefaultResponse.ts
 model/attendanceListResponseDto.ts
@@ -62,6 +62,7 @@ model/createRoomTypeRequestDto.ts
 model/createScheduleRequestDto.ts
 model/createStudentDto.ts
 model/createStudentResponseDto.ts
+model/departmentResponseDto.ts
 model/enrollmentCreateDefaultResponse.ts
 model/enrollmentFindAllDefaultResponse.ts
 model/enrollmentListResponseDto.ts
@@ -95,6 +96,7 @@ model/paymentMethodFindAllDefaultResponse.ts
 model/paymentMethodListResponseDto.ts
 model/paymentMethodResponseDto.ts
 model/paymentResponseDto.ts
+model/programResponseDto.ts
 model/refreshTokenDto.ts
 model/roleResponseDto.ts
 model/roomCreateDefaultResponse.ts
@@ -109,6 +111,7 @@ model/scheduleCreateDefaultResponse.ts
 model/scheduleFindAllDefaultResponse.ts
 model/scheduleListResponseDto.ts
 model/scheduleResponseDto.ts
+model/specializationResponseDto.ts
 model/studentCreateDefaultResponse.ts
 model/studentFindAllDefaultResponse.ts
 model/studentFindOneDefaultResponse.ts
@@ -130,9 +133,10 @@ model/updateRoomDto.ts
 model/updateRoomTypeDto.ts
 model/updateScheduleDto.ts
 model/updateStudentDto.ts
+model/userFindAllDefaultResponse.ts
+model/userFindOneDefaultResponse.ts
+model/userListResponseDto.ts
 model/userResponseDto.ts
-model/userRoleAddRoleToUserDefaultResponse.ts
-model/userRoleResponseDto.ts
 param.ts
 provide-api.ts
 query.params.ts
