@@ -44,10 +44,10 @@ export class ProfilePage implements OnInit {
 
       const isStudent = userRole === Roles.STUDENT;
       const isInstructor = userRole === Roles.INSTRUCTOR;
-      const isManager = userRole === Roles.MANAGER;
+      const isManagement = userRole === Roles.MANAGEMENT;
       const isAdmin = userRole === Roles.ADMIN;
 
-      if (!userRole || (!isStudent && !isInstructor && !isManager && !isAdmin)) {
+      if (!userRole || (!isStudent && !isInstructor && !isManagement && !isAdmin)) {
         this.frontNavigationService.navigate('/not-found');
         return;
       }

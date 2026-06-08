@@ -11,7 +11,7 @@ import { FrontWebsocketService } from './front-websocket.service';
 export enum Roles {
   STUDENT = 'Student',
   INSTRUCTOR = 'Instructor',
-  MANAGER = 'Manager',
+  MANAGEMENT = 'Management',
   ADMIN = 'Admin',
 }
 
