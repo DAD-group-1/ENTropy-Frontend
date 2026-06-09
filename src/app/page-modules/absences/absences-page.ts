@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal, WritableSignal } from '@angular/core';
 import {
   DisplayTable,
   TableColumn,
@@ -13,7 +13,7 @@ import {
 })
 export class AbsencesPage {
   // TODO: Change remove student column if not instructor
-  public headers: TableColumn[] = [
+  public headers: WritableSignal<TableColumn[]> = signal([
     {
       key: 'student',
       label: 'Student',
@@ -38,10 +38,10 @@ export class AbsencesPage {
       key: 'reason',
       label: 'Reason',
     },
-  ];
+  ]);
 
   //TODO: Get your grades if student, get everyone grade if instructor
-  public rows: TableRow[] = [
+  public rows: WritableSignal<TableRow[]> = signal([
     {
       student: 'Alice Martin',
       startMissingDate: '2026-01-10 08:30',
@@ -77,5 +77,7 @@ export class AbsencesPage {
       reason: 'Late arrival',
       associatedCourse: 'English Essay',
     },
-  ];
+  ]);
+
+  public totalRecords = signal(0);
 }

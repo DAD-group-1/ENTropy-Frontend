@@ -39,16 +39,16 @@ export class ProfilePage implements OnInit {
   studentService = inject(StudentService);
   instructorService = inject(InstructorService);
 
-  userId: string | number | null = null;
+  userId: WritableSignal<string | undefined> = signal(undefined);
 
   ngOnInit() {
-    this.userId = this.route.snapshot.paramMap.get('id');
+    this.userId.set(this.route.snapshot.paramMap.get('id') ?? undefined);
 
-    if (this.userId) {
-      this.userRoleService.userRoleGetUserRole({ id: this.userId }).subscribe({
+    if (this.userId()) {
+      this.userRoleService.userRoleGetUserRole({ id: this.userId() as string }).subscribe({
         next: (result) => {
           const userRole = result?.data?.name as Roles;
-          this.getData(userRole, this.userId as string);
+          this.getData(userRole, this.userId() as string);
         },
         error: () => {
           this.frontNavigationService.navigate('/not-found');
@@ -67,9 +67,9 @@ export class ProfilePage implements OnInit {
         return;
       }
 
-      const userId = this.frontAuthService.userId ?? '';
+      this.userId.set(this.frontAuthService.userId ?? '');
 
-      this.getData(userRole, userId);
+      this.getData(userRole, this.userId() as string);
     }
   }
 
