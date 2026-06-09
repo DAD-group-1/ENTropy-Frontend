@@ -8,6 +8,7 @@ import { FrontNavigationService } from '../../service/front-navigation.service';
 import { FrontAuthService, Roles } from '../../service/front-auth.service';
 import { UserService } from '../../../core/data-services';
 import { SkeletonModule } from 'primeng/skeleton';
+import { displayName } from '../../utils';
 
 interface MenuItem {
   icon: string;
@@ -61,7 +62,7 @@ export class Sidebar implements OnInit, OnDestroy {
   ngOnInit() {
     this.userService.userFindOne({ id: this.frontAuthService.tokenData!.sub }).subscribe({
       next: (result) => {
-        const userName = `${result?.data?.first_name} ${result?.data?.last_name?.toUpperCase()}`;
+        const userName = displayName(result.data!.first_name, result.data!.last_name);
         this.userName.set(userName);
         this.role.set(this.frontAuthService.tokenPersonalizedData!.role);
       },
