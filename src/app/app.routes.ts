@@ -5,7 +5,7 @@ import { HomePage } from './page-modules/home/home-page';
 import { LoginPage } from './page-modules/login/login-page';
 import { CalendarPage } from './page-modules/calendar/calendar-page';
 import { GradesPage } from './page-modules/grades/grades-page';
-import { AbsencesPage } from './page-modules/absences/absences-page';
+import { AttendancesPage } from './page-modules/attendances/attendances-page';
 import { ProfilePage } from './page-modules/profile/profile-page';
 import { NotFoundPage } from './page-modules/not-found/not-found-page';
 import { ForbiddenPage } from './page-modules/forbidden/forbidden-page';
@@ -49,21 +49,21 @@ export const routes: Routes = [
           {
             path: ':id',
             component: GradesPage,
-            data: { allowed_roles: [Roles.INSTRUCTOR] },
+            data: { excluded_roles: [Roles.STUDENT] },
           },
         ],
       },
       {
-        path: 'absences',
+        path: 'attendances',
         children: [
           {
             path: '',
-            component: AbsencesPage,
+            component: AttendancesPage,
           },
           {
             path: ':id',
-            component: AbsencesPage,
-            data: { allowed_roles: [Roles.INSTRUCTOR] },
+            component: AttendancesPage,
+            data: { excluded_roles: [Roles.STUDENT] },
           },
         ],
       },
@@ -77,7 +77,7 @@ export const routes: Routes = [
           {
             path: ':id',
             component: ProfilePage,
-            data: { allowed_roles: [Roles.INSTRUCTOR] },
+            data: { excluded_roles: [Roles.STUDENT] },
           },
         ],
       },
@@ -91,6 +91,7 @@ export const routes: Routes = [
           {
             path: ':id',
             component: PaymentsPage,
+            data: { excluded_roles: [Roles.STUDENT] },
           },
         ],
       },
