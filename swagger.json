@@ -2741,7 +2741,7 @@
     },
     "/api/schedules/program/{programId}/date-range": {
       "get": {
-        "description": "Retrieve a list of schedule records that fall within a specified date range.",
+        "description": "Retrieve a list of schedule records that fall within a specified date range for a given program ID.",
         "operationId": "Schedule_findByDateRange",
         "parameters": [
           {
@@ -2804,7 +2804,76 @@
             "bearer": []
           }
         ],
-        "summary": "Get all the schedule records between a specific date range",
+        "summary": "Get all the schedule records for a specific program within a date range",
+        "tags": ["Schedule"]
+      }
+    },
+    "/api/schedules/instructor/{instructorId}": {
+      "get": {
+        "description": "Retrieve a list of schedule records that fall within a specified date range for a given instructor ID.",
+        "operationId": "Schedule_findByInstructorId",
+        "parameters": [
+          {
+            "name": "instructorId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "start_date",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "format": "date",
+              "example": "2026-06-09",
+              "type": "string"
+            }
+          },
+          {
+            "name": "end_date",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "format": "date",
+              "example": "2026-06-09",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/ScheduleResponseDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all the schedule records for a specific instructor within a date range",
         "tags": ["Schedule"]
       }
     },
@@ -4324,6 +4393,63 @@
           "updated_at"
         ]
       },
+      "CourseResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "program_id": {
+            "type": "number"
+          },
+          "semester": {
+            "type": "number"
+          },
+          "credits": {
+            "type": "number"
+          },
+          "total_hours": {
+            "type": "number"
+          },
+          "instructor_id": {
+            "type": "number"
+          },
+          "room_id": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "program_id",
+          "semester",
+          "credits",
+          "total_hours",
+          "instructor_id",
+          "room_id",
+          "status",
+          "created_at",
+          "updated_at"
+        ]
+      },
       "ScheduleResponseDto": {
         "type": "object",
         "properties": {
@@ -4370,6 +4496,9 @@
           "updated_at": {
             "format": "date-time",
             "type": "string"
+          },
+          "course": {
+            "$ref": "#/components/schemas/CourseResponseDto"
           }
         },
         "required": [
@@ -4385,7 +4514,8 @@
           "status",
           "last_modified",
           "created_at",
-          "updated_at"
+          "updated_at",
+          "course"
         ]
       },
       "AttendanceResponseDto": {
@@ -4768,63 +4898,6 @@
             "description": "Additional notes about the payment"
           }
         }
-      },
-      "CourseResponseDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
-          "program_id": {
-            "type": "number"
-          },
-          "semester": {
-            "type": "number"
-          },
-          "credits": {
-            "type": "number"
-          },
-          "total_hours": {
-            "type": "number"
-          },
-          "instructor_id": {
-            "type": "number"
-          },
-          "room_id": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          },
-          "created_at": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "updated_at": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "code",
-          "program_id",
-          "semester",
-          "credits",
-          "total_hours",
-          "instructor_id",
-          "room_id",
-          "status",
-          "created_at",
-          "updated_at"
-        ]
       },
       "CreateCourseDto": {
         "type": "object",

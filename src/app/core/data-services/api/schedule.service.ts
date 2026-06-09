@@ -50,6 +50,12 @@ export interface ScheduleFindByDateRangeRequestParams {
     endDate?: string;
 }
 
+export interface ScheduleFindByInstructorIdRequestParams {
+    instructorId: string;
+    startDate?: string;
+    endDate?: string;
+}
+
 export interface ScheduleFindByProgramIdRequestParams {
     programId: string;
     page?: number;
@@ -231,8 +237,8 @@ export class ScheduleService extends BaseService {
     }
 
     /**
-     * Get all the schedule records between a specific date range
-     * Retrieve a list of schedule records that fall within a specified date range.
+     * Get all the schedule records for a specific program within a date range
+     * Retrieve a list of schedule records that fall within a specified date range for a given program ID.
      * @endpoint get /api/schedules/program/{programId}/date-range
      * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -299,6 +305,90 @@ export class ScheduleService extends BaseService {
         }
 
         let localVarPath = `/api/schedules/program/${this.configuration.encodeParam({name: "programId", value: programId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}/date-range`;
+        const { basePath, withCredentials } = this.configuration;
+        return this.httpClient.request<ScheduleFindByDateRangeDefaultResponse>('get', `${basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                params: localVarQueryParameters.toHttpParams(),
+                responseType: <any>responseType_,
+                ...(withCredentials ? { withCredentials } : {}),
+                headers: localVarHeaders,
+                observe: observe,
+                ...(localVarTransferCache !== undefined ? { transferCache: localVarTransferCache } : {}),
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get all the schedule records for a specific instructor within a date range
+     * Retrieve a list of schedule records that fall within a specified date range for a given instructor ID.
+     * @endpoint get /api/schedules/instructor/{instructorId}
+     * @param requestParameters
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     * @param options additional options
+     */
+    public scheduleFindByInstructorId(requestParameters: ScheduleFindByInstructorIdRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ScheduleFindByDateRangeDefaultResponse>;
+    public scheduleFindByInstructorId(requestParameters: ScheduleFindByInstructorIdRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ScheduleFindByDateRangeDefaultResponse>>;
+    public scheduleFindByInstructorId(requestParameters: ScheduleFindByInstructorIdRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ScheduleFindByDateRangeDefaultResponse>>;
+    public scheduleFindByInstructorId(requestParameters: ScheduleFindByInstructorIdRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const instructorId = requestParameters?.instructorId;
+        if (instructorId === null || instructorId === undefined) {
+            throw new Error('Required parameter instructorId was null or undefined when calling scheduleFindByInstructorId.');
+        }
+        const startDate = requestParameters?.startDate;
+        const endDate = requestParameters?.endDate;
+
+        let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'start_date',
+            <any>startDate,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'end_date',
+            <any>endDate,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        let localVarHeaders = this.defaultHeaders;
+
+        // authentication (bearer) required
+        localVarHeaders = this.configuration.addCredentialToHeaders('bearer', 'Authorization', localVarHeaders, 'Bearer ');
+
+        const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'application/json'
+        ]);
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        const localVarHttpContext: HttpContext = options?.context ?? new HttpContext();
+
+        const localVarTransferCache: boolean = options?.transferCache ?? true;
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/api/schedules/instructor/${this.configuration.encodeParam({name: "instructorId", value: instructorId, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         const { basePath, withCredentials } = this.configuration;
         return this.httpClient.request<ScheduleFindByDateRangeDefaultResponse>('get', `${basePath}${localVarPath}`,
             {
