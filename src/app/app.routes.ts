@@ -13,6 +13,7 @@ import { NotificationsPage } from './page-modules/notifications/notifications-pa
 
 import { Roles } from './shared-modules/service/front-auth.service';
 import { ResourcesPage } from './page-modules/resources/resources-page';
+import { PaymentsPage } from './page-modules/payments/payments-page';
 
 export const routes: Routes = [
   {
@@ -77,6 +78,19 @@ export const routes: Routes = [
             path: ':id',
             component: ProfilePage,
             data: { allowed_roles: [Roles.INSTRUCTOR] },
+          },
+        ],
+      },
+      {
+        path: 'payments',
+        children: [
+          {
+            path: '',
+            component: PaymentsPage,
+          },
+          {
+            path: ':id',
+            component: PaymentsPage,
           },
         ],
       },

@@ -1,11 +1,19 @@
-import { Component, Input, OnInit, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Table, TableModule } from 'primeng/table';
+import { Table, TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { NgClass } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 
 export interface TableColumn {
   key: string;
@@ -15,6 +23,11 @@ export interface TableColumn {
     sortOrder: number;
   };
   isBoolean?: boolean;
+  isDate?: boolean
+  click?: {
+    baseUrl: string,
+    parameter: string
+  }
 }
 export type TableRow = Record<TableColumn['key'], string | number | boolean | null>;
 
@@ -28,16 +41,17 @@ export type TableRow = Record<TableColumn['key'], string | number | boolean | nu
     ButtonModule,
     InputTextModule,
     NgClass,
+    DatePipe,
   ],
   templateUrl: './display-table.html',
   styleUrl: './display-table.css',
 })
 export class DisplayTable implements OnInit {
-  @Input({ required: true }) headers!: TableColumn[];
-  @Input({ required: true }) rows!: TableRow[];
+  @Input({ required: true }) headers!: WritableSignal<TableColumn[]>;
+  @Input({ required: true }) rows!: WritableSignal<TableRow[]>;
+  @Input({ required: true }) totalRecords!: WritableSignal<number>;
 
-  //TODO: Loading depending on service call
-  loading: WritableSignal<boolean> = signal(false);
+  @Output() lazyLoad = new EventEmitter<TableLazyLoadEvent>();
 
   searchValue: string | undefined;
 
@@ -45,8 +59,8 @@ export class DisplayTable implements OnInit {
   globalFilterFields: string[] = [];
 
   ngOnInit(): void {
-    this.defaultSortField = this.headers.find((c) => c.sort?.sortField);
-    this.globalFilterFields = this.headers.map((c) => c.key);
+    this.defaultSortField = this.headers().find((c) => c.sort?.sortField);
+    this.globalFilterFields = this.headers().map((c) => c.key);
   }
 
   clear(dt: Table) {

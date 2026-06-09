@@ -35,6 +35,11 @@
                     [routerLink]="isMyProfile ? ['/absences'] : ['/absences', userId]">
               See Absences
             </button>
+
+            <button class="p-button p-button-outlined"
+                    [routerLink]="isMyProfile ? ['/payments'] : ['/payments', userId]">
+              See Payments
+            </button>
           }
           @default {
 

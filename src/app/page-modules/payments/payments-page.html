@@ -1,0 +1,25 @@
+<div class="content">
+  <div class="admin-controls">
+    <!--    // TODO: add admin controls here-->
+  </div>
+
+  @if (isLoaded()) {
+    <div class="table-display">
+      <app-display-table [headers]="headers" [rows]="rows" [totalRecords]="totalRecords" (lazyLoad)="onLazyLoad($event)" />
+    </div>
+  } @else {
+    <div class="center-loading">
+      <p-card>
+        <div class="loading-container">
+          <p-progressSpinner
+            [style]="{ width: '50px', height: '50px' }"
+            strokeWidth="4"
+            animationDuration=".5s"
+            aria-label="Loading spinner indicating that we are loading the data"
+          ></p-progressSpinner>
+          <p class="loading-text">Loading...</p>
+        </div>
+      </p-card>
+    </div>
+  }
+</div>

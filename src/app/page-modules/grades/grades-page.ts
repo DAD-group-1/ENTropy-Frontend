@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal, WritableSignal } from '@angular/core';
 import {
   DisplayTable,
   TableColumn,
@@ -12,7 +12,7 @@ import {
   styleUrl: './grades-page.css',
 })
 export class GradesPage {
-  public headers: TableColumn[] = [
+  public headers: WritableSignal<TableColumn[]> = signal([
     // TODO: Change remove student column if not instructor
     {
       key: 'student',
@@ -39,10 +39,10 @@ export class GradesPage {
       label: 'Passed',
       isBoolean: true,
     },
-  ];
+  ]);
 
   //TODO: Get your grades if student, get everyone grade if instructor
-  public rows: TableRow[] = [
+  public rows: WritableSignal<TableRow[]> = signal([
     {
       student: 'Alice Martin',
       exam: 'Math Midterm',
@@ -218,5 +218,7 @@ export class GradesPage {
       grade: '14/20',
       passed: true,
     },
-  ];
+  ]);
+
+  public totalRecords = signal(0);
 }

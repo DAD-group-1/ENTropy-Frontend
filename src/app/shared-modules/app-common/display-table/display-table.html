@@ -1,14 +1,16 @@
 <p-table #dt stripedRows
-         [value]="rows"
+         [value]="rows()"
          [paginator]="true"
          [rows]="20"
          [rowHover]="true"
-         [loading]="loading()"
          [scrollable]="true"
          scrollHeight="flex"
          [globalFilterFields]="globalFilterFields"
          [sortField]="defaultSortField?.key ?? ''"
          [sortOrder]="defaultSortField?.sort?.sortOrder ?? 1"
+         [totalRecords]="totalRecords()"
+         [lazy]="true"
+         (onLazyLoad)="lazyLoad.emit($event)"
 >
   <ng-template #caption>
     <div class="flex">
@@ -27,7 +29,7 @@
 
   <ng-template #header>
     <tr>
-      @for (header of headers; track header.key) {
+      @for (header of headers(); track header.key) {
         <th
           pSortableColumn="{{ header.key }}"
         >
@@ -47,7 +49,7 @@
 
   <ng-template #body let-row>
     <tr>
-      @for (header of headers; track header.key) {
+      @for (header of headers(); track header.key) {
         <td>
           @if (header.isBoolean) {
             <i
@@ -57,6 +59,8 @@
                 'text-red-500 pi-times-circle': !row[header.key]
               }"
             ></i>
+          } @else if (header.isDate) {
+            {{ row[header.key] | date:'yyyy-MM-dd' }}
           } @else {
             {{ row[header.key] }}
           }
