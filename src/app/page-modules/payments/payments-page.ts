@@ -1,4 +1,4 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
 import {
   DisplayTable,
   TableColumn,
@@ -24,6 +24,8 @@ export class PaymentsPage implements OnInit {
   private readonly paymentService = inject(PaymentService);
   private readonly frontAuthService = inject(FrontAuthService);
   private readonly route = inject(ActivatedRoute);
+
+  @Input() isHomepage = false;
 
   public isLoaded = signal(false);
   public totalRecords = signal(0);

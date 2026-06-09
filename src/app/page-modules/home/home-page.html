@@ -1,3 +1,14 @@
-<section class="home-page">
-  <p>HELLO WORLD</p>
-</section>
+@switch (userRole) {
+  @case (Roles.INSTRUCTOR) {
+    Instructor lala
+  }
+  @case (Roles.MANAGEMENT) {
+    Management lala
+  }
+  @case (Roles.ADMIN) {
+    Admin lala
+  }
+  @default {
+    Student lala
+  }
+}

@@ -1,5 +1,2 @@
 @import "tailwindcss";
 
-:host {
-  @apply bg-linear-65 from-blue-200 to-green-300
-}

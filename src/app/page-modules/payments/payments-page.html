@@ -1,11 +1,14 @@
 <div class="content">
-  <div class="admin-controls">
-    <!--    // TODO: add admin controls here-->
-  </div>
+  @if (!isHomepage) {
+    <div class="admin-controls">
+      <!--    // TODO: add admin controls here-->
+    </div>
+  }
 
   @if (isLoaded()) {
     <div class="table-display">
-      <app-display-table [headers]="headers" [rows]="rows" [totalRecords]="totalRecords" (lazyLoad)="onLazyLoad($event)" />
+      <app-display-table [headers]="headers" [rows]="rows" [totalRecords]="totalRecords"
+                         (lazyLoad)="onLazyLoad($event)" />
     </div>
   } @else {
     <div class="center-loading">
