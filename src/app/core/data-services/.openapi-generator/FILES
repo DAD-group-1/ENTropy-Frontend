@@ -109,6 +109,8 @@ model/roomTypeListResponseDto.ts
 model/roomTypeResponseDto.ts
 model/scheduleCreateDefaultResponse.ts
 model/scheduleFindAllDefaultResponse.ts
+model/scheduleFindByDateRangeDefaultResponse.ts
+model/scheduleFindByProgramIdDefaultResponse.ts
 model/scheduleListResponseDto.ts
 model/scheduleResponseDto.ts
 model/specializationResponseDto.ts

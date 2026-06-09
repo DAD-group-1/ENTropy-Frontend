@@ -7,6 +7,8 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { UserResponseDto } from './userResponseDto';
+import { ScheduleResponseDto } from './scheduleResponseDto';
 
 
 export interface AttendanceResponseDto { 
@@ -14,8 +16,10 @@ export interface AttendanceResponseDto {
     schedule_id: number;
     student_id: number;
     status: string;
-    note: object | null;
+    note: string | null;
     created_at: string;
     updated_at: string;
+    user: UserResponseDto;
+    schedule: ScheduleResponseDto;
 }
 

@@ -29,7 +29,7 @@ export interface UpdatePaymentDto {
     /**
      * The payment status
      */
-    status?: number;
+    status?: UpdatePaymentDto.StatusEnum;
     /**
      * The actual payment date
      */
@@ -51,4 +51,13 @@ export interface UpdatePaymentDto {
      */
     notes?: string;
 }
+export namespace UpdatePaymentDto {
+    export const StatusEnum = {
+        NUMBER_0: 0,
+        NUMBER_1: 1,
+        NUMBER_2: 2
+    } as const;
+    export type StatusEnum = typeof StatusEnum[keyof typeof StatusEnum];
+}
+
 

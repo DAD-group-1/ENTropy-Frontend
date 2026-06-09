@@ -7,6 +7,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { CourseResponseDto } from './courseResponseDto';
 
 
 export interface EnrollmentResponseDto { 
@@ -19,5 +20,6 @@ export interface EnrollmentResponseDto {
     enrollment_date: string;
     created_at: string;
     updated_at: string;
+    course: CourseResponseDto;
 }
 

@@ -228,6 +228,70 @@
         "tags": ["Attendance"]
       }
     },
+    "/api/attendances/student/{studentId}": {
+      "get": {
+        "description": "Retrieve a paginated list of attendance records for a given student ID.",
+        "operationId": "Attendance_findByStudentId",
+        "parameters": [
+          {
+            "name": "studentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/AttendanceListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get attendance records for a specific student",
+        "tags": ["Attendance"]
+      }
+    },
     "/api/payment-methods": {
       "post": {
         "description": "Add a new payment method to the system.",
@@ -1427,6 +1491,70 @@
         "tags": ["Grade"]
       }
     },
+    "/api/grades/student/{studentId}": {
+      "get": {
+        "description": "Retrieve all grade records associated with a specific student ID.",
+        "operationId": "Grade_findByStudentId",
+        "parameters": [
+          {
+            "name": "studentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/GradeListResponseDto"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get grade records by student ID",
+        "tags": ["Grade"]
+      }
+    },
     "/api/buildings": {
       "post": {
         "description": "Add a new building record to the system.",
@@ -2541,6 +2669,142 @@
           }
         ],
         "summary": "Delete a schedule record",
+        "tags": ["Schedule"]
+      }
+    },
+    "/api/schedules/program/{programId}": {
+      "get": {
+        "description": "Retrieve a list of schedule records associated with a specific program ID.",
+        "operationId": "Schedule_findByProgramId",
+        "parameters": [
+          {
+            "name": "programId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/ScheduleListResponseDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all the schedule records for a specific program",
+        "tags": ["Schedule"]
+      }
+    },
+    "/api/schedules/program/{programId}/date-range": {
+      "get": {
+        "description": "Retrieve a list of schedule records that fall within a specified date range.",
+        "operationId": "Schedule_findByDateRange",
+        "parameters": [
+          {
+            "name": "programId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "start_date",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "format": "date",
+              "example": "2026-06-09",
+              "type": "string"
+            }
+          },
+          {
+            "name": "end_date",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "format": "date",
+              "example": "2026-06-09",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/GlobalResponseDto"
+                    },
+                    {
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/ScheduleResponseDto"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all the schedule records between a specific date range",
         "tags": ["Schedule"]
       }
     },
@@ -3921,170 +4185,6 @@
         },
         "required": ["success"]
       },
-      "AttendanceResponseDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "schedule_id": {
-            "type": "number"
-          },
-          "student_id": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          },
-          "note": {
-            "type": "object",
-            "nullable": true
-          },
-          "created_at": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "updated_at": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "schedule_id",
-          "student_id",
-          "status",
-          "note",
-          "created_at",
-          "updated_at"
-        ]
-      },
-      "CreateAttendanceRequestDto": {
-        "type": "object",
-        "properties": {
-          "schedule_id": {
-            "type": "number",
-            "description": "The ID of the schedule"
-          },
-          "student_id": {
-            "type": "number",
-            "description": "The ID of the student"
-          },
-          "status": {
-            "type": "string",
-            "description": "The attendance status",
-            "enum": ["PRESENT", "ABSENT", "LATE", "EXCUSED"]
-          },
-          "note": {
-            "type": "object",
-            "description": "Optional note about attendance",
-            "nullable": true
-          }
-        },
-        "required": ["schedule_id", "student_id", "status", "note"]
-      },
-      "AttendanceListResponseDto": {
-        "type": "object",
-        "properties": {
-          "total": {
-            "type": "number",
-            "example": 100
-          },
-          "page": {
-            "type": "number",
-            "example": 1
-          },
-          "limit": {
-            "type": "number",
-            "example": 10
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AttendanceResponseDto"
-            }
-          }
-        },
-        "required": ["total", "page", "limit", "items"]
-      },
-      "UpdateAttendanceDto": {
-        "type": "object",
-        "properties": {
-          "schedule_id": {
-            "type": "number",
-            "description": "The ID of the schedule"
-          },
-          "student_id": {
-            "type": "number",
-            "description": "The ID of the student"
-          },
-          "status": {
-            "type": "string",
-            "description": "The attendance status",
-            "enum": ["PRESENT", "ABSENT", "LATE", "EXCUSED"]
-          },
-          "note": {
-            "type": "object",
-            "description": "Optional note about attendance",
-            "nullable": true
-          }
-        }
-      },
-      "PaymentMethodResponseDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "required": ["id", "name"]
-      },
-      "CreatePaymentMethodDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "The name of the payment method"
-          }
-        },
-        "required": ["name"]
-      },
-      "PaymentMethodListResponseDto": {
-        "type": "object",
-        "properties": {
-          "total": {
-            "type": "number",
-            "example": 100
-          },
-          "page": {
-            "type": "number",
-            "example": 1
-          },
-          "limit": {
-            "type": "number",
-            "example": 10
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PaymentMethodResponseDto"
-            }
-          }
-        },
-        "required": ["total", "page", "limit", "items"]
-      },
-      "UpdatePaymentMethodDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "The name of the payment method"
-          }
-        }
-      },
       "CampusResponseDto": {
         "type": "object",
         "properties": {
@@ -4224,6 +4324,242 @@
           "updated_at"
         ]
       },
+      "ScheduleResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "event_id": {
+            "type": "number"
+          },
+          "course_id": {
+            "type": "number"
+          },
+          "instructor_id": {
+            "type": "number"
+          },
+          "room_id": {
+            "type": "number"
+          },
+          "start_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "end_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "semester": {
+            "type": "number"
+          },
+          "academic_year": {
+            "type": "number"
+          },
+          "status": {
+            "type": "number"
+          },
+          "last_modified": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "event_id",
+          "course_id",
+          "instructor_id",
+          "room_id",
+          "start_date",
+          "end_date",
+          "semester",
+          "academic_year",
+          "status",
+          "last_modified",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "AttendanceResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "schedule_id": {
+            "type": "number"
+          },
+          "student_id": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserResponseDto"
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/ScheduleResponseDto"
+          }
+        },
+        "required": [
+          "id",
+          "schedule_id",
+          "student_id",
+          "status",
+          "note",
+          "created_at",
+          "updated_at",
+          "user",
+          "schedule"
+        ]
+      },
+      "CreateAttendanceRequestDto": {
+        "type": "object",
+        "properties": {
+          "schedule_id": {
+            "type": "number",
+            "description": "The ID of the schedule"
+          },
+          "student_id": {
+            "type": "number",
+            "description": "The ID of the student"
+          },
+          "status": {
+            "type": "string",
+            "description": "The attendance status",
+            "enum": ["PRESENT", "ABSENT", "LATE", "EXCUSED"]
+          },
+          "note": {
+            "type": "string",
+            "description": "Optional note about attendance",
+            "nullable": true
+          }
+        },
+        "required": ["schedule_id", "student_id", "status", "note"]
+      },
+      "AttendanceListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttendanceResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdateAttendanceDto": {
+        "type": "object",
+        "properties": {
+          "schedule_id": {
+            "type": "number",
+            "description": "The ID of the schedule"
+          },
+          "student_id": {
+            "type": "number",
+            "description": "The ID of the student"
+          },
+          "status": {
+            "type": "string",
+            "description": "The attendance status",
+            "enum": ["PRESENT", "ABSENT", "LATE", "EXCUSED"]
+          },
+          "note": {
+            "type": "string",
+            "description": "Optional note about attendance",
+            "nullable": true
+          }
+        }
+      },
+      "PaymentMethodResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "name"]
+      },
+      "CreatePaymentMethodDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the payment method"
+          }
+        },
+        "required": ["name"]
+      },
+      "PaymentMethodListResponseDto": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "example": 100
+          },
+          "page": {
+            "type": "number",
+            "example": 1
+          },
+          "limit": {
+            "type": "number",
+            "example": 10
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentMethodResponseDto"
+            }
+          }
+        },
+        "required": ["total", "page", "limit", "items"]
+      },
+      "UpdatePaymentMethodDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the payment method"
+          }
+        }
+      },
       "PaymentResponseDto": {
         "type": "object",
         "properties": {
@@ -4321,7 +4657,7 @@
           "status": {
             "type": "number",
             "description": "The payment status",
-            "enum": []
+            "enum": [0, 1, 2]
           },
           "payment_date": {
             "type": "string",
@@ -4407,7 +4743,7 @@
           "status": {
             "type": "number",
             "description": "The payment status",
-            "enum": []
+            "enum": [0, 1, 2]
           },
           "payment_date": {
             "type": "string",
@@ -4641,6 +4977,9 @@
           "updated_at": {
             "format": "date-time",
             "type": "string"
+          },
+          "course": {
+            "$ref": "#/components/schemas/CourseResponseDto"
           }
         },
         "required": [
@@ -4652,7 +4991,8 @@
           "status",
           "enrollment_date",
           "created_at",
-          "updated_at"
+          "updated_at",
+          "course"
         ]
       },
       "CreateEnrollmentRequestDto": {
@@ -4764,9 +5104,12 @@
           },
           "name": {
             "type": "string"
+          },
+          "enrollment": {
+            "$ref": "#/components/schemas/EnrollmentResponseDto"
           }
         },
-        "required": ["id", "enrollment_id", "grade", "name"]
+        "required": ["id", "enrollment_id", "grade", "name", "enrollment"]
       },
       "CreateGradeRequestDto": {
         "type": "object",
@@ -5262,70 +5605,6 @@
             "enum": ["Booked", "Available", "Unavailable"]
           }
         }
-      },
-      "ScheduleResponseDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "event_id": {
-            "type": "number"
-          },
-          "course_id": {
-            "type": "number"
-          },
-          "instructor_id": {
-            "type": "number"
-          },
-          "room_id": {
-            "type": "number"
-          },
-          "start_date": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "end_date": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "semester": {
-            "type": "number"
-          },
-          "academic_year": {
-            "type": "number"
-          },
-          "status": {
-            "type": "number"
-          },
-          "last_modified": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "created_at": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "updated_at": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "event_id",
-          "course_id",
-          "instructor_id",
-          "room_id",
-          "start_date",
-          "end_date",
-          "semester",
-          "academic_year",
-          "status",
-          "last_modified",
-          "created_at",
-          "updated_at"
-        ]
       },
       "CreateScheduleRequestDto": {
         "type": "object",

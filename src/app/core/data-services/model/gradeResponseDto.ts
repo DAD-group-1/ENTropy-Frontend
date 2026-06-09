@@ -7,6 +7,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { EnrollmentResponseDto } from './enrollmentResponseDto';
 
 
 export interface GradeResponseDto { 
@@ -14,5 +15,6 @@ export interface GradeResponseDto {
     enrollment_id: number;
     grade: object | null;
     name: string;
+    enrollment: EnrollmentResponseDto;
 }
 

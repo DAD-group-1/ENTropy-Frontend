@@ -25,7 +25,7 @@ export interface CreateAttendanceRequestDto {
     /**
      * Optional note about attendance
      */
-    note: object | null;
+    note: string | null;
 }
 export namespace CreateAttendanceRequestDto {
     export const StatusEnum = {

@@ -81,6 +81,8 @@ export * from './roomTypeListResponseDto';
 export * from './roomTypeResponseDto';
 export * from './scheduleCreateDefaultResponse';
 export * from './scheduleFindAllDefaultResponse';
+export * from './scheduleFindByDateRangeDefaultResponse';
+export * from './scheduleFindByProgramIdDefaultResponse';
 export * from './scheduleListResponseDto';
 export * from './scheduleResponseDto';
 export * from './specializationResponseDto';
