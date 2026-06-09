@@ -31,6 +31,7 @@
     <tr>
       @for (header of headers(); track header.key) {
         <th
+          [hidden]="header.hide"
           pSortableColumn="{{ header.key }}"
         >
           <div class="sortable-column">
@@ -50,7 +51,9 @@
   <ng-template #body let-row>
     <tr>
       @for (header of headers(); track header.key) {
-        <td>
+        <td [hidden]="header.hide"
+            [class.cell-clickable]="header.click?.baseUrl"
+            (click)="onCellClick(header, row)">
           @if (header.isBoolean) {
             <i
               class="pi"
@@ -59,8 +62,8 @@
                 'text-red-500 pi-times-circle': !row[header.key]
               }"
             ></i>
-          } @else if (header.isDate) {
-            {{ row[header.key] | date:'yyyy-MM-dd' }}
+          } @else if (header.dateFormat) {
+            {{ row[header.key] | date:(header.dateFormat) }}
           } @else {
             {{ row[header.key] }}
           }

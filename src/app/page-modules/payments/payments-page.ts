@@ -30,8 +30,17 @@ export class PaymentsPage implements OnInit {
 
   public externalHeaders: TableColumn[] = [
     {
+      key: 'id',
+      label: 'Student id',
+      hide: true,
+    },
+    {
       key: 'name',
       label: 'Name',
+      click: {
+        baseUrl: 'profile',
+        parameterColumn: 'id',
+      },
     },
   ];
 
@@ -39,7 +48,7 @@ export class PaymentsPage implements OnInit {
     {
       key: 'invoice_date',
       label: 'Invoice date',
-      isDate: true,
+      dateFormat: 'yyyy-MM-dd',
     },
     {
       key: 'due_date',
@@ -48,12 +57,12 @@ export class PaymentsPage implements OnInit {
         sortField: true,
         sortOrder: -1,
       },
-      isDate: true,
+      dateFormat: 'yyyy-MM-dd',
     },
     {
       key: 'payment_date',
       label: 'Payment date',
-      isDate: true,
+      dateFormat: 'yyyy-MM-dd',
     },
     {
       key: 'amount',
@@ -102,6 +111,7 @@ export class PaymentsPage implements OnInit {
 
     if (this.isExternalUser || this.isGlobalView) {
       externalUserData = {
+        id: payment.student_id,
         name: displayName(payment.user.first_name, payment.user.last_name),
       };
     }
@@ -134,9 +144,7 @@ export class PaymentsPage implements OnInit {
       next: (result) => {
         if (!result.success || !result.data) return;
 
-        this.rows.set(
-          result.data.items.map((item) => this.paymentToRow(item)),
-        );
+        this.rows.set(result.data.items.map((item) => this.paymentToRow(item)));
 
         this.totalRecords.set(result.data.total);
         this.isLoaded.set(true);

@@ -152,6 +152,11 @@ export class Sidebar implements OnInit, OnDestroy {
       route: 'absences',
     },
     {
+      icon: 'pi pi-wallet',
+      label: 'Payments',
+      route: 'payments',
+    },
+    {
       icon: 'pi pi-book',
       label: 'Assignments',
       route: 'assignments',
