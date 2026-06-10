@@ -36,9 +36,8 @@
               {{ toDate(clickedEvent()?.start) | personalDate:'HH:mm'}}
             </time>
 
-            <span aria-hidden="true"> - </span>
-
             @if (clickedEvent()?.end) {
+            <span aria-hidden="true"> - </span>
               <time
                 [attr.datetime]="toDate(clickedEvent()?.end) | personalDate:'HH:mm'">
               {{ toDate(clickedEvent()?.end) | personalDate:'HH:mm' }}
