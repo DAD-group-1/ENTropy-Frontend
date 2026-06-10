@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class FrontWebsocketService {
   connect(userId: string) {
     if (this.socket) return;
 
-    this.socket = io('http://localhost:3000', {
+    this.socket = io(environment.apiUrl, {
       auth: { userId },
     });
 

@@ -14,6 +14,8 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { JwtInterceptor } from './core/interceptors/jwt-interceptor';
 import { FrontAuthService } from './shared-modules/service/front-auth.service';
 
+import { environment } from '../environments/environment';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -31,7 +33,7 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
-    provideApi('http://localhost:3000'),
+    provideApi(environment.apiUrl),
     provideAppInitializer(initAuth),
     provideHttpClient(withInterceptors([JwtInterceptor])),
   ],
