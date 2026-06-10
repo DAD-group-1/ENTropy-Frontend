@@ -45,7 +45,9 @@
           }
         ],
         "summary": "Create a new attendance record",
-        "tags": ["Attendance"]
+        "tags": [
+          "Attendance"
+        ]
       },
       "get": {
         "description": "Retrieve a paginated list of all attendance records.",
@@ -99,7 +101,9 @@
           }
         ],
         "summary": "Get all attendance records",
-        "tags": ["Attendance"]
+        "tags": [
+          "Attendance"
+        ]
       }
     },
     "/api/attendances/{id}": {
@@ -145,7 +149,9 @@
           }
         ],
         "summary": "Get a specific attendance record",
-        "tags": ["Attendance"]
+        "tags": [
+          "Attendance"
+        ]
       },
       "patch": {
         "description": "Update the details of an existing attendance record by its ID.",
@@ -199,7 +205,9 @@
           }
         ],
         "summary": "Update an attendance record",
-        "tags": ["Attendance"]
+        "tags": [
+          "Attendance"
+        ]
       },
       "delete": {
         "description": "Remove an attendance record from the system by its ID.",
@@ -225,7 +233,9 @@
           }
         ],
         "summary": "Delete an attendance record",
-        "tags": ["Attendance"]
+        "tags": [
+          "Attendance"
+        ]
       }
     },
     "/api/attendances/student/{studentId}": {
@@ -289,7 +299,9 @@
           }
         ],
         "summary": "Get attendance records for a specific student",
-        "tags": ["Attendance"]
+        "tags": [
+          "Attendance"
+        ]
       }
     },
     "/api/payment-methods": {
@@ -336,7 +348,9 @@
           }
         ],
         "summary": "Create a new payment method",
-        "tags": ["PaymentMethod"]
+        "tags": [
+          "PaymentMethod"
+        ]
       },
       "get": {
         "description": "Retrieve a list of all payment methods with pagination support.",
@@ -390,7 +404,9 @@
           }
         ],
         "summary": "Get all payment methods",
-        "tags": ["PaymentMethod"]
+        "tags": [
+          "PaymentMethod"
+        ]
       }
     },
     "/api/payment-methods/{id}": {
@@ -436,7 +452,9 @@
           }
         ],
         "summary": "Get a payment method by ID",
-        "tags": ["PaymentMethod"]
+        "tags": [
+          "PaymentMethod"
+        ]
       },
       "patch": {
         "description": "Update the details of an existing payment method using its ID.",
@@ -490,7 +508,9 @@
           }
         ],
         "summary": "Update a payment method",
-        "tags": ["PaymentMethod"]
+        "tags": [
+          "PaymentMethod"
+        ]
       },
       "delete": {
         "description": "Remove a payment method from the system using its ID.",
@@ -516,7 +536,9 @@
           }
         ],
         "summary": "Delete a payment method",
-        "tags": ["PaymentMethod"]
+        "tags": [
+          "PaymentMethod"
+        ]
       }
     },
     "/api/payments": {
@@ -563,7 +585,9 @@
           }
         ],
         "summary": "Create a new payment record",
-        "tags": ["Payment"]
+        "tags": [
+          "Payment"
+        ]
       },
       "get": {
         "description": "Retrieve a paginated list of payments from the system.",
@@ -617,7 +641,9 @@
           }
         ],
         "summary": "Get a list of payments",
-        "tags": ["Payment"]
+        "tags": [
+          "Payment"
+        ]
       }
     },
     "/api/payments/{id}": {
@@ -663,7 +689,9 @@
           }
         ],
         "summary": "Get a payment by ID",
-        "tags": ["Payment"]
+        "tags": [
+          "Payment"
+        ]
       },
       "patch": {
         "description": "Update the details of an existing payment record by its ID.",
@@ -717,7 +745,9 @@
           }
         ],
         "summary": "Update a payment record",
-        "tags": ["Payment"]
+        "tags": [
+          "Payment"
+        ]
       },
       "delete": {
         "description": "Remove a payment record from the system by its ID.",
@@ -743,7 +773,9 @@
           }
         ],
         "summary": "Delete a payment record",
-        "tags": ["Payment"]
+        "tags": [
+          "Payment"
+        ]
       }
     },
     "/api/payments/student/{studentId}": {
@@ -807,7 +839,9 @@
           }
         ],
         "summary": "Get all payments for a student",
-        "tags": ["Payment"]
+        "tags": [
+          "Payment"
+        ]
       }
     },
     "/api/courses": {
@@ -854,7 +888,9 @@
           }
         ],
         "summary": "Create a new course record",
-        "tags": ["Course"]
+        "tags": [
+          "Course"
+        ]
       },
       "get": {
         "description": "Retrieve a paginated list of courses from the system.",
@@ -908,7 +944,9 @@
           }
         ],
         "summary": "Get a list of courses",
-        "tags": ["Course"]
+        "tags": [
+          "Course"
+        ]
       }
     },
     "/api/courses/{id}": {
@@ -954,7 +992,9 @@
           }
         ],
         "summary": "Get a course by ID",
-        "tags": ["Course"]
+        "tags": [
+          "Course"
+        ]
       },
       "patch": {
         "description": "Update an existing course record by its unique ID.",
@@ -1008,7 +1048,9 @@
           }
         ],
         "summary": "Update a course by ID",
-        "tags": ["Course"]
+        "tags": [
+          "Course"
+        ]
       },
       "delete": {
         "description": "Remove a course record from the system by its unique ID.",
@@ -1034,7 +1076,9 @@
           }
         ],
         "summary": "Delete a course by ID",
-        "tags": ["Course"]
+        "tags": [
+          "Course"
+        ]
       }
     },
     "/api/enrollments": {
@@ -1081,7 +1125,9 @@
           }
         ],
         "summary": "Create a new enrollment record",
-        "tags": ["Enrollment"]
+        "tags": [
+          "Enrollment"
+        ]
       },
       "get": {
         "description": "Retrieve a paginated list of enrollments.",
@@ -1135,7 +1181,9 @@
           }
         ],
         "summary": "Get a list of enrollments",
-        "tags": ["Enrollment"]
+        "tags": [
+          "Enrollment"
+        ]
       }
     },
     "/api/enrollments/{id}": {
@@ -1181,7 +1229,9 @@
           }
         ],
         "summary": "Get a specific enrollment",
-        "tags": ["Enrollment"]
+        "tags": [
+          "Enrollment"
+        ]
       },
       "patch": {
         "description": "Update details of an existing enrollment by its ID.",
@@ -1235,7 +1285,9 @@
           }
         ],
         "summary": "Update an enrollment",
-        "tags": ["Enrollment"]
+        "tags": [
+          "Enrollment"
+        ]
       },
       "delete": {
         "description": "Remove an enrollment from the system by its ID.",
@@ -1261,7 +1313,9 @@
           }
         ],
         "summary": "Delete an enrollment",
-        "tags": ["Enrollment"]
+        "tags": [
+          "Enrollment"
+        ]
       }
     },
     "/api/grades": {
@@ -1308,7 +1362,9 @@
           }
         ],
         "summary": "Create a new grade record",
-        "tags": ["Grade"]
+        "tags": [
+          "Grade"
+        ]
       },
       "get": {
         "description": "Retrieve a list of all grade records in the system.",
@@ -1362,7 +1418,9 @@
           }
         ],
         "summary": "Get all grade records",
-        "tags": ["Grade"]
+        "tags": [
+          "Grade"
+        ]
       }
     },
     "/api/grades/{id}": {
@@ -1408,7 +1466,9 @@
           }
         ],
         "summary": "Get a grade record by ID",
-        "tags": ["Grade"]
+        "tags": [
+          "Grade"
+        ]
       },
       "patch": {
         "description": "Modify an existing grade record using its unique ID.",
@@ -1462,7 +1522,9 @@
           }
         ],
         "summary": "Update a grade record",
-        "tags": ["Grade"]
+        "tags": [
+          "Grade"
+        ]
       },
       "delete": {
         "description": "Remove a specific grade record from the system using its unique ID.",
@@ -1488,7 +1550,9 @@
           }
         ],
         "summary": "Delete a grade record",
-        "tags": ["Grade"]
+        "tags": [
+          "Grade"
+        ]
       }
     },
     "/api/grades/student/{studentId}": {
@@ -1552,7 +1616,9 @@
           }
         ],
         "summary": "Get grade records by student ID",
-        "tags": ["Grade"]
+        "tags": [
+          "Grade"
+        ]
       }
     },
     "/api/buildings": {
@@ -1599,7 +1665,9 @@
           }
         ],
         "summary": "Create a new building record",
-        "tags": ["Building"]
+        "tags": [
+          "Building"
+        ]
       },
       "get": {
         "description": "Retrieve a list of all buildings with pagination support.",
@@ -1653,7 +1721,9 @@
           }
         ],
         "summary": "Get all buildings",
-        "tags": ["Building"]
+        "tags": [
+          "Building"
+        ]
       }
     },
     "/api/buildings/{id}": {
@@ -1699,7 +1769,9 @@
           }
         ],
         "summary": "Get a building by ID",
-        "tags": ["Building"]
+        "tags": [
+          "Building"
+        ]
       },
       "patch": {
         "description": "Update an existing building record by its unique ID.",
@@ -1753,7 +1825,9 @@
           }
         ],
         "summary": "Update a building record",
-        "tags": ["Building"]
+        "tags": [
+          "Building"
+        ]
       },
       "delete": {
         "description": "Remove an existing building record by its unique ID.",
@@ -1779,7 +1853,9 @@
           }
         ],
         "summary": "Delete a building record",
-        "tags": ["Building"]
+        "tags": [
+          "Building"
+        ]
       }
     },
     "/api/campuses": {
@@ -1826,7 +1902,9 @@
           }
         ],
         "summary": "Create a new campus record",
-        "tags": ["Campus"]
+        "tags": [
+          "Campus"
+        ]
       },
       "get": {
         "description": "Retrieve a list of all campuses with pagination support.",
@@ -1880,7 +1958,9 @@
           }
         ],
         "summary": "Get all campuses",
-        "tags": ["Campus"]
+        "tags": [
+          "Campus"
+        ]
       }
     },
     "/api/campuses/{id}": {
@@ -1926,7 +2006,9 @@
           }
         ],
         "summary": "Get a campus by ID",
-        "tags": ["Campus"]
+        "tags": [
+          "Campus"
+        ]
       },
       "patch": {
         "description": "Update an existing campus record by its unique ID.",
@@ -1980,7 +2062,9 @@
           }
         ],
         "summary": "Update a campus record",
-        "tags": ["Campus"]
+        "tags": [
+          "Campus"
+        ]
       },
       "delete": {
         "description": "Remove an existing campus record by its unique ID.",
@@ -2006,7 +2090,9 @@
           }
         ],
         "summary": "Delete a campus record",
-        "tags": ["Campus"]
+        "tags": [
+          "Campus"
+        ]
       }
     },
     "/api/room-types": {
@@ -2053,7 +2139,9 @@
           }
         ],
         "summary": "Create a new room type record",
-        "tags": ["RoomType"]
+        "tags": [
+          "RoomType"
+        ]
       },
       "get": {
         "description": "Retrieve a list of all room types with pagination.",
@@ -2107,7 +2195,9 @@
           }
         ],
         "summary": "Get all room types",
-        "tags": ["RoomType"]
+        "tags": [
+          "RoomType"
+        ]
       }
     },
     "/api/room-types/{id}": {
@@ -2135,7 +2225,9 @@
           }
         ],
         "summary": "Get a room type by ID",
-        "tags": ["RoomType"]
+        "tags": [
+          "RoomType"
+        ]
       },
       "patch": {
         "description": "Update an existing room type record by its unique ID.",
@@ -2189,7 +2281,9 @@
           }
         ],
         "summary": "Update a room type",
-        "tags": ["RoomType"]
+        "tags": [
+          "RoomType"
+        ]
       },
       "delete": {
         "description": "Remove a room type record from the system by its unique ID.",
@@ -2215,7 +2309,9 @@
           }
         ],
         "summary": "Delete a room type",
-        "tags": ["RoomType"]
+        "tags": [
+          "RoomType"
+        ]
       }
     },
     "/api/rooms": {
@@ -2262,7 +2358,9 @@
           }
         ],
         "summary": "Create a new room record",
-        "tags": ["Room"]
+        "tags": [
+          "Room"
+        ]
       },
       "get": {
         "description": "Retrieve a paginated list of rooms from the system.",
@@ -2316,7 +2414,9 @@
           }
         ],
         "summary": "Get a list of rooms",
-        "tags": ["Room"]
+        "tags": [
+          "Room"
+        ]
       }
     },
     "/api/rooms/{id}": {
@@ -2362,7 +2462,9 @@
           }
         ],
         "summary": "Get a room by ID",
-        "tags": ["Room"]
+        "tags": [
+          "Room"
+        ]
       },
       "patch": {
         "description": "Update an existing room record in the system.",
@@ -2416,7 +2518,9 @@
           }
         ],
         "summary": "Update a room record",
-        "tags": ["Room"]
+        "tags": [
+          "Room"
+        ]
       },
       "delete": {
         "description": "Remove a room record from the system by its unique ID.",
@@ -2442,7 +2546,9 @@
           }
         ],
         "summary": "Delete a room record",
-        "tags": ["Room"]
+        "tags": [
+          "Room"
+        ]
       }
     },
     "/api/schedules": {
@@ -2489,7 +2595,9 @@
           }
         ],
         "summary": "Create a new schedule record",
-        "tags": ["Schedule"]
+        "tags": [
+          "Schedule"
+        ]
       },
       "get": {
         "description": "Retrieve a list of all schedule records in the system.",
@@ -2543,7 +2651,9 @@
           }
         ],
         "summary": "Get all schedule records",
-        "tags": ["Schedule"]
+        "tags": [
+          "Schedule"
+        ]
       }
     },
     "/api/schedules/{id}": {
@@ -2589,7 +2699,9 @@
           }
         ],
         "summary": "Get a schedule record by ID",
-        "tags": ["Schedule"]
+        "tags": [
+          "Schedule"
+        ]
       },
       "patch": {
         "description": "Update an existing schedule record by its unique ID.",
@@ -2643,7 +2755,9 @@
           }
         ],
         "summary": "Update a schedule record",
-        "tags": ["Schedule"]
+        "tags": [
+          "Schedule"
+        ]
       },
       "delete": {
         "description": "Remove a schedule record from the system by its unique ID.",
@@ -2669,7 +2783,9 @@
           }
         ],
         "summary": "Delete a schedule record",
-        "tags": ["Schedule"]
+        "tags": [
+          "Schedule"
+        ]
       }
     },
     "/api/schedules/program/{programId}": {
@@ -2736,7 +2852,9 @@
           }
         ],
         "summary": "Get all the schedule records for a specific program",
-        "tags": ["Schedule"]
+        "tags": [
+          "Schedule"
+        ]
       }
     },
     "/api/schedules/program/{programId}/date-range": {
@@ -2805,7 +2923,9 @@
           }
         ],
         "summary": "Get all the schedule records for a specific program within a date range",
-        "tags": ["Schedule"]
+        "tags": [
+          "Schedule"
+        ]
       }
     },
     "/api/schedules/instructor/{instructorId}": {
@@ -2874,7 +2994,9 @@
           }
         ],
         "summary": "Get all the schedule records for a specific instructor within a date range",
-        "tags": ["Schedule"]
+        "tags": [
+          "Schedule"
+        ]
       }
     },
     "/api/students": {
@@ -2921,7 +3043,9 @@
           }
         ],
         "summary": "Create a new student record",
-        "tags": ["Student"]
+        "tags": [
+          "Student"
+        ]
       },
       "get": {
         "description": "Retrieve a list of all student records in the system.",
@@ -2975,7 +3099,9 @@
           }
         ],
         "summary": "Get all student records",
-        "tags": ["Student"]
+        "tags": [
+          "Student"
+        ]
       }
     },
     "/api/students/{id}": {
@@ -3021,7 +3147,9 @@
           }
         ],
         "summary": "Get a student record by ID",
-        "tags": ["Student"]
+        "tags": [
+          "Student"
+        ]
       },
       "patch": {
         "description": "Update an existing student record by its unique ID.",
@@ -3075,7 +3203,9 @@
           }
         ],
         "summary": "Update a student record",
-        "tags": ["Student"]
+        "tags": [
+          "Student"
+        ]
       },
       "delete": {
         "description": "Remove a student record from the system by its unique ID.",
@@ -3101,7 +3231,9 @@
           }
         ],
         "summary": "Delete a student record",
-        "tags": ["Student"]
+        "tags": [
+          "Student"
+        ]
       }
     },
     "/api/users": {
@@ -3157,7 +3289,9 @@
           }
         ],
         "summary": "Get all user records",
-        "tags": ["User"]
+        "tags": [
+          "User"
+        ]
       }
     },
     "/api/users/{id}": {
@@ -3203,7 +3337,9 @@
           }
         ],
         "summary": "Get a specific user record",
-        "tags": ["User"]
+        "tags": [
+          "User"
+        ]
       }
     },
     "/api/instructors": {
@@ -3250,7 +3386,9 @@
           }
         ],
         "summary": "Create a new instructor",
-        "tags": ["Instructor"]
+        "tags": [
+          "Instructor"
+        ]
       },
       "get": {
         "description": "Retrieve a paginated list of all instructors in the system.",
@@ -3304,7 +3442,9 @@
           }
         ],
         "summary": "Get a list of all instructors",
-        "tags": ["Instructor"]
+        "tags": [
+          "Instructor"
+        ]
       }
     },
     "/api/instructors/{id}": {
@@ -3350,7 +3490,9 @@
           }
         ],
         "summary": "Get a specific instructor by ID",
-        "tags": ["Instructor"]
+        "tags": [
+          "Instructor"
+        ]
       },
       "patch": {
         "description": "Modify the details of an existing instructor using their unique ID.",
@@ -3404,7 +3546,9 @@
           }
         ],
         "summary": "Update an existing instructor",
-        "tags": ["Instructor"]
+        "tags": [
+          "Instructor"
+        ]
       },
       "delete": {
         "description": "Remove an instructor from the system using their unique ID.",
@@ -3430,7 +3574,9 @@
           }
         ],
         "summary": "Delete an instructor",
-        "tags": ["Instructor"]
+        "tags": [
+          "Instructor"
+        ]
       }
     },
     "/api/logout": {
@@ -3472,7 +3618,9 @@
           }
         },
         "summary": "Logout a user and invalidate their refresh token",
-        "tags": ["Authentication"]
+        "tags": [
+          "Authentication"
+        ]
       }
     },
     "/api/login": {
@@ -3514,7 +3662,9 @@
           }
         },
         "summary": "Login a user and obtain an access token",
-        "tags": ["Authentication"]
+        "tags": [
+          "Authentication"
+        ]
       }
     },
     "/api/refresh": {
@@ -3556,7 +3706,9 @@
           }
         },
         "summary": "Refresh an access token using a refresh token",
-        "tags": ["Authentication"]
+        "tags": [
+          "Authentication"
+        ]
       }
     },
     "/api/verify": {
@@ -3582,7 +3734,9 @@
           }
         ],
         "summary": "Verify the validity of an access token",
-        "tags": ["Authentication"]
+        "tags": [
+          "Authentication"
+        ]
       }
     },
     "/api/roles": {
@@ -3629,7 +3783,9 @@
           }
         ],
         "summary": "Create a new role",
-        "tags": ["Authorization"]
+        "tags": [
+          "Authorization"
+        ]
       },
       "get": {
         "description": "Retrieve a list of all roles in the system.",
@@ -3664,7 +3820,9 @@
           }
         ],
         "summary": "Get all roles",
-        "tags": ["Authorization"]
+        "tags": [
+          "Authorization"
+        ]
       }
     },
     "/api/roles/{id}": {
@@ -3710,7 +3868,9 @@
           }
         ],
         "summary": "Get role by ID",
-        "tags": ["Authorization"]
+        "tags": [
+          "Authorization"
+        ]
       },
       "patch": {
         "description": "Update the details of an existing role.",
@@ -3764,7 +3924,9 @@
           }
         ],
         "summary": "Update role",
-        "tags": ["Authorization"]
+        "tags": [
+          "Authorization"
+        ]
       },
       "delete": {
         "description": "Remove a role from the system.",
@@ -3797,7 +3959,9 @@
           }
         ],
         "summary": "Delete role",
-        "tags": ["Authorization"]
+        "tags": [
+          "Authorization"
+        ]
       }
     },
     "/api/users/{id}/roles/assign": {
@@ -3853,7 +4017,9 @@
           }
         ],
         "summary": "Assign role to user",
-        "tags": ["UserRole"]
+        "tags": [
+          "UserRole"
+        ]
       }
     },
     "/api/users/{id}/role": {
@@ -3899,7 +4065,9 @@
           }
         ],
         "summary": "Get user role",
-        "tags": ["UserRole"]
+        "tags": [
+          "UserRole"
+        ]
       }
     },
     "/api/notifications": {
@@ -3946,7 +4114,9 @@
           }
         ],
         "summary": "Create a new notification record",
-        "tags": ["Notifications"]
+        "tags": [
+          "Notifications"
+        ]
       },
       "get": {
         "description": "Retrieve a paginated list of notifications.",
@@ -4000,7 +4170,9 @@
           }
         ],
         "summary": "Get a list of notifications",
-        "tags": ["Notifications"]
+        "tags": [
+          "Notifications"
+        ]
       }
     },
     "/api/notifications/user/{userId}": {
@@ -4064,7 +4236,9 @@
           }
         ],
         "summary": "Get notifications for a specific user",
-        "tags": ["Notifications"]
+        "tags": [
+          "Notifications"
+        ]
       }
     },
     "/api/notifications/{id}": {
@@ -4110,7 +4284,9 @@
           }
         ],
         "summary": "Get a notification by ID",
-        "tags": ["Notifications"]
+        "tags": [
+          "Notifications"
+        ]
       },
       "patch": {
         "description": "Update the details of an existing notification.",
@@ -4164,7 +4340,9 @@
           }
         ],
         "summary": "Update a notification",
-        "tags": ["Notifications"]
+        "tags": [
+          "Notifications"
+        ]
       },
       "delete": {
         "description": "Remove a notification from the system by its unique ID.",
@@ -4208,7 +4386,9 @@
           }
         ],
         "summary": "Delete a notification",
-        "tags": ["Notifications"]
+        "tags": [
+          "Notifications"
+        ]
       }
     }
   },
@@ -4216,7 +4396,9 @@
     "title": "ENTropy API",
     "description": "The ENTropy API description",
     "version": "1.0",
-    "contact": {}
+    "contact": {
+
+    }
   },
   "tags": [
     {
@@ -4252,7 +4434,9 @@
             "nullable": true
           }
         },
-        "required": ["success"]
+        "required": [
+          "success"
+        ]
       },
       "CampusResponseDto": {
         "type": "object",
@@ -4333,7 +4517,11 @@
             "type": "string"
           }
         },
-        "required": ["id", "name", "description"]
+        "required": [
+          "id",
+          "name",
+          "description"
+        ]
       },
       "UserResponseDto": {
         "type": "object",
@@ -4450,6 +4638,129 @@
           "updated_at"
         ]
       },
+      "DepartmentResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "SpecializationResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "InstructorResponseDto": {
+        "type": "object",
+        "properties": {
+          "department": {
+            "$ref": "#/components/schemas/DepartmentResponseDto"
+          },
+          "specialization": {
+            "$ref": "#/components/schemas/SpecializationResponseDto"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserResponseDto"
+          },
+          "user_id": {
+            "type": "number"
+          },
+          "department_id": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "hire_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "specialization_id": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "department",
+          "specialization",
+          "user",
+          "user_id",
+          "department_id",
+          "status",
+          "hire_date",
+          "specialization_id"
+        ]
+      },
+      "RoomResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "campus_id": {
+            "type": "number"
+          },
+          "building_id": {
+            "type": "number"
+          },
+          "floor": {
+            "type": "number"
+          },
+          "capacity": {
+            "type": "number"
+          },
+          "room_type_id": {
+            "type": "number"
+          },
+          "equipement": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "campus_id",
+          "building_id",
+          "floor",
+          "capacity",
+          "room_type_id",
+          "equipement",
+          "status",
+          "created_at",
+          "updated_at"
+        ]
+      },
       "ScheduleResponseDto": {
         "type": "object",
         "properties": {
@@ -4485,10 +4796,6 @@
           "status": {
             "type": "number"
           },
-          "last_modified": {
-            "format": "date-time",
-            "type": "string"
-          },
           "created_at": {
             "format": "date-time",
             "type": "string"
@@ -4499,6 +4806,12 @@
           },
           "course": {
             "$ref": "#/components/schemas/CourseResponseDto"
+          },
+          "instructor": {
+            "$ref": "#/components/schemas/InstructorResponseDto"
+          },
+          "room": {
+            "$ref": "#/components/schemas/RoomResponseDto"
           }
         },
         "required": [
@@ -4512,10 +4825,11 @@
           "semester",
           "academic_year",
           "status",
-          "last_modified",
           "created_at",
           "updated_at",
-          "course"
+          "course",
+          "instructor",
+          "room"
         ]
       },
       "AttendanceResponseDto": {
@@ -4578,7 +4892,12 @@
           "status": {
             "type": "string",
             "description": "The attendance status",
-            "enum": ["PRESENT", "ABSENT", "LATE", "EXCUSED"]
+            "enum": [
+              "PRESENT",
+              "ABSENT",
+              "LATE",
+              "EXCUSED"
+            ]
           },
           "note": {
             "type": "string",
@@ -4586,7 +4905,12 @@
             "nullable": true
           }
         },
-        "required": ["schedule_id", "student_id", "status", "note"]
+        "required": [
+          "schedule_id",
+          "student_id",
+          "status",
+          "note"
+        ]
       },
       "AttendanceListResponseDto": {
         "type": "object",
@@ -4610,7 +4934,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "UpdateAttendanceDto": {
         "type": "object",
@@ -4626,7 +4955,12 @@
           "status": {
             "type": "string",
             "description": "The attendance status",
-            "enum": ["PRESENT", "ABSENT", "LATE", "EXCUSED"]
+            "enum": [
+              "PRESENT",
+              "ABSENT",
+              "LATE",
+              "EXCUSED"
+            ]
           },
           "note": {
             "type": "string",
@@ -4645,7 +4979,10 @@
             "type": "string"
           }
         },
-        "required": ["id", "name"]
+        "required": [
+          "id",
+          "name"
+        ]
       },
       "CreatePaymentMethodDto": {
         "type": "object",
@@ -4655,7 +4992,9 @@
             "description": "The name of the payment method"
           }
         },
-        "required": ["name"]
+        "required": [
+          "name"
+        ]
       },
       "PaymentMethodListResponseDto": {
         "type": "object",
@@ -4679,7 +5018,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "UpdatePaymentMethodDto": {
         "type": "object",
@@ -4847,7 +5191,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "UpdatePaymentDto": {
         "type": "object",
@@ -4937,7 +5286,10 @@
           "status": {
             "type": "string",
             "description": "The status of the course",
-            "enum": ["Active", "Inactive"]
+            "enum": [
+              "Active",
+              "Inactive"
+            ]
           }
         },
         "required": [
@@ -4974,7 +5326,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "UpdateCourseDto": {
         "type": "object",
@@ -5014,7 +5371,10 @@
           "status": {
             "type": "string",
             "description": "The status of the course",
-            "enum": ["Active", "Inactive"]
+            "enum": [
+              "Active",
+              "Inactive"
+            ]
           }
         }
       },
@@ -5198,7 +5558,10 @@
           "status": {
             "type": "string",
             "description": "The enrollment status",
-            "enum": ["In progress", "Validated"]
+            "enum": [
+              "In progress",
+              "Validated"
+            ]
           },
           "enrollment_date": {
             "format": "date-time",
@@ -5237,7 +5600,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "UpdateEnrollmentDto": {
         "type": "object",
@@ -5261,7 +5629,10 @@
           "status": {
             "type": "string",
             "description": "The enrollment status",
-            "enum": ["In progress", "Validated"]
+            "enum": [
+              "In progress",
+              "Validated"
+            ]
           },
           "enrollment_date": {
             "format": "date-time",
@@ -5290,7 +5661,13 @@
             "$ref": "#/components/schemas/EnrollmentResponseDto"
           }
         },
-        "required": ["id", "enrollment_id", "grade", "name", "enrollment"]
+        "required": [
+          "id",
+          "enrollment_id",
+          "grade",
+          "name",
+          "enrollment"
+        ]
       },
       "CreateGradeRequestDto": {
         "type": "object",
@@ -5309,7 +5686,11 @@
             "description": "The name of the grade"
           }
         },
-        "required": ["enrollment_id", "grade", "name"]
+        "required": [
+          "enrollment_id",
+          "grade",
+          "name"
+        ]
       },
       "GradeListResponseDto": {
         "type": "object",
@@ -5333,7 +5714,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "UpdateGradeDto": {
         "type": "object",
@@ -5366,7 +5752,11 @@
             "type": "string"
           }
         },
-        "required": ["id", "campus_id", "name"]
+        "required": [
+          "id",
+          "campus_id",
+          "name"
+        ]
       },
       "CreateBuildingRequestDto": {
         "type": "object",
@@ -5380,7 +5770,10 @@
             "description": "The ID of the campus"
           }
         },
-        "required": ["name", "campus_id"]
+        "required": [
+          "name",
+          "campus_id"
+        ]
       },
       "BuildingListResponseDto": {
         "type": "object",
@@ -5404,7 +5797,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "UpdateBuildingDto": {
         "type": "object",
@@ -5466,7 +5864,10 @@
           "status": {
             "type": "string",
             "description": "The status of the campus",
-            "enum": ["Active", "Inactive"]
+            "enum": [
+              "Active",
+              "Inactive"
+            ]
           }
         },
         "required": [
@@ -5505,7 +5906,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "UpdateCampusDto": {
         "type": "object",
@@ -5554,7 +5960,10 @@
           "status": {
             "type": "string",
             "description": "The status of the campus",
-            "enum": ["Active", "Inactive"]
+            "enum": [
+              "Active",
+              "Inactive"
+            ]
           }
         }
       },
@@ -5571,7 +5980,11 @@
             "type": "string"
           }
         },
-        "required": ["id", "campus_id", "name"]
+        "required": [
+          "id",
+          "campus_id",
+          "name"
+        ]
       },
       "CreateRoomTypeRequestDto": {
         "type": "object",
@@ -5585,7 +5998,10 @@
             "description": "The ID of the campus"
           }
         },
-        "required": ["name", "campus_id"]
+        "required": [
+          "name",
+          "campus_id"
+        ]
       },
       "RoomTypeListResponseDto": {
         "type": "object",
@@ -5609,7 +6025,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "UpdateRoomTypeDto": {
         "type": "object",
@@ -5623,59 +6044,6 @@
             "description": "The ID of the campus"
           }
         }
-      },
-      "RoomResponseDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          },
-          "campus_id": {
-            "type": "number"
-          },
-          "building_id": {
-            "type": "number"
-          },
-          "floor": {
-            "type": "number"
-          },
-          "capacity": {
-            "type": "number"
-          },
-          "room_type_id": {
-            "type": "number"
-          },
-          "equipement": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "created_at": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "updated_at": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "campus_id",
-          "building_id",
-          "floor",
-          "capacity",
-          "room_type_id",
-          "equipement",
-          "status",
-          "created_at",
-          "updated_at"
-        ]
       },
       "CreateRoomRequestDto": {
         "type": "object",
@@ -5711,7 +6079,11 @@
           "status": {
             "type": "string",
             "description": "The status of the room",
-            "enum": ["Booked", "Available", "Unavailable"]
+            "enum": [
+              "Booked",
+              "Available",
+              "Unavailable"
+            ]
           }
         },
         "required": [
@@ -5747,7 +6119,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "UpdateRoomDto": {
         "type": "object",
@@ -5783,7 +6160,11 @@
           "status": {
             "type": "string",
             "description": "The status of the room",
-            "enum": ["Booked", "Available", "Unavailable"]
+            "enum": [
+              "Booked",
+              "Available",
+              "Unavailable"
+            ]
           }
         }
       },
@@ -5827,7 +6208,7 @@
           "status": {
             "type": "number",
             "description": "The schedule status",
-            "enum": []
+            "enum": [1, 2, 3]
           }
         },
         "required": [
@@ -5864,7 +6245,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "UpdateScheduleDto": {
         "type": "object",
@@ -5906,7 +6292,7 @@
           "status": {
             "type": "number",
             "description": "The schedule status",
-            "enum": []
+            "enum": [1, 2, 3]
           }
         }
       },
@@ -6000,7 +6386,10 @@
           "status": {
             "type": "string",
             "description": "The current status of the student",
-            "enum": ["Active", "Inactive"]
+            "enum": [
+              "Active",
+              "Inactive"
+            ]
           },
           "address": {
             "type": "string",
@@ -6064,7 +6453,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "UpdateStudentDto": {
         "type": "object",
@@ -6113,7 +6507,10 @@
           "status": {
             "type": "string",
             "description": "The current status of the student",
-            "enum": ["Active", "Inactive"]
+            "enum": [
+              "Active",
+              "Inactive"
+            ]
           },
           "address": {
             "type": "string",
@@ -6159,7 +6556,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "CreateInstructorResponseDto": {
         "type": "object",
@@ -6181,7 +6583,13 @@
             "type": "number"
           }
         },
-        "required": ["user", "department_id", "status", "hire_date", "specialization_id"]
+        "required": [
+          "user",
+          "department_id",
+          "status",
+          "hire_date",
+          "specialization_id"
+        ]
       },
       "CreateInstructorDto": {
         "type": "object",
@@ -6226,7 +6634,10 @@
           "status": {
             "type": "string",
             "description": "The current status of the instructor",
-            "enum": ["Active", "Inactive"]
+            "enum": [
+              "Active",
+              "Inactive"
+            ]
           },
           "hire_date": {
             "format": "date-time",
@@ -6247,70 +6658,6 @@
           "phone",
           "birthday",
           "campus_id",
-          "department_id",
-          "status",
-          "hire_date",
-          "specialization_id"
-        ]
-      },
-      "DepartmentResponseDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "required": ["id", "name"]
-      },
-      "SpecializationResponseDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "required": ["id", "name"]
-      },
-      "InstructorResponseDto": {
-        "type": "object",
-        "properties": {
-          "department": {
-            "$ref": "#/components/schemas/DepartmentResponseDto"
-          },
-          "specialization": {
-            "$ref": "#/components/schemas/SpecializationResponseDto"
-          },
-          "user": {
-            "$ref": "#/components/schemas/UserResponseDto"
-          },
-          "user_id": {
-            "type": "number"
-          },
-          "department_id": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          },
-          "hire_date": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "specialization_id": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "department",
-          "specialization",
-          "user",
-          "user_id",
           "department_id",
           "status",
           "hire_date",
@@ -6339,7 +6686,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "UpdateInstructorDto": {
         "type": "object",
@@ -6384,7 +6736,10 @@
           "status": {
             "type": "string",
             "description": "The current status of the instructor",
-            "enum": ["Active", "Inactive"]
+            "enum": [
+              "Active",
+              "Inactive"
+            ]
           },
           "hire_date": {
             "format": "date-time",
@@ -6405,7 +6760,9 @@
             "description": "Logout success message"
           }
         },
-        "required": ["message"]
+        "required": [
+          "message"
+        ]
       },
       "LogoutDto": {
         "type": "object",
@@ -6415,7 +6772,9 @@
             "description": "Refresh token given by the backend"
           }
         },
-        "required": ["refresh_token"]
+        "required": [
+          "refresh_token"
+        ]
       },
       "TokenResponseDto": {
         "type": "object",
@@ -6437,7 +6796,12 @@
             "description": "The user email"
           }
         },
-        "required": ["access_token", "refresh_token", "user_id", "email"]
+        "required": [
+          "access_token",
+          "refresh_token",
+          "user_id",
+          "email"
+        ]
       },
       "LoginDto": {
         "type": "object",
@@ -6451,7 +6815,10 @@
             "description": "The password of the account"
           }
         },
-        "required": ["email", "password"]
+        "required": [
+          "email",
+          "password"
+        ]
       },
       "RefreshTokenDto": {
         "type": "object",
@@ -6461,7 +6828,9 @@
             "description": "Refresh token given by the backend addressed to the refresh endpoint"
           }
         },
-        "required": ["refresh_token"]
+        "required": [
+          "refresh_token"
+        ]
       },
       "CreateRoleDto": {
         "type": "object",
@@ -6475,7 +6844,10 @@
             "description": "The description of the role"
           }
         },
-        "required": ["name", "description"]
+        "required": [
+          "name",
+          "description"
+        ]
       },
       "UpdateRoleDto": {
         "type": "object",
@@ -6497,7 +6869,9 @@
             "type": "number"
           }
         },
-        "required": ["role_id"]
+        "required": [
+          "role_id"
+        ]
       },
       "NotificationResponseDto": {
         "type": "object",
@@ -6542,7 +6916,15 @@
             "description": "Internal version field (e.g. MongoDB document version)"
           }
         },
-        "required": ["_id", "user_id", "title", "message", "createdAt", "updatedAt", "_v"]
+        "required": [
+          "_id",
+          "user_id",
+          "title",
+          "message",
+          "createdAt",
+          "updatedAt",
+          "_v"
+        ]
       },
       "CreateNotificationDto": {
         "type": "object",
@@ -6564,7 +6946,11 @@
             "description": "Target URL associated with the notification"
           }
         },
-        "required": ["user_id", "title", "message"]
+        "required": [
+          "user_id",
+          "title",
+          "message"
+        ]
       },
       "GetNotificationResponseDto": {
         "type": "object",
@@ -6609,7 +6995,15 @@
             "description": "Internal version field (e.g. MongoDB document version)"
           }
         },
-        "required": ["_id", "user_id", "title", "message", "createdAt", "updatedAt", "_v"]
+        "required": [
+          "_id",
+          "user_id",
+          "title",
+          "message",
+          "createdAt",
+          "updatedAt",
+          "_v"
+        ]
       },
       "GetNotificationListResponseDto": {
         "type": "object",
@@ -6633,7 +7027,12 @@
             }
           }
         },
-        "required": ["total", "page", "limit", "items"]
+        "required": [
+          "total",
+          "page",
+          "limit",
+          "items"
+        ]
       },
       "UpdateNotificationDto": {
         "type": "object",
@@ -6659,7 +7058,9 @@
       },
       "DeleteNotificationResponseDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+
+        }
       }
     }
   }

@@ -2,13 +2,13 @@ import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { Popover, PopoverModule } from 'primeng/popover';
 import { FrontNotificationService } from '../../service/front-notification.service';
 import { RouterLink } from '@angular/router';
-import { DatePipe } from '@angular/common';
 import { GetNotificationResponseDto } from '../../../core/data-services';
 import { FrontWebsocketService } from '../../service/front-websocket.service';
+import { PersonalDatePipe } from '../../utils';
 
 @Component({
   selector: 'app-notification',
-  imports: [PopoverModule, RouterLink, DatePipe],
+  imports: [PopoverModule, RouterLink, PersonalDatePipe],
   templateUrl: './notification.html',
   styleUrl: './notification.css',
 })

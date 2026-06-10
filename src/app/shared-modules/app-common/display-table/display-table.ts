@@ -13,8 +13,8 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { DatePipe, NgClass } from '@angular/common';
-import { DateFormat } from '../../utils';
+import { NgClass } from '@angular/common';
+import { DateFormat, PersonalDatePipe } from '../../utils';
 import { FrontNavigationService } from '../../service/front-navigation.service';
 
 export interface TableColumn {
@@ -44,7 +44,7 @@ export type TableRow = Record<TableColumn['key'], string | number | boolean | nu
     ButtonModule,
     InputTextModule,
     NgClass,
-    DatePipe,
+    PersonalDatePipe,
   ],
   templateUrl: './display-table.html',
   styleUrl: './display-table.css',
@@ -86,7 +86,6 @@ export class DisplayTable implements OnInit {
 
       urlParameter = String(value);
     }
-
 
     const url = `${header.click.baseUrl}/${urlParameter}`;
 

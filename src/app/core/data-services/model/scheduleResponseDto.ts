@@ -7,7 +7,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { InstructorResponseDto } from './instructorResponseDto';
 import { CourseResponseDto } from './courseResponseDto';
+import { RoomResponseDto } from './roomResponseDto';
 
 
 export interface ScheduleResponseDto { 
@@ -21,9 +23,10 @@ export interface ScheduleResponseDto {
     semester: number;
     academic_year: number;
     status: number;
-    last_modified: string;
     created_at: string;
     updated_at: string;
     course: CourseResponseDto;
+    instructor: InstructorResponseDto;
+    room: RoomResponseDto;
 }
 

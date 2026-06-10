@@ -63,7 +63,7 @@
               }"
             ></i>
           } @else if (header.dateFormat) {
-            {{ row[header.key] | date:(header.dateFormat) }}
+            {{ row[header.key] | personalDate:(header.dateFormat) }}
           } @else {
             {{ row[header.key] }}
           }

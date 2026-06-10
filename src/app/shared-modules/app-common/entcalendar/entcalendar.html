@@ -20,8 +20,8 @@
       </h2>
 
       <p class="text-sm text-gray-600">
-        <time [attr.datetime]="toDate(clickedEvent()?.start) | date:'yyyy-MM-dd'">
-          {{ toDate(clickedEvent()?.start) | date:'EEEE dd MMMM yyyy' }}
+        <time [attr.datetime]="toDate(clickedEvent()?.start) | personalDate:'yyyy-MM-dd'">
+          {{ toDate(clickedEvent()?.start) | personalDate:'EEEE dd MMMM yyyy' }}
         </time>
 
         <span aria-hidden="true"> — </span>
@@ -32,16 +32,16 @@
           @if (clickedEvent()?.allDay) {
             All day
           } @else {
-            <time [attr.datetime]="toDate(clickedEvent()?.start) | date:'HH:mm'">
-              {{ toDate(clickedEvent()?.start) | date:'HH:mm' }}
+            <time [attr.datetime]="toDate(clickedEvent()?.start) | personalDate:'HH:mm'">
+              {{ toDate(clickedEvent()?.start) | personalDate:'HH:mm'}}
             </time>
 
             <span aria-hidden="true"> - </span>
 
             @if (clickedEvent()?.end) {
               <time
-                [attr.datetime]="toDate(clickedEvent()?.end) | date:'HH:mm'">
-              {{ toDate(clickedEvent()?.end) | date:'HH:mm' }}
+                [attr.datetime]="toDate(clickedEvent()?.end) | personalDate:'HH:mm'">
+              {{ toDate(clickedEvent()?.end) | personalDate:'HH:mm' }}
             </time>
             }
           }
@@ -65,14 +65,14 @@
       }
 
       <!-- TUTOR -->
-      @if (clickedEvent()?.extendedProps?.['tutor']) {
+      @if (clickedEvent()?.extendedProps?.['instructor']) {
         <dl class="dl">
           <dt class="dt">
             <i class="dt-i pi pi-briefcase"></i>
-            Tutor
+            Instructor
           </dt>
           <dd class="dd bg-emerald-100 text-emerald-700">
-            {{ clickedEvent()?.extendedProps?.['tutor'] }}
+            {{ clickedEvent()?.extendedProps?.['instructor'] }}
           </dd>
         </dl>
       }
