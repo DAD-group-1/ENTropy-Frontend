@@ -14,6 +14,7 @@ import { NotificationsPage } from './page-modules/notifications/notifications-pa
 import { Roles } from './shared-modules/service/front-auth.service';
 import { ResourcesPage } from './page-modules/resources/resources-page';
 import { PaymentsPage } from './page-modules/payments/payments-page';
+import { ErrorPage } from './page-modules/error/error-page';
 
 export const routes: Routes = [
   {
@@ -111,6 +112,11 @@ export const routes: Routes = [
   {
     path: 'forbidden',
     component: ForbiddenPage,
+  },
+
+  {
+    path: 'error',
+    component: ErrorPage,
   },
 
   {
