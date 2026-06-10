@@ -13,7 +13,7 @@ import { EnrollmentResponseDto } from './enrollmentResponseDto';
 export interface GradeResponseDto { 
     id: number;
     enrollment_id: number;
-    grade: object | null;
+    grade: number | null;
     name: string;
     enrollment: EnrollmentResponseDto;
 }

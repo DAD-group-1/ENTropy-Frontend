@@ -17,7 +17,7 @@ export interface UpdateGradeDto {
     /**
      * The grade value
      */
-    grade?: object | null;
+    grade?: number | null;
     /**
      * The name of the grade
      */

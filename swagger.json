@@ -5018,6 +5018,110 @@
           }
         }
       },
+      "ProgramResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "program_type_id": {
+            "type": "number"
+          },
+          "duration_in_years": {
+            "type": "number"
+          },
+          "annual_tuition_fee": {
+            "type": "number"
+          },
+          "department": {
+            "type": "string"
+          },
+          "coordinator": {
+            "type": "string"
+          },
+          "max_students": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "program_type_id",
+          "duration_in_years",
+          "annual_tuition_fee",
+          "department",
+          "coordinator",
+          "max_students",
+          "status",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "StudentResponseDto": {
+        "type": "object",
+        "properties": {
+          "program": {
+            "$ref": "#/components/schemas/ProgramResponseDto"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserResponseDto"
+          },
+          "user_id": {
+            "type": "number"
+          },
+          "program_id": {
+            "type": "number"
+          },
+          "enrollment_year": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "zip_code": {
+            "type": "string"
+          },
+          "emergency_contact": {
+            "type": "string"
+          },
+          "emergency_phone": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "program",
+          "user",
+          "user_id",
+          "program_id",
+          "enrollment_year",
+          "status",
+          "address",
+          "city",
+          "zip_code",
+          "emergency_contact",
+          "emergency_phone"
+        ]
+      },
       "EnrollmentResponseDto": {
         "type": "object",
         "properties": {
@@ -5053,6 +5157,9 @@
           },
           "course": {
             "$ref": "#/components/schemas/CourseResponseDto"
+          },
+          "student": {
+            "$ref": "#/components/schemas/StudentResponseDto"
           }
         },
         "required": [
@@ -5065,7 +5172,8 @@
           "enrollment_date",
           "created_at",
           "updated_at",
-          "course"
+          "course",
+          "student"
         ]
       },
       "CreateEnrollmentRequestDto": {
@@ -5172,7 +5280,7 @@
             "type": "number"
           },
           "grade": {
-            "type": "object",
+            "type": "number",
             "nullable": true
           },
           "name": {
@@ -5192,7 +5300,7 @@
             "description": "The ID of the enrollment"
           },
           "grade": {
-            "type": "object",
+            "type": "number",
             "description": "The grade value",
             "nullable": true
           },
@@ -5235,7 +5343,7 @@
             "description": "The ID of the enrollment"
           },
           "grade": {
-            "type": "object",
+            "type": "number",
             "description": "The grade value",
             "nullable": true
           },
@@ -5924,110 +6032,6 @@
           "phone",
           "birthday",
           "campus_id",
-          "program_id",
-          "enrollment_year",
-          "status",
-          "address",
-          "city",
-          "zip_code",
-          "emergency_contact",
-          "emergency_phone"
-        ]
-      },
-      "ProgramResponseDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          },
-          "program_type_id": {
-            "type": "number"
-          },
-          "duration_in_years": {
-            "type": "number"
-          },
-          "annual_tuition_fee": {
-            "type": "number"
-          },
-          "department": {
-            "type": "string"
-          },
-          "coordinator": {
-            "type": "string"
-          },
-          "max_students": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          },
-          "created_at": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "updated_at": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "program_type_id",
-          "duration_in_years",
-          "annual_tuition_fee",
-          "department",
-          "coordinator",
-          "max_students",
-          "status",
-          "created_at",
-          "updated_at"
-        ]
-      },
-      "StudentResponseDto": {
-        "type": "object",
-        "properties": {
-          "program": {
-            "$ref": "#/components/schemas/ProgramResponseDto"
-          },
-          "user": {
-            "$ref": "#/components/schemas/UserResponseDto"
-          },
-          "user_id": {
-            "type": "number"
-          },
-          "program_id": {
-            "type": "number"
-          },
-          "enrollment_year": {
-            "type": "number"
-          },
-          "status": {
-            "type": "string"
-          },
-          "address": {
-            "type": "string"
-          },
-          "city": {
-            "type": "string"
-          },
-          "zip_code": {
-            "type": "string"
-          },
-          "emergency_contact": {
-            "type": "string"
-          },
-          "emergency_phone": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "program",
-          "user",
-          "user_id",
           "program_id",
           "enrollment_year",
           "status",

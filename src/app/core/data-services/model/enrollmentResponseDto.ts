@@ -8,6 +8,7 @@
  * Do not edit the class manually.
  */
 import { CourseResponseDto } from './courseResponseDto';
+import { StudentResponseDto } from './studentResponseDto';
 
 
 export interface EnrollmentResponseDto { 
@@ -21,5 +22,6 @@ export interface EnrollmentResponseDto {
     created_at: string;
     updated_at: string;
     course: CourseResponseDto;
+    student: StudentResponseDto;
 }
 
