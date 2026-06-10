@@ -2758,7 +2758,7 @@
             "in": "query",
             "schema": {
               "format": "date",
-              "example": "2026-06-09",
+              "example": "2026-06-10",
               "type": "string"
             }
           },
@@ -2768,7 +2768,7 @@
             "in": "query",
             "schema": {
               "format": "date",
-              "example": "2026-06-09",
+              "example": "2026-06-10",
               "type": "string"
             }
           }
@@ -2827,7 +2827,7 @@
             "in": "query",
             "schema": {
               "format": "date",
-              "example": "2026-06-09",
+              "example": "2026-06-10",
               "type": "string"
             }
           },
@@ -2837,7 +2837,7 @@
             "in": "query",
             "schema": {
               "format": "date",
-              "example": "2026-06-09",
+              "example": "2026-06-10",
               "type": "string"
             }
           }
