@@ -1,3 +1,4 @@
 <!--<section class="calendar-page">-->
-<app-entcalendar [calendarEvents]="calendarEvents" />
+<app-entcalendar [calendarEvents]="calendarEvents()"
+                 [onRangeChange]="onRangeChange.bind(this)"/>
 <!--</section>-->
