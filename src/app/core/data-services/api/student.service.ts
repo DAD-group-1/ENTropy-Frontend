@@ -19,6 +19,12 @@ import { OpenApiHttpParams, QueryParamStyle } from '../query.params';
 // @ts-ignore
 import { CreateStudentDto } from '../model/createStudentDto';
 // @ts-ignore
+import { StudentCreateDefaultResponse } from '../model/studentCreateDefaultResponse';
+// @ts-ignore
+import { StudentFindAllDefaultResponse } from '../model/studentFindAllDefaultResponse';
+// @ts-ignore
+import { StudentFindOneDefaultResponse } from '../model/studentFindOneDefaultResponse';
+// @ts-ignore
 import { UpdateStudentDto } from '../model/updateStudentDto';
 
 // @ts-ignore
@@ -26,6 +32,28 @@ import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables'
 import { Configuration }                                     from '../configuration';
 import { BaseService } from '../api.base.service';
 
+
+export interface StudentCreateRequestParams {
+    createStudentDto: CreateStudentDto;
+}
+
+export interface StudentFindAllRequestParams {
+    page?: number;
+    limit?: number;
+}
+
+export interface StudentFindOneRequestParams {
+    id: string;
+}
+
+export interface StudentRemoveRequestParams {
+    id: string;
+}
+
+export interface StudentUpdateRequestParams {
+    id: string;
+    updateStudentDto: UpdateStudentDto;
+}
 
 
 @Injectable({
@@ -38,16 +66,19 @@ export class StudentService extends BaseService {
     }
 
     /**
+     * Create a new student record
+     * Add a new student record to the system.
      * @endpoint post /api/students
-     * @param createStudentDto 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public studentCreate(createStudentDto: CreateStudentDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public studentCreate(createStudentDto: CreateStudentDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public studentCreate(createStudentDto: CreateStudentDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public studentCreate(createStudentDto: CreateStudentDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public studentCreate(requestParameters: StudentCreateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StudentCreateDefaultResponse>;
+    public studentCreate(requestParameters: StudentCreateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StudentCreateDefaultResponse>>;
+    public studentCreate(requestParameters: StudentCreateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StudentCreateDefaultResponse>>;
+    public studentCreate(requestParameters: StudentCreateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const createStudentDto = requestParameters?.createStudentDto;
         if (createStudentDto === null || createStudentDto === undefined) {
             throw new Error('Required parameter createStudentDto was null or undefined when calling studentCreate.');
         }
@@ -58,6 +89,7 @@ export class StudentService extends BaseService {
         localVarHeaders = this.configuration.addCredentialToHeaders('bearer', 'Authorization', localVarHeaders, 'Bearer ');
 
         const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'application/json'
         ]);
         if (localVarHttpHeaderAcceptSelected !== undefined) {
             localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
@@ -90,7 +122,7 @@ export class StudentService extends BaseService {
 
         let localVarPath = `/api/students`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<any>('post', `${basePath}${localVarPath}`,
+        return this.httpClient.request<StudentCreateDefaultResponse>('post', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: createStudentDto,
@@ -105,15 +137,40 @@ export class StudentService extends BaseService {
     }
 
     /**
+     * Get all student records
+     * Retrieve a list of all student records in the system.
      * @endpoint get /api/students
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public studentFindAll(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<object>>;
-    public studentFindAll(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<object>>>;
-    public studentFindAll(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<object>>>;
-    public studentFindAll(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public studentFindAll(requestParameters?: StudentFindAllRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StudentFindAllDefaultResponse>;
+    public studentFindAll(requestParameters?: StudentFindAllRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StudentFindAllDefaultResponse>>;
+    public studentFindAll(requestParameters?: StudentFindAllRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StudentFindAllDefaultResponse>>;
+    public studentFindAll(requestParameters?: StudentFindAllRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const page = requestParameters?.page;
+        const limit = requestParameters?.limit;
+
+        let localVarQueryParameters = new OpenApiHttpParams(this.encoder);
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'page',
+            <any>page,
+            QueryParamStyle.Form,
+            true,
+        );
+
+
+        localVarQueryParameters = this.addToHttpParams(
+            localVarQueryParameters,
+            'limit',
+            <any>limit,
+            QueryParamStyle.Form,
+            true,
+        );
+
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -145,9 +202,10 @@ export class StudentService extends BaseService {
 
         let localVarPath = `/api/students`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<Array<object>>('get', `${basePath}${localVarPath}`,
+        return this.httpClient.request<StudentFindAllDefaultResponse>('get', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                params: localVarQueryParameters.toHttpParams(),
                 responseType: <any>responseType_,
                 ...(withCredentials ? { withCredentials } : {}),
                 headers: localVarHeaders,
@@ -159,16 +217,19 @@ export class StudentService extends BaseService {
     }
 
     /**
+     * Get a student record by ID
+     * Retrieve a single student record by its unique ID.
      * @endpoint get /api/students/{id}
-     * @param id 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public studentFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<object>;
-    public studentFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<object>>;
-    public studentFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<object>>;
-    public studentFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public studentFindOne(requestParameters: StudentFindOneRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StudentFindOneDefaultResponse>;
+    public studentFindOne(requestParameters: StudentFindOneRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StudentFindOneDefaultResponse>>;
+    public studentFindOne(requestParameters: StudentFindOneRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StudentFindOneDefaultResponse>>;
+    public studentFindOne(requestParameters: StudentFindOneRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling studentFindOne.');
         }
@@ -203,7 +264,7 @@ export class StudentService extends BaseService {
 
         let localVarPath = `/api/students/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<object>('get', `${basePath}${localVarPath}`,
+        return this.httpClient.request<StudentFindOneDefaultResponse>('get', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -217,16 +278,19 @@ export class StudentService extends BaseService {
     }
 
     /**
+     * Delete a student record
+     * Remove a student record from the system by its unique ID.
      * @endpoint delete /api/students/{id}
-     * @param id 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public studentRemove(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public studentRemove(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public studentRemove(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public studentRemove(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public studentRemove(requestParameters: StudentRemoveRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public studentRemove(requestParameters: StudentRemoveRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public studentRemove(requestParameters: StudentRemoveRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public studentRemove(requestParameters: StudentRemoveRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling studentRemove.');
         }
@@ -274,20 +338,23 @@ export class StudentService extends BaseService {
     }
 
     /**
+     * Update a student record
+     * Update an existing student record by its unique ID.
      * @endpoint patch /api/students/{id}
-     * @param id 
-     * @param updateStudentDto 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public studentUpdate(id: string, updateStudentDto: UpdateStudentDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<object>;
-    public studentUpdate(id: string, updateStudentDto: UpdateStudentDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<object>>;
-    public studentUpdate(id: string, updateStudentDto: UpdateStudentDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<object>>;
-    public studentUpdate(id: string, updateStudentDto: UpdateStudentDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public studentUpdate(requestParameters: StudentUpdateRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StudentCreateDefaultResponse>;
+    public studentUpdate(requestParameters: StudentUpdateRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StudentCreateDefaultResponse>>;
+    public studentUpdate(requestParameters: StudentUpdateRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StudentCreateDefaultResponse>>;
+    public studentUpdate(requestParameters: StudentUpdateRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling studentUpdate.');
         }
+        const updateStudentDto = requestParameters?.updateStudentDto;
         if (updateStudentDto === null || updateStudentDto === undefined) {
             throw new Error('Required parameter updateStudentDto was null or undefined when calling studentUpdate.');
         }
@@ -331,7 +398,7 @@ export class StudentService extends BaseService {
 
         let localVarPath = `/api/students/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<object>('patch', `${basePath}${localVarPath}`,
+        return this.httpClient.request<StudentCreateDefaultResponse>('patch', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: updateStudentDto,

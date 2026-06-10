@@ -5,12 +5,12 @@
         (click)="toggle($event, notificationButton)"
 >
   <i class="notification-icon pi pi-bell" aria-hidden="true">
-    @if (notificationService.notificationCount() > 0) {
+    @if (frontNotificationService.latestNotificationsNotReadCount() > 0) {
       <span
         class="notification-count"
-        aria-label="{{ notificationService.notificationCount() }} new notifications"
+        aria-label="{{ frontNotificationService.latestNotificationsNotReadCount() }} new notifications"
       >
-        {{ notificationService.notificationCount() }}
+        {{ frontNotificationService.latestNotificationsNotReadCount() }}
       </span>
     }
   </i>
@@ -23,7 +23,7 @@
 >
   <div class="notification-popover">
     <div class="popover-header">
-      <span class="popover-title">Notifications</span>
+      <span class="popover-title">Latest Notifications</span>
 
       <button
         routerLink="/notifications"
@@ -35,11 +35,11 @@
     </div>
 
     <div class="notification-list">
-      @for (notification of notificationService.notifications(); track notification.id) {
+      @for (notification of frontNotificationService.latestNotifications(); track notification._id) {
         <a
           class="notification-item"
-          [routerLink]="notification.redirectUrl"
-          (click)="notificationService.readNotification(notification.id); notificationPopover.hide()"
+          (click)="onNotificationClick(notification)"
+          [routerLink]="notification.target_url || null"
         >
           <div class="notification-content">
             <div class="notification-top-row">
@@ -47,7 +47,7 @@
                 {{ notification.title }}
               </span>
 
-              @if (!notification.read) {
+              @if (!notification.read_at) {
                 <span class="unread-dot"></span>
               }
             </div>
@@ -57,13 +57,13 @@
             </span>
 
             <span class="notification-date">
-              {{ notification.publishDate | date:'dd/MM/yyyy HH:mm' }}
+              {{ notification.createdAt | date:'dd/MM/yyyy HH:mm' }}
             </span>
           </div>
         </a>
       }
 
-      @if (notificationService.notifications().length === 0) {
+      @if (frontNotificationService.latestNotificationsCount() === 0) {
         <div class="empty-notifications">
           No notifications
         </div>

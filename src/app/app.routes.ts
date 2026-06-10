@@ -5,13 +5,16 @@ import { HomePage } from './page-modules/home/home-page';
 import { LoginPage } from './page-modules/login/login-page';
 import { CalendarPage } from './page-modules/calendar/calendar-page';
 import { GradesPage } from './page-modules/grades/grades-page';
-import { AbsencesPage } from './page-modules/absences/absences-page';
+import { AttendancesPage } from './page-modules/attendances/attendances-page';
 import { ProfilePage } from './page-modules/profile/profile-page';
 import { NotFoundPage } from './page-modules/not-found/not-found-page';
 import { ForbiddenPage } from './page-modules/forbidden/forbidden-page';
 import { NotificationsPage } from './page-modules/notifications/notifications-page';
 
-// import { Roles } from './shared-modules/service/auth.service';
+import { Roles } from './shared-modules/service/front-auth.service';
+import { ResourcesPage } from './page-modules/resources/resources-page';
+import { PaymentsPage } from './page-modules/payments/payments-page';
+import { ErrorPage } from './page-modules/error/error-page';
 
 export const routes: Routes = [
   {
@@ -36,20 +39,34 @@ export const routes: Routes = [
       {
         path: 'calendar',
         component: CalendarPage,
-        // TODO: See how to implement permissions check
-        // data: { roles: [Roles.STUDENT, Roles.ADMIN] },
       },
       {
         path: 'grades',
-        component: GradesPage,
-        // TODO: See how to implement permissions check
-        // data: { roles: ['USER', 'ADMIN'] },
+        children: [
+          {
+            path: '',
+            component: GradesPage,
+          },
+          {
+            path: ':id',
+            component: GradesPage,
+            data: { excluded_roles: [Roles.STUDENT] },
+          },
+        ],
       },
       {
-        path: 'absences',
-        component: AbsencesPage,
-        // TODO: See how to implement permissions check
-        // data: { roles: ['USER', 'ADMIN'] },
+        path: 'attendances',
+        children: [
+          {
+            path: '',
+            component: AttendancesPage,
+          },
+          {
+            path: ':id',
+            component: AttendancesPage,
+            data: { excluded_roles: [Roles.STUDENT] },
+          },
+        ],
       },
       {
         path: 'profile',
@@ -61,6 +78,21 @@ export const routes: Routes = [
           {
             path: ':id',
             component: ProfilePage,
+            data: { excluded_roles: [Roles.STUDENT] },
+          },
+        ],
+      },
+      {
+        path: 'payments',
+        children: [
+          {
+            path: '',
+            component: PaymentsPage,
+          },
+          {
+            path: ':id',
+            component: PaymentsPage,
+            data: { excluded_roles: [Roles.STUDENT] },
           },
         ],
       },
@@ -69,12 +101,22 @@ export const routes: Routes = [
         path: 'notifications',
         component: NotificationsPage,
       },
+
+      {
+        path: 'resources',
+        component: ResourcesPage,
+      },
     ],
   },
 
   {
     path: 'forbidden',
     component: ForbiddenPage,
+  },
+
+  {
+    path: 'error',
+    component: ErrorPage,
   },
 
   {

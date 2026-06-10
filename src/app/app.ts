@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { PrimeNG } from 'primeng/config';
-import { AuthService } from './shared-modules/service/auth.service';
+import { FrontAuthService } from './shared-modules/service/front-auth.service';
 import { Header } from './shared-modules/layout/header/header';
 import { Sidebar } from './shared-modules/layout/sidebar/sidebar';
-import { LayoutService } from './shared-modules/service/layout.service';
+import { FrontLayoutService } from './shared-modules/service/front-layout.service';
+import { FrontWebsocketService } from './shared-modules/service/front-websocket.service';
 
 @Component({
   selector: 'app-root',
@@ -13,14 +14,20 @@ import { LayoutService } from './shared-modules/service/layout.service';
   styleUrl: './app.css',
 })
 export class App implements OnInit {
-  router = inject(Router);
   primeng = inject(PrimeNG);
-  authService = inject(AuthService);
-  layoutService = inject(LayoutService);
+  frontAuthService = inject(FrontAuthService);
+  frontLayoutService = inject(FrontLayoutService);
+  frontWebsocketService = inject(FrontWebsocketService);
 
   ngOnInit() {
     this.primeng.ripple.set(true);
-    this.authService.updateTokenData();
+    this.frontAuthService.updateTokenData();
+
+    const userId = this.frontAuthService.userId;
+
+    if (userId) {
+      this.frontWebsocketService.connect(userId);
+    }
   }
 
   protected readonly title = signal('ENTropy-Frontend');

@@ -27,6 +27,10 @@ export interface CreateInstructorDto {
      */
     password: string;
     /**
+     * The ID of the role assigned to the user
+     */
+    role_id: number;
+    /**
      * The phone number of the user
      */
     phone: string;
@@ -38,14 +42,6 @@ export interface CreateInstructorDto {
      * The ID of the campus the user is associated with
      */
     campus_id: number;
-    /**
-     * Indicates whether the user account is active
-     */
-    created_at: string;
-    /**
-     * The date and time when the user account was last updated
-     */
-    updated_at: string;
     /**
      * The ID of the department the instructor belongs to
      */

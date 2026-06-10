@@ -1,26 +1,51 @@
-<div class="profile-page" role="main" aria-label="User profile page">
+<section class="profile-page" role="main" aria-label="User profile page">
   <p-card class="profile-card" aria-labelledby="profile-title">
     <!-- HEADER -->
     <header class="profile-header">
-      <img
-        [src]="'https://ui-avatars.com/api/?name=' + userData.firstname + '+' + userData.lastname"
-        class="avatar"
-        alt="Profile picture of {{ userData.firstname }} {{ userData.lastname }}"
-      />
+      <section class="basic-information">
+        <img
+          [src]="'https://ui-avatars.com/api/?name=' + userData()?.firstname + '+' + userData()?.lastname"
+          class="avatar"
+          alt="Profile picture of {{ userData()?.firstname }} {{ userData()?.lastname }}"
+        />
 
-      <div class="profile-main-info">
-        <h1 id="profile-title">
-          {{ userData.firstname }} {{ userData.lastname }}
-        </h1>
+        <div class="profile-main-info">
+          <h1 id="profile-title">
+            {{ userData()?.firstname }} {{ userData()?.lastname }}
+          </h1>
 
-        <span
-          class="role-badge"
-          [ngClass]="roleMap[profileType]"
-          [attr.aria-label]="'User role: ' + profileType"
-        >
-          {{ profileType | titlecase }}
+          <span
+            class="role-badge"
+            [ngClass]="roleMap[profileType() || Roles.STUDENT]"
+            [attr.aria-label]="'User role: ' + profileType()"
+          >
+          {{ profileType() | titlecase }}
         </span>
-      </div>
+        </div>
+      </section>
+      <section class="buttons">
+        @switch (profileType()) {
+          @case (Roles.INSTRUCTOR) {
+
+          }
+          @default {
+            <button class="p-button p-button-outlined"
+                    [routerLink]="isMyProfile ? ['/grades'] : ['/grades', userId]">
+              See Grades
+            </button>
+
+            <button class="p-button p-button-outlined"
+                    [routerLink]="isMyProfile ? ['/attendances'] : ['/attendances', userId]">
+              See Attendances
+            </button>
+
+            <button class="p-button p-button-outlined"
+                    [routerLink]="isMyProfile ? ['/payments'] : ['/payments', userId]">
+              See Payments
+            </button>
+          }
+        }
+      </section>
     </header>
 
     <!-- COMMON INFO -->
@@ -28,84 +53,84 @@
       <div class="profile-item">
         <span class="label">Email</span>
         <a class="value"
-           [href]="'mailto:' + userData.email"
-           aria-label="Send email to {{ userData.email }}">
-          {{ userData.email }}
+           [href]="'mailto:' + userData()?.email"
+           aria-label="Send email to {{ userData()?.email }}">
+          {{ userData()?.email }}
         </a>
       </div>
 
       <div class="profile-item">
         <span class="label">Phone</span>
         <a class="value"
-           [href]="'tel:' + userData.phone"
-           aria-label="Call {{ userData.phone }}">
-          {{ userData.phone }}
+           [href]="'tel:' + userData()?.phone"
+           aria-label="Call {{ userData()?.phone }}">
+          {{ userData()?.phone }}
         </a>
       </div>
 
       <div class="profile-item">
         <span class="label">Birthday</span>
-        <span class="value">{{ userData.birthday }}</span>
+        <span class="value">{{ userData()?.birthday | date:'yyyy-MM-dd' }}</span>
       </div>
 
       <div class="profile-item">
         <span class="label">Campus</span>
-        <span class="value">{{ userData.campus }}</span>
+        <span class="value">{{ userData()?.campus }}</span>
       </div>
     </section>
 
     <!-- STUDENT ONLY -->
-    @if (profileType === 'student') {
+    @if (profileType() === Roles.STUDENT) {
       <section class="profile-grid" aria-label="Student information">
         <div class="profile-item">
           <span class="label">Program</span>
-          <span class="value">{{ userData.program }}</span>
+          <span class="value">{{ userData()?.program }}</span>
         </div>
 
         <div class="profile-item">
           <span class="label">Enrollment year</span>
-          <span class="value">{{ userData.enrollmentYear }}</span>
+          <span class="value">{{ userData()?.enrollmentYear }}</span>
         </div>
 
         <div class="profile-item">
           <span class="label">Address</span>
           <span class="value">
-            {{ userData.address }}, {{ userData.zipCode }} {{ userData.city }}
+            {{ userData()?.address }}, {{ userData()?.zipCode }} {{ userData()?.city }}
           </span>
         </div>
 
         <div class="profile-item">
           <span class="label">Emergency contact</span>
-          <span class="value">{{ userData.emergency_contact }}</span>
+          <span class="value">{{ userData()?.emergency_contact }}</span>
         </div>
 
         <div class="profile-item">
           <span class="label">Emergency phone</span>
           <a class="value"
-             [href]="'tel:' + userData.emergency_phone"
-             aria-label="Call emergency contact {{ userData.emergency_phone }}">
-            {{ userData.emergency_phone }}
+             [href]="'tel:' + userData()?.emergency_phone"
+             aria-label="Call emergency contact {{ userData()?.emergency_phone }}">
+            {{ userData()?.emergency_phone }}
           </a>
         </div>
       </section>
     }
 
     <!-- INSTRUCTOR ONLY -->
-    @if (profileType === 'instructor') {
+    @if (profileType() === Roles.INSTRUCTOR) {
       <section class="profile-grid" aria-label="Instructor information">
         <div class="profile-item">
           <span class="label">Department</span>
-          <span class="value">{{ userData.department }}</span>
+          <span class="value">{{ userData()?.department }}</span>
         </div>
 
         <div class="profile-item">
           <span class="label">Hire date</span>
-          <span class="value">{{ userData.hire_date }}</span>
+          <span class="value">{{ userData()?.hire_date | date:'yyyy-MM-dd' }}</span>
         </div>
 
         <div class="profile-item">
           <span class="label">Specialization</span>
-          <span class="value">{{ userData.specialization }}</span>
+          <span class="value">{{ userData()?.specialization }}</span>
         </div>
       </section>
     }
@@ -127,4 +152,4 @@
       </div>
     </div>
   </p-card>
-</div>
+</section>

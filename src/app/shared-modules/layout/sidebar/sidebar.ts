@@ -1,34 +1,39 @@
-import { Component, effect, ElementRef, inject, OnDestroy } from '@angular/core';
+import { Component, effect, ElementRef, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { LayoutService } from '../../service/layout.service';
 import { Subject } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
-import { NavigationService } from '../../service/navigation.service';
-import { AuthService } from '../../service/auth.service';
+import { FrontLayoutService } from '../../service/front-layout.service';
+import { FrontNavigationService } from '../../service/front-navigation.service';
+import { FrontAuthService, Roles } from '../../service/front-auth.service';
+import { UserService } from '../../../core/data-services';
+import { SkeletonModule } from 'primeng/skeleton';
+import { displayName } from '../../utils';
 
 interface MenuItem {
   icon: string;
   label: string;
   isOpen?: boolean;
   route?: string;
+  allowedRoles?: Roles[];
 }
 
 @Component({
   selector: 'app-sidebar',
-  imports: [NgClass, ButtonModule, RouterModule],
+  imports: [NgClass, ButtonModule, RouterModule, SkeletonModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
-export class Sidebar implements OnDestroy {
-  layoutService = inject(LayoutService);
-  navigationService = inject(NavigationService);
-  authService = inject(AuthService);
+export class Sidebar implements OnInit, OnDestroy {
+  frontLayoutService = inject(FrontLayoutService);
+  frontNavigationService = inject(FrontNavigationService);
+  frontAuthService = inject(FrontAuthService);
   el = inject(ElementRef);
+  userService = inject(UserService);
 
-  //TODO: Get from Auth service
-  protected studentName = 'John Doe';
-  protected role = 'Student';
+  protected profileLoading = signal<boolean>(true);
+  protected userName = signal('');
+  protected role: WritableSignal<Roles | ''> = signal('');
 
   private outsideClickListener: ((event: MouseEvent) => void) | null = null;
 
@@ -36,9 +41,9 @@ export class Sidebar implements OnDestroy {
 
   constructor() {
     effect(() => {
-      const state = this.layoutService.layoutState();
+      const state = this.frontLayoutService.layoutState();
 
-      if (this.layoutService.isDesktop()) {
+      if (this.frontLayoutService.isDesktop()) {
         if (state.overlayMenuActive) {
           this.bindOutsideClickListener();
         } else {
@@ -54,6 +59,24 @@ export class Sidebar implements OnDestroy {
     });
   }
 
+  ngOnInit() {
+    this.userService.userFindOne({ id: this.frontAuthService.tokenData!.sub }).subscribe({
+      next: (result) => {
+        const userName = displayName(result.data!.first_name, result.data!.last_name);
+        this.userName.set(userName);
+        this.role.set(this.frontAuthService.tokenPersonalizedData!.role);
+      },
+      error: () => {
+        this.frontNavigationService.navigate('/error');
+      },
+      complete: () => {
+        setTimeout(() => {
+          this.profileLoading.set(false);
+        }, 1000);
+      },
+    });
+  }
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
@@ -64,7 +87,7 @@ export class Sidebar implements OnDestroy {
     if (!this.outsideClickListener) {
       this.outsideClickListener = (event: MouseEvent) => {
         if (this.isOutsideClicked(event)) {
-          this.layoutService.layoutState.update((val) => ({
+          this.frontLayoutService.layoutState.update((val) => ({
             ...val,
             overlayMenuActive: false,
             staticMenuMobileActive: false,
@@ -98,7 +121,17 @@ export class Sidebar implements OnDestroy {
   }
 
   onLogout() {
-    this.authService.logout();
+    this.frontAuthService.logout();
+  }
+
+  canShow(item: MenuItem): boolean {
+    const role = this.frontAuthService.tokenPersonalizedData?.role;
+
+    if (!item.allowedRoles || item.allowedRoles.length === 0) {
+      return true;
+    }
+
+    return !!role && item.allowedRoles.includes(role);
   }
 
   menuItems: MenuItem[] = [
@@ -118,8 +151,13 @@ export class Sidebar implements OnDestroy {
     },
     {
       icon: 'pi pi-times-circle',
-      label: 'Absence Records',
-      route: 'absences',
+      label: 'Attendances',
+      route: 'attendances',
+    },
+    {
+      icon: 'pi pi-wallet',
+      label: 'Payments',
+      route: 'payments',
     },
     {
       icon: 'pi pi-book',
@@ -131,10 +169,10 @@ export class Sidebar implements OnDestroy {
       label: 'Resources',
       route: 'resources',
     },
-    {
-      icon: 'pi pi-info-circle',
-      label: 'Informations',
-      route: 'informations',
-    },
+    // {
+    //   icon: 'pi pi-info-circle',
+    //   label: 'Informations',
+    //   route: 'informations',
+    // },
   ];
 }

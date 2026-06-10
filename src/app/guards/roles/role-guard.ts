@@ -1,17 +1,33 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { Roles } from '../../shared-modules/service/auth.service';
-import { AuthService } from '../../shared-modules/service/auth.service';
+import { Roles } from '../../shared-modules/service/front-auth.service';
+import { FrontAuthService } from '../../shared-modules/service/front-auth.service';
+
 
 export const roleGuard: CanActivateFn = (route) => {
+  const normalizeRoles = (roles: string[] = []) => roles.map((r) => r.toLowerCase());
+
   const router = inject(Router);
-  const authService = inject(AuthService);
+  const frontAuthService = inject(FrontAuthService);
 
-  const allowedRoles = route.data?.['roles'] as Roles[] | undefined;
+  const allowedRoles = route.data?.['allowed_roles'] as Roles[] | undefined;
+  const excludedRoles = route.data?.['excluded_roles'] as Roles[] | undefined;
 
-  const userRole = authService.tokenPersonalizedData?.role;
+  const userRole = frontAuthService.tokenPersonalizedData?.role?.toLowerCase();
 
-  if (!allowedRoles) return true;
+  const normalizedAllowed = allowedRoles ? normalizeRoles(allowedRoles) : undefined;
 
-  return allowedRoles.includes(userRole as Roles) ? true : router.createUrlTree(['/forbidden']);
+  const normalizedExcluded = excludedRoles ? normalizeRoles(excludedRoles) : undefined;
+
+  if (userRole && normalizedExcluded?.includes(userRole)) {
+    return router.createUrlTree(['/forbidden']);
+  }
+
+  if (!normalizedAllowed) {
+    return true;
+  }
+
+  const isAllowed = !!userRole && normalizedAllowed.includes(userRole);
+
+  return isAllowed ? true : router.createUrlTree(['/forbidden']);
 };

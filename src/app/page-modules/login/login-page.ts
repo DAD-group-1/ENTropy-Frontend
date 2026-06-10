@@ -11,13 +11,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { NgmMotionDirective } from '@scripttype/ng-motion';
 import { AuthenticationService } from '../../core/data-services';
-import { NavigationService } from '../../shared-modules/service/navigation.service';
+import { FrontNavigationService } from '../../shared-modules/service/front-navigation.service';
 import { finalize } from 'rxjs/operators';
-import { AuthService } from '../../shared-modules/service/auth.service';
-import { LayoutService } from '../../shared-modules/service/layout.service';
+import { FrontAuthService } from '../../shared-modules/service/front-auth.service';
+import { ProgressSpinner } from 'primeng/progressspinner';
+import { FrontLayoutService } from '../../shared-modules/service/front-layout.service';
+import { FrontWebsocketService } from '../../shared-modules/service/front-websocket.service';
 
 @Component({
   selector: 'app-login-page',
@@ -31,15 +33,18 @@ import { LayoutService } from '../../shared-modules/service/layout.service';
     ReactiveFormsModule,
     CommonModule,
     NgmMotionDirective,
+    ProgressSpinner,
+    NgOptimizedImage,
   ],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
 export class LoginPage implements OnInit, OnDestroy {
-  private readonly authService = inject(AuthService);
+  private readonly frontLayoutService = inject(FrontLayoutService);
   private readonly authenticationService = inject(AuthenticationService);
-  private readonly navigationService = inject(NavigationService);
-  private readonly layoutService = inject(LayoutService);
+  private readonly frontNavigationService = inject(FrontNavigationService);
+  public readonly frontAuthService = inject(FrontAuthService);
+  private readonly frontWebsocketService = inject(FrontWebsocketService);
   private readonly fb = inject(FormBuilder);
 
   loading = signal<boolean>(false);
@@ -48,23 +53,21 @@ export class LoginPage implements OnInit, OnDestroy {
   loginForm!: FormGroup;
 
   ngOnInit(): void {
+    this.frontLayoutService.setLoggedLayout(false);
+
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
 
-    if (!this.authService.hasOneTokenAndNotExpired()) {
-      this.layoutService.setLoggedLayout(false);
-      return;
-    }
-
-    this.authService.isLoggedVerified().subscribe((isVerified) => {
-      this.layoutService.setLoggedLayout(isVerified);
-    });
+    if (this.frontAuthService.loadingLogginYouBackIn())
+      setTimeout(() => {
+        this.frontNavigationService.navigate('/');
+      }, 1000);
   }
 
   ngOnDestroy() {
-    this.layoutService.setLoggedLayout(true);
+    this.frontLayoutService.setLoggedLayout(true);
   }
 
   get email() {
@@ -115,16 +118,24 @@ export class LoginPage implements OnInit, OnDestroy {
 
     this.authenticationService
       .authenticationLogin({
-        email,
-        password,
+        loginDto: {
+          email,
+          password,
+        },
       })
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (response) => {
-          this.authService.setTokens(response?.data?.access_token, response?.data?.refresh_token);
-          this.authService.updateTokenData();
+          this.frontAuthService.setTokens(
+            response?.data?.access_token ?? '',
+            response?.data?.refresh_token,
+          );
+          this.frontAuthService.updateTokenData();
 
-          this.navigationService.navigate('/');
+          this.frontNavigationService.navigate('/');
+          this.frontLayoutService.setLoggedLayout(true);
+          this.frontAuthService.loadingLogginYouBackIn.set(true);
+          this.frontWebsocketService.connect(this.frontAuthService.userId as string);
         },
         error: (err) => {
           this.loginError.set(err?.error?.message || 'Invalid email or password');

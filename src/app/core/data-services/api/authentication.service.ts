@@ -17,6 +17,10 @@ import { Observable }                                        from 'rxjs';
 import { OpenApiHttpParams, QueryParamStyle } from '../query.params';
 
 // @ts-ignore
+import { AuthenticationLoginDefaultResponse } from '../model/authenticationLoginDefaultResponse';
+// @ts-ignore
+import { AuthenticationLogoutDefaultResponse } from '../model/authenticationLogoutDefaultResponse';
+// @ts-ignore
 import { LoginDto } from '../model/loginDto';
 // @ts-ignore
 import { LogoutDto } from '../model/logoutDto';
@@ -29,6 +33,18 @@ import { Configuration }                                     from '../configurat
 import { BaseService } from '../api.base.service';
 
 
+export interface AuthenticationLoginRequestParams {
+    loginDto: LoginDto;
+}
+
+export interface AuthenticationLogoutRequestParams {
+    logoutDto: LogoutDto;
+}
+
+export interface AuthenticationRefreshTokenRequestParams {
+    refreshTokenDto: RefreshTokenDto;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -40,16 +56,19 @@ export class AuthenticationService extends BaseService {
     }
 
     /**
+     * Login a user and obtain an access token
+     * Authenticate a user with email and password to receive an access token.
      * @endpoint post /api/login
-     * @param loginDto 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public authenticationLogin(loginDto: LoginDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public authenticationLogin(loginDto: LoginDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public authenticationLogin(loginDto: LoginDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public authenticationLogin(loginDto: LoginDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public authenticationLogin(requestParameters: AuthenticationLoginRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AuthenticationLoginDefaultResponse>;
+    public authenticationLogin(requestParameters: AuthenticationLoginRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AuthenticationLoginDefaultResponse>>;
+    public authenticationLogin(requestParameters: AuthenticationLoginRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AuthenticationLoginDefaultResponse>>;
+    public authenticationLogin(requestParameters: AuthenticationLoginRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const loginDto = requestParameters?.loginDto;
         if (loginDto === null || loginDto === undefined) {
             throw new Error('Required parameter loginDto was null or undefined when calling authenticationLogin.');
         }
@@ -57,6 +76,7 @@ export class AuthenticationService extends BaseService {
         let localVarHeaders = this.defaultHeaders;
 
         const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'application/json'
         ]);
         if (localVarHttpHeaderAcceptSelected !== undefined) {
             localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
@@ -89,7 +109,7 @@ export class AuthenticationService extends BaseService {
 
         let localVarPath = `/api/login`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<any>('post', `${basePath}${localVarPath}`,
+        return this.httpClient.request<AuthenticationLoginDefaultResponse>('post', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: loginDto,
@@ -104,16 +124,19 @@ export class AuthenticationService extends BaseService {
     }
 
     /**
+     * Logout a user and invalidate their refresh token
+     * Invalidate the user\&#39;s refresh token to log them out of the system.
      * @endpoint post /api/logout
-     * @param logoutDto 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public authenticationLogout(logoutDto: LogoutDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public authenticationLogout(logoutDto: LogoutDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public authenticationLogout(logoutDto: LogoutDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public authenticationLogout(logoutDto: LogoutDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public authenticationLogout(requestParameters: AuthenticationLogoutRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AuthenticationLogoutDefaultResponse>;
+    public authenticationLogout(requestParameters: AuthenticationLogoutRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AuthenticationLogoutDefaultResponse>>;
+    public authenticationLogout(requestParameters: AuthenticationLogoutRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AuthenticationLogoutDefaultResponse>>;
+    public authenticationLogout(requestParameters: AuthenticationLogoutRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const logoutDto = requestParameters?.logoutDto;
         if (logoutDto === null || logoutDto === undefined) {
             throw new Error('Required parameter logoutDto was null or undefined when calling authenticationLogout.');
         }
@@ -121,6 +144,7 @@ export class AuthenticationService extends BaseService {
         let localVarHeaders = this.defaultHeaders;
 
         const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'application/json'
         ]);
         if (localVarHttpHeaderAcceptSelected !== undefined) {
             localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
@@ -153,7 +177,7 @@ export class AuthenticationService extends BaseService {
 
         let localVarPath = `/api/logout`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<any>('post', `${basePath}${localVarPath}`,
+        return this.httpClient.request<AuthenticationLogoutDefaultResponse>('post', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: logoutDto,
@@ -168,16 +192,19 @@ export class AuthenticationService extends BaseService {
     }
 
     /**
+     * Refresh an access token using a refresh token
+     * Use a valid refresh token to obtain a new access token.
      * @endpoint post /api/refresh
-     * @param refreshTokenDto 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public authenticationRefreshToken(refreshTokenDto: RefreshTokenDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public authenticationRefreshToken(refreshTokenDto: RefreshTokenDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public authenticationRefreshToken(refreshTokenDto: RefreshTokenDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public authenticationRefreshToken(refreshTokenDto: RefreshTokenDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public authenticationRefreshToken(requestParameters: AuthenticationRefreshTokenRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<AuthenticationLoginDefaultResponse>;
+    public authenticationRefreshToken(requestParameters: AuthenticationRefreshTokenRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<AuthenticationLoginDefaultResponse>>;
+    public authenticationRefreshToken(requestParameters: AuthenticationRefreshTokenRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<AuthenticationLoginDefaultResponse>>;
+    public authenticationRefreshToken(requestParameters: AuthenticationRefreshTokenRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const refreshTokenDto = requestParameters?.refreshTokenDto;
         if (refreshTokenDto === null || refreshTokenDto === undefined) {
             throw new Error('Required parameter refreshTokenDto was null or undefined when calling authenticationRefreshToken.');
         }
@@ -185,6 +212,7 @@ export class AuthenticationService extends BaseService {
         let localVarHeaders = this.defaultHeaders;
 
         const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'application/json'
         ]);
         if (localVarHttpHeaderAcceptSelected !== undefined) {
             localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
@@ -217,7 +245,7 @@ export class AuthenticationService extends BaseService {
 
         let localVarPath = `/api/refresh`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<any>('post', `${basePath}${localVarPath}`,
+        return this.httpClient.request<AuthenticationLoginDefaultResponse>('post', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 body: refreshTokenDto,
@@ -232,15 +260,17 @@ export class AuthenticationService extends BaseService {
     }
 
     /**
+     * Verify the validity of an access token
+     * Check if the provided access token is valid and has not expired.
      * @endpoint get /api/verify
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public authenticationVerifyToken(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public authenticationVerifyToken(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public authenticationVerifyToken(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public authenticationVerifyToken(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public authenticationVerifyToken(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<object>;
+    public authenticationVerifyToken(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<object>>;
+    public authenticationVerifyToken(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<object>>;
+    public authenticationVerifyToken(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -248,6 +278,7 @@ export class AuthenticationService extends BaseService {
         localVarHeaders = this.configuration.addCredentialToHeaders('bearer', 'Authorization', localVarHeaders, 'Bearer ');
 
         const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
+            'application/json'
         ]);
         if (localVarHttpHeaderAcceptSelected !== undefined) {
             localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
@@ -271,7 +302,7 @@ export class AuthenticationService extends BaseService {
 
         let localVarPath = `/api/verify`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<any>('get', `${basePath}${localVarPath}`,
+        return this.httpClient.request<object>('get', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

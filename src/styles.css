@@ -31,3 +31,13 @@ html, body {
 router-outlet + * {
   @apply h-full w-full;
 }
+
+.p-skeleton::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.9),
+    transparent
+  ) !important;
+  opacity: 1 !important;
+}

@@ -1,7 +1,25 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Profile, ProfileData, ProfileType } from '../../shared-modules/app-common/profile/profile';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Profile, ProfileData } from '../../shared-modules/app-common/profile/profile';
 import { ActivatedRoute } from '@angular/router';
-import { NavigationService } from '../../shared-modules/service/navigation.service';
+import { FrontNavigationService } from '../../shared-modules/service/front-navigation.service';
+import { FrontAuthService, Roles } from '../../shared-modules/service/front-auth.service';
+import {
+  InstructorFindOneDefaultResponse,
+  InstructorResponseDto,
+  InstructorService,
+  StudentFindOneDefaultResponse,
+  StudentResponseDto,
+  StudentService,
+  UserFindOneDefaultResponse,
+  UserResponseDto,
+  UserRoleService,
+  UserService,
+} from '../../core/data-services';
+
+type ProfileResponse =
+  | UserFindOneDefaultResponse
+  | StudentFindOneDefaultResponse
+  | InstructorFindOneDefaultResponse;
 
 @Component({
   selector: 'app-profile-page',
@@ -10,59 +28,123 @@ import { NavigationService } from '../../shared-modules/service/navigation.servi
   styleUrl: './profile-page.css',
 })
 export class ProfilePage implements OnInit {
-  userData!: ProfileData;
-  userType!: ProfileType;
+  userData: WritableSignal<ProfileData | null> = signal(null);
+  userType: WritableSignal<Roles | null> = signal(null);
 
   route = inject(ActivatedRoute);
-  navigationService = inject(NavigationService);
+  frontNavigationService = inject(FrontNavigationService);
+  frontAuthService = inject(FrontAuthService);
+  userRoleService = inject(UserRoleService);
+  userService = inject(UserService);
+  studentService = inject(StudentService);
+  instructorService = inject(InstructorService);
+
+  userId: WritableSignal<string | undefined> = signal(undefined);
+  isMyProfile = signal(false);
 
   ngOnInit() {
-    let userId: string | number | null = this.route.snapshot.paramMap.get('id');
+    this.userId.set(this.route.snapshot.paramMap.get('id') ?? undefined);
 
-    if (userId) {
-      try {
-        userId = Number(userId);
+    if (this.userId()) {
+      this.isMyProfile.set(false);
+      this.userRoleService.userRoleGetUserRole({ id: this.userId() as string }).subscribe({
+        next: (result) => {
+          const userRole = result?.data?.name as Roles;
+          this.getData(userRole, this.userId() as string);
+        },
+        error: () => {
+          this.frontNavigationService.navigate('/error');
+        },
+      });
+    } else {
+      const userRole = this.frontAuthService.tokenPersonalizedData?.role;
 
-        //TODO: Call query based on userId
-      } catch {
-        this.navigationService.navigate('/not-found');
+      const isStudent = userRole === Roles.STUDENT;
+      const isInstructor = userRole === Roles.INSTRUCTOR;
+      const isManagement = userRole === Roles.MANAGEMENT;
+      const isAdmin = userRole === Roles.ADMIN;
+
+      if (!userRole || (!isStudent && !isInstructor && !isManagement && !isAdmin)) {
+        this.frontNavigationService.navigate('/error');
+        return;
       }
 
-      //TODO: Fetch specific user data from backend using userId and populate userData and userType
-      this.userData = {
-        firstname: 'Emma',
-        lastname: 'Martin',
-        email: 'emma.martin@school.com',
-        phone: '+33 6 12 34 56 78',
-        birthday: '2003-04-18',
-        campus: 'Strasbourg',
+      this.userId.set(this.frontAuthService.userId ?? '');
+      this.isMyProfile.set(true);
 
-        program: 'Computer Science',
-        enrollmentYear: 2023,
-        emergency_contact: 'Paul Martin',
-        emergency_phone: '+33 6 98 76 54 32',
-        address: '12 Rue des Fleurs',
-        city: 'Schiltigheim',
-        zipCode: '67300',
-      };
-
-      this.userType = 'student'; //TODO
-    } else {
-      //TODO: Fetch user data based on logged user
-      this.userData = {
-        firstname: 'Lucas',
-        lastname: 'Bernard',
-        email: 'lucas.bernard@school.com',
-        phone: '+33 6 11 22 33 44',
-        birthday: '1985-09-12',
-        campus: 'Strasbourg',
-
-        department: 'Computer Science',
-        hire_date: '2018-09-01',
-        specialization: 'Software Engineering',
-      };
-
-      this.userType = 'instructor'; //TODO
+      this.getData(userRole, this.userId() as string);
     }
+  }
+
+  private getData(role: Roles, userId: string) {
+    switch (role) {
+      case Roles.STUDENT:
+        this.studentService.studentFindOne({ id: userId }).subscribe({
+          next: (result) => this.handleProfile(result, Roles.STUDENT),
+          error: () => this.frontNavigationService.navigate('/forbidden'),
+        });
+        break;
+      case Roles.INSTRUCTOR:
+        this.instructorService.instructorFindOne({ id: userId }).subscribe({
+          next: (result) => this.handleProfile(result, Roles.INSTRUCTOR),
+          error: () => this.frontNavigationService.navigate('/forbidden'),
+        });
+        break;
+      default:
+        this.userService.userFindOne({ id: userId }).subscribe({
+          next: (result) => this.handleProfile(result, role),
+          error: () => this.frontNavigationService.navigate('/forbidden'),
+        });
+        break;
+    }
+  }
+
+  private extractUser(
+    data: UserResponseDto | StudentResponseDto | InstructorResponseDto,
+  ): UserResponseDto {
+    if ('user' in data) {
+      return data.user;
+    }
+    return data;
+  }
+
+  private handleProfile(result: ProfileResponse, role: Roles) {
+    const data = result.data;
+
+    if (!data) {
+      this.frontNavigationService.navigate('/not-found');
+      return;
+    }
+
+    const user = this.extractUser(data);
+    const student = data as StudentResponseDto;
+    const instructor = data as InstructorResponseDto;
+
+    this.userData.set({
+      firstname: user.first_name,
+      lastname: user.last_name,
+      email: user.email,
+      phone: user.phone,
+      birthday: user.birthday,
+      campus: user.campus.name,
+
+      ...(role === Roles.STUDENT && {
+        program: String(student.program.name),
+        enrollmentYear: student.enrollment_year,
+        emergency_phone: student.emergency_phone,
+        emergency_contact: student.emergency_contact,
+        address: student.address,
+        city: student.city,
+        zipCode: student.zip_code,
+      }),
+
+      ...(role === Roles.INSTRUCTOR && {
+        department: String(instructor.department.name),
+        hire_date: instructor.hire_date,
+        specialization: String(instructor.specialization.name),
+      }),
+    });
+
+    this.userType.set(role);
   }
 }

@@ -1,4 +1,5 @@
 import {
+  HttpContextToken,
   HttpErrorResponse,
   HttpHandlerFn,
   HttpInterceptorFn,
@@ -6,13 +7,21 @@ import {
 } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, switchMap, throwError } from 'rxjs';
-import { AuthService } from '../../shared-modules/service/auth.service';
+import { FrontAuthService } from '../../shared-modules/service/front-auth.service';
+
+export const SKIP_INTERCEPTOR = new HttpContextToken(() => false);
 
 export const JwtInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn,
 ) => {
-  const auth = inject(AuthService);
+  const auth = inject(FrontAuthService);
+
+  const skip = req.context.get(SKIP_INTERCEPTOR);
+
+  if (skip) {
+    return next(req);
+  }
 
   const token = auth.getAccessToken();
 
@@ -30,6 +39,10 @@ export const JwtInterceptor: HttpInterceptorFn = (
         return throwError(() => error);
       }
 
+      if (!auth.getRefreshToken()) {
+        return throwError(() => error);
+      }
+
       return auth.refreshToken().pipe(
         switchMap((newToken) => {
           const retryReq = req.clone({
@@ -41,7 +54,6 @@ export const JwtInterceptor: HttpInterceptorFn = (
           return next(retryReq);
         }),
         catchError((refreshError) => {
-          auth.logout();
           return throwError(() => refreshError);
         }),
       );

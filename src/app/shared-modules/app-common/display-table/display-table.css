@@ -11,5 +11,15 @@
         @apply ml-auto;
       }
     }
+
+    .cell-clickable {
+      @apply cursor-pointer;
+    }
+
+    .cell-clickable:hover {
+      @apply underline text-[--secondary-color];
+      color: var(--secondary-color);
+      background-color: rgba(0, 0, 0, 0.04);
+    }
   }
 }
