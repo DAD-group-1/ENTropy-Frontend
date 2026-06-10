@@ -45,6 +45,15 @@ export interface UpdateScheduleDto {
     /**
      * The schedule status
      */
-    status?: number;
+    status?: UpdateScheduleDto.StatusEnum;
 }
+export namespace UpdateScheduleDto {
+    export const StatusEnum = {
+        NUMBER_1: 1,
+        NUMBER_2: 2,
+        NUMBER_3: 3
+    } as const;
+    export type StatusEnum = typeof StatusEnum[keyof typeof StatusEnum];
+}
+
 
