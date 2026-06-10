@@ -70,7 +70,7 @@
 
       <div class="profile-item">
         <span class="label">Birthday</span>
-        <span class="value">{{ userData()?.birthday | date:'yyyy-MM-dd' }}</span>
+        <span class="value">{{ userData()?.birthday | personalDate:'yyyy-MM-dd' }}</span>
       </div>
 
       <div class="profile-item">
@@ -125,7 +125,7 @@
 
         <div class="profile-item">
           <span class="label">Hire date</span>
-          <span class="value">{{ userData()?.hire_date | date:'yyyy-MM-dd' }}</span>
+          <span class="value">{{ userData()?.hire_date | personalDate:'yyyy-MM-dd' }}</span>
         </div>
 
         <div class="profile-item">

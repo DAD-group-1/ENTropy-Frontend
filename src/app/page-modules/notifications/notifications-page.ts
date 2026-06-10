@@ -1,6 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FrontNotificationService } from '../../shared-modules/service/front-notification.service';
-import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import {
   GetNotificationResponseDto,
@@ -10,10 +9,11 @@ import {
 import { Paginator, PaginatorState } from 'primeng/paginator';
 import { FrontAuthService } from '../../shared-modules/service/front-auth.service';
 import { FrontWebsocketService } from '../../shared-modules/service/front-websocket.service';
+import { PersonalDatePipe } from '../../shared-modules/utils';
 
 @Component({
   selector: 'app-notifications-page',
-  imports: [DatePipe, RouterLink, Paginator],
+  imports: [PersonalDatePipe, RouterLink, Paginator],
   templateUrl: './notifications-page.html',
   styleUrl: './notifications-page.css',
 })

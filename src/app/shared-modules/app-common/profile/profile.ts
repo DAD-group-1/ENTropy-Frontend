@@ -1,10 +1,9 @@
 import { Component, Input, Signal } from '@angular/core';
-import { DatePipe, NgClass, TitleCasePipe } from '@angular/common';
+import { NgClass, TitleCasePipe } from '@angular/common';
 import { Card } from 'primeng/card';
 import { Roles } from '../../service/front-auth.service';
 import { RouterLink } from '@angular/router';
-
-export type ProfileType = Roles.STUDENT | Roles.INSTRUCTOR;
+import { PersonalDatePipe } from '../../utils';
 
 export interface ProfileData {
   firstname: string;
@@ -29,7 +28,7 @@ export interface ProfileData {
 
 @Component({
   selector: 'app-profile',
-  imports: [TitleCasePipe, Card, NgClass, RouterLink, DatePipe],
+  imports: [TitleCasePipe, Card, NgClass, RouterLink, PersonalDatePipe],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })

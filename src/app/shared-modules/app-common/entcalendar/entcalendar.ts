@@ -8,19 +8,14 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import { DialogModule } from 'primeng/dialog';
+import { PersonalDatePipe } from '../../utils';
+import { environment } from '../../../../environments/environment';
 
 interface EventDataAdditions {
   id?: string;
   description?: string;
   room?: string;
-  tutor?: string;
-}
-
-interface EventDataAdditions {
-  id?: string;
-  description?: string;
-  room?: string;
-  tutor?: string;
+  instructor?: string;
 }
 
 export interface CalendarEvent extends EventDataAdditions {
@@ -32,7 +27,7 @@ export interface CalendarEvent extends EventDataAdditions {
 @Component({
   selector: 'app-entcalendar',
   standalone: true,
-  imports: [CommonModule, FormsModule, FullCalendarModule, DialogModule],
+  imports: [CommonModule, FormsModule, FullCalendarModule, DialogModule, PersonalDatePipe],
   templateUrl: './entcalendar.html',
   styleUrl: './entcalendar.css',
 })
@@ -42,6 +37,7 @@ export class ENTCalendar implements OnInit {
     'timeGridWeek';
 
   @Input({ required: true }) public calendarEvents: CalendarEvent[] = [];
+  @Input() public onRangeChange?: (start: Date, end: Date) => void;
 
   public clickedEvent: WritableSignal<EventInput | null> = signal(null);
   public showModal: WritableSignal<boolean> = signal(false);
@@ -82,6 +78,7 @@ export class ENTCalendar implements OnInit {
       plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin],
       initialView: this.getInitialView(),
       weekends: false,
+      timeZone: environment.timezone,
       headerToolbar: {
         left: 'title',
         center: 'prev,next today',
@@ -100,6 +97,9 @@ export class ENTCalendar implements OnInit {
       eventClick: (event) => {
         this.clickedEvent.set(event.event as EventInput);
         this.showModal.set(true);
+      },
+      datesSet: (arg) => {
+        this.onRangeChange?.(arg.start, arg.end);
       },
     };
   }
