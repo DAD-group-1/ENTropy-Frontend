@@ -40,18 +40,20 @@ export class ProfilePage implements OnInit {
   instructorService = inject(InstructorService);
 
   userId: WritableSignal<string | undefined> = signal(undefined);
+  isMyProfile = signal(false);
 
   ngOnInit() {
     this.userId.set(this.route.snapshot.paramMap.get('id') ?? undefined);
 
     if (this.userId()) {
+      this.isMyProfile.set(false);
       this.userRoleService.userRoleGetUserRole({ id: this.userId() as string }).subscribe({
         next: (result) => {
           const userRole = result?.data?.name as Roles;
           this.getData(userRole, this.userId() as string);
         },
         error: () => {
-          this.frontNavigationService.navigate('/not-found');
+          this.frontNavigationService.navigate('/error');
         },
       });
     } else {
@@ -63,11 +65,12 @@ export class ProfilePage implements OnInit {
       const isAdmin = userRole === Roles.ADMIN;
 
       if (!userRole || (!isStudent && !isInstructor && !isManagement && !isAdmin)) {
-        this.frontNavigationService.navigate('/not-found');
+        this.frontNavigationService.navigate('/error');
         return;
       }
 
       this.userId.set(this.frontAuthService.userId ?? '');
+      this.isMyProfile.set(true);
 
       this.getData(userRole, this.userId() as string);
     }
@@ -78,19 +81,19 @@ export class ProfilePage implements OnInit {
       case Roles.STUDENT:
         this.studentService.studentFindOne({ id: userId }).subscribe({
           next: (result) => this.handleProfile(result, Roles.STUDENT),
-          error: () => this.frontNavigationService.navigate('/not-found'),
+          error: () => this.frontNavigationService.navigate('/forbidden'),
         });
         break;
       case Roles.INSTRUCTOR:
         this.instructorService.instructorFindOne({ id: userId }).subscribe({
           next: (result) => this.handleProfile(result, Roles.INSTRUCTOR),
-          error: () => this.frontNavigationService.navigate('/not-found'),
+          error: () => this.frontNavigationService.navigate('/forbidden'),
         });
         break;
       default:
         this.userService.userFindOne({ id: userId }).subscribe({
           next: (result) => this.handleProfile(result, role),
-          error: () => this.frontNavigationService.navigate('/not-found'),
+          error: () => this.frontNavigationService.navigate('/forbidden'),
         });
         break;
     }

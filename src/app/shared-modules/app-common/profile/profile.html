@@ -25,7 +25,10 @@
       </section>
       <section class="buttons">
         @switch (profileType()) {
-          @case(Roles.STUDENT) {
+          @case (Roles.INSTRUCTOR) {
+
+          }
+          @default {
             <button class="p-button p-button-outlined"
                     [routerLink]="isMyProfile ? ['/grades'] : ['/grades', userId]">
               See Grades
@@ -40,9 +43,6 @@
                     [routerLink]="isMyProfile ? ['/payments'] : ['/payments', userId]">
               See Payments
             </button>
-          }
-          @default {
-
           }
         }
       </section>

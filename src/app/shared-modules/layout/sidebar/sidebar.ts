@@ -66,6 +66,9 @@ export class Sidebar implements OnInit, OnDestroy {
         this.userName.set(userName);
         this.role.set(this.frontAuthService.tokenPersonalizedData!.role);
       },
+      error: () => {
+        this.frontNavigationService.navigate('/error');
+      },
       complete: () => {
         setTimeout(() => {
           this.profileLoading.set(false);
@@ -148,8 +151,8 @@ export class Sidebar implements OnInit, OnDestroy {
     },
     {
       icon: 'pi pi-times-circle',
-      label: 'Absence Records',
-      route: 'absences',
+      label: 'Attendances',
+      route: 'attendances',
     },
     {
       icon: 'pi pi-wallet',
