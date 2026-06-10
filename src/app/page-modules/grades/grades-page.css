@@ -1,11 +1,17 @@
 @import "tailwindcss";
 
-:host {
-  .content {
-    @apply h-full overflow-y-auto;
+:host .content {
+  @apply min-w-full min-h-full flex flex-col;
 
-    .table-display {
-      @apply h-full ;
+  .center-loading {
+    @apply flex-1 flex items-center justify-center;
+
+    .loading-container {
+      @apply flex flex-col justify-center gap-4;
+
+      .loading-text {
+        @apply text-xl;
+      }
     }
   }
 }

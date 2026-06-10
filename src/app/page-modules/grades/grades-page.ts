@@ -1,224 +1,164 @@
-import { Component, signal, WritableSignal } from '@angular/core';
+import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
 import {
   DisplayTable,
   TableColumn,
   TableRow,
 } from '../../shared-modules/app-common/display-table/display-table';
+import {
+  AttendanceResponseDto,
+  AttendanceService,
+  EnrollmentService,
+  GradeResponseDto, GradeService,
+} from '../../core/data-services';
+import { FrontAuthService, Roles } from '../../shared-modules/service/front-auth.service';
+import { ActivatedRoute } from '@angular/router';
+import { displayName } from '../../shared-modules/utils';
+import { TableLazyLoadEvent } from 'primeng/table';
+import { Card } from 'primeng/card';
+import { ProgressSpinner } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-grades-page',
-  imports: [DisplayTable],
+  imports: [DisplayTable, Card, ProgressSpinner],
   templateUrl: './grades-page.html',
   styleUrl: './grades-page.css',
 })
 export class GradesPage {
-  public headers: WritableSignal<TableColumn[]> = signal([
-    // TODO: Change remove student column if not instructor
+  private readonly gradeService = inject(GradeService);
+  private readonly frontAuthService = inject(FrontAuthService);
+  private readonly route = inject(ActivatedRoute);
+
+  @Input() isHomepage = false;
+
+  public isLoaded = signal(false);
+  public totalRecords = signal(0);
+
+  public externalHeaders: TableColumn[] = [
     {
-      key: 'student',
+      key: 'id',
+      label: 'Student id',
+      hide: true,
+    },
+    {
+      key: 'student_name',
       label: 'Student',
-    },
-    {
-      key: 'exam',
-      label: 'Exam',
-    },
-    {
-      key: 'date',
-      label: 'Date',
-      sort: {
-        sortField: true,
-        sortOrder: -1,
+      click: {
+        baseUrl: 'profile',
+        parameterColumn: 'id',
       },
+    },
+  ];
+
+  public headers: WritableSignal<TableColumn[]> = signal([
+    {
+      key: 'grade_name',
+      label: 'Grade name',
     },
     {
       key: 'grade',
       label: 'Grade',
     },
     {
-      key: 'passed',
-      label: 'Passed',
-      isBoolean: true,
+      key: 'course',
+      label: 'Course',
+    },
+    {
+      key: 'semester',
+      label: 'Semester',
+    },
+    {
+      key: 'academic_year',
+      label: 'Academic year',
     },
   ]);
 
-  //TODO: Get your grades if student, get everyone grade if instructor
-  public rows: WritableSignal<TableRow[]> = signal([
-    {
-      student: 'Alice Martin',
-      exam: 'Math Midterm',
-      date: '2026-01-10',
-      grade: '15/20',
-      passed: true,
-    },
-    {
-      student: 'Lucas Bernard',
-      exam: 'Physics Final',
-      date: '2026-01-12',
-      grade: '12/20',
-      passed: true,
-    },
-    {
-      student: 'Emma Dubois',
-      exam: 'Chemistry Quiz',
-      date: '2026-01-15',
-      grade: '18/20',
-      passed: true,
-    },
-    {
-      student: 'Hugo Petit',
-      exam: 'History Test',
-      date: '2026-01-18',
-      grade: '9/20',
-      passed: true,
-    },
-    {
-      student: 'Chloé Moreau',
-      exam: 'English Essay',
-      date: '2026-01-20',
-      grade: '14/20',
-      passed: true,
-    },
-    {
-      student: 'Alice Martin',
-      exam: 'Math Midterm',
-      date: '2026-01-10',
-      grade: '15/20',
-      passed: true,
-    },
-    {
-      student: 'Lucas Bernard',
-      exam: 'Physics Final',
-      date: '2026-01-12',
-      grade: '12/20',
-      passed: true,
-    },
-    {
-      student: 'Emma Dubois',
-      exam: 'Chemistry Quiz',
-      date: '2026-01-15',
-      grade: '18/20',
-      passed: true,
-    },
-    {
-      student: 'Hugo Petit',
-      exam: 'History Test',
-      date: '2026-01-18',
-      grade: '9/20',
-      passed: false,
-    },
-    {
-      student: 'Chloé Moreau',
-      exam: 'English Essay',
-      date: '2026-01-20',
-      grade: '14/20',
-      passed: true,
-    },
-    {
-      student: 'Alice Martin',
-      exam: 'Math Midterm',
-      date: '2026-01-10',
-      grade: '15/20',
-      passed: true,
-    },
-    {
-      student: 'Lucas Bernard',
-      exam: 'Physics Final',
-      date: '2026-01-12',
-      grade: '12/20',
-      passed: true,
-    },
-    {
-      student: 'Emma Dubois',
-      exam: 'Chemistry Quiz',
-      date: '2026-01-15',
-      grade: '18/20',
-      passed: true,
-    },
-    {
-      student: 'Hugo Petit',
-      exam: 'History Test',
-      date: '2026-01-18',
-      grade: '9/20',
-      passed: false,
-    },
-    {
-      student: 'Chloé Moreau',
-      exam: 'English Essay',
-      date: '2026-01-20',
-      grade: '14/20',
-      passed: true,
-    },
-    {
-      student: 'Alice Martin',
-      exam: 'Math Midterm',
-      date: '2026-01-10',
-      grade: '15/20',
-      passed: true,
-    },
-    {
-      student: 'Lucas Bernard',
-      exam: 'Physics Final',
-      date: '2026-01-12',
-      grade: '12/20',
-      passed: false,
-    },
-    {
-      student: 'Emma Dubois',
-      exam: 'Chemistry Quiz',
-      date: '2026-01-15',
-      grade: '18/20',
-      passed: true,
-    },
-    {
-      student: 'Hugo Petit',
-      exam: 'History Test',
-      date: '2026-01-18',
-      grade: '9/20',
-      passed: false,
-    },
-    {
-      student: 'Chloé Moreau',
-      exam: 'English Essay',
-      date: '2026-01-20',
-      grade: '14/20',
-      passed: true,
-    },
-    {
-      student: 'Alice Martin',
-      exam: 'Math Midterm',
-      date: '2026-01-10',
-      grade: '15/20',
-      passed: true,
-    },
-    {
-      student: 'Lucas Bernard',
-      exam: 'Physics Final',
-      date: '2026-01-12',
-      grade: '12/20',
-      passed: true,
-    },
-    {
-      student: 'Emma Dubois',
-      exam: 'Chemistry Quiz',
-      date: '2026-01-15',
-      grade: '18/20',
-      passed: true,
-    },
-    {
-      student: 'Hugo Petit',
-      exam: 'History Test',
-      date: '2026-01-18',
-      grade: '9/20',
-      passed: false,
-    },
-    {
-      student: 'Chloé Moreau',
-      exam: 'English Essay',
-      date: '2026-01-20',
-      grade: '14/20',
-      passed: true,
-    },
-  ]);
+  public rows: WritableSignal<TableRow[]> = signal([]);
 
-  public totalRecords = signal(0);
+  public userId: string | null | undefined;
+  public isExternalUser = false;
+  public isGlobalView = false;
+
+  ngOnInit() {
+    const routeUserId = this.route.snapshot.paramMap.get('id');
+    const currentUserId = this.frontAuthService.userId;
+
+    this.userId = currentUserId;
+    if (routeUserId) {
+      this.userId = routeUserId;
+    } else {
+      if (this.frontAuthService.tokenPersonalizedData?.role != Roles.STUDENT) {
+        this.isGlobalView = true;
+      }
+    }
+
+    this.isExternalUser = !!routeUserId && routeUserId !== currentUserId;
+
+    if (this.isExternalUser || this.isGlobalView) {
+      this.headers.update((headers) => [...this.externalHeaders, ...headers]);
+    }
+
+    this.loadPayments(1, 10);
+  }
+
+  private gradesToRow(grade: GradeResponseDto): TableRow {
+    let externalUserData = {};
+
+    if (this.isExternalUser || this.isGlobalView) {
+      externalUserData = {
+        id: grade.enrollment.student_id,
+        student_name: displayName(
+          grade.enrollment.student.user.first_name,
+          grade.enrollment.student.user.last_name
+        ),
+      };
+    }
+
+    return {
+      ...externalUserData,
+      grade_name: grade.name,
+      grade: grade.grade,
+      course: grade.enrollment.course.name,
+      semester: grade.enrollment.semester,
+      academic_year: grade.enrollment.academic_year,
+    };
+  }
+
+  loadPayments(page: number, limit: number) {
+    const request$ = this.isGlobalView
+      ? this.gradeService.gradeFindAll({ page, limit })
+      : this.userId
+        ? this.gradeService.gradeFindByStudentId({
+            studentId: this.userId,
+            page,
+            limit,
+          })
+        : null;
+
+    if (!request$) return;
+
+    request$.subscribe({
+      next: (result) => {
+        if (!result.success || !result.data) return;
+
+        this.rows.set(result.data.items.map((item) => this.gradesToRow(item)));
+
+        this.totalRecords.set(result.data.total);
+        this.isLoaded.set(true);
+      },
+
+      error: (err) => {
+        console.error('Grades load error:', err);
+        this.isLoaded.set(false);
+      },
+    });
+  }
+
+  onLazyLoad(event: TableLazyLoadEvent) {
+    const first = event.first ?? 0;
+    const rows = event.rows ?? 10;
+
+    const page = Math.floor(first / rows) + 1;
+
+    this.loadPayments(page, rows);
+  }
 }

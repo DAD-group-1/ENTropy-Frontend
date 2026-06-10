@@ -144,7 +144,7 @@ export class AttendancesPage {
       },
 
       error: (err) => {
-        console.error('Payment load error:', err);
+        console.error('Attendances load error:', err);
         this.isLoaded.set(false);
       },
     });
