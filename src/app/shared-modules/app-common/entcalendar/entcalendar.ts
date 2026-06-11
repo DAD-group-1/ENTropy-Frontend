@@ -73,6 +73,8 @@ export class ENTCalendar implements OnInit {
   public calendarOptions!: CalendarOptions;
 
   ngOnInit() {
+    console.log(this.isHomepage);
+
     this.calendarOptions = {
       plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin],
       initialView: this.getInitialView(),
@@ -87,7 +89,7 @@ export class ENTCalendar implements OnInit {
       },
       nowIndicator: true,
       stickyHeaderDates: false,
-      height: this.isHomepage ? '750px' : 'flex',
+      height: this.isHomepage ? '750px' : '100%',
       slotMinTime: '08:00:00',
       slotMaxTime: '18:00:00',
       windowResize: () => {
