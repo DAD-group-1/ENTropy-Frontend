@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+:host {
+  .dashboard-title {
+    @apply text-2xl font-bold text-gray-800 mb-6;
+  }
+
+  .dashboard-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+
+  .dashboard-card {
+    @apply bg-white rounded-xl shadow-md p-6 flex flex-col gap-2 transition hover:shadow-lg;
+  }
+
+  .dashboard-card h2 {
+    @apply text-gray-600 text-sm uppercase tracking-wide;
+  }
+
+  .value {
+    @apply text-3xl font-bold text-gray-900;
+  }
+
+  /* Color accents per card */
+
+  .students {
+    @apply border-l-4 border-blue-500;
+  }
+
+  .instructors {
+    @apply border-l-4 border-purple-500;
+  }
+
+  .enrollments {
+    @apply border-l-4 border-green-500;
+  }
+
+  .payments {
+    @apply border-l-4 border-yellow-500;
+  }
+
+  .courses {
+    @apply border-l-4 border-red-500;
+  }
+}

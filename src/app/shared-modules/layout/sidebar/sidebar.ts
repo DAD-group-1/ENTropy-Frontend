@@ -16,6 +16,7 @@ interface MenuItem {
   isOpen?: boolean;
   route?: string;
   allowedRoles?: Roles[];
+  excludedRoles?: Roles[];
 }
 
 @Component({
@@ -127,11 +128,17 @@ export class Sidebar implements OnInit, OnDestroy {
   canShow(item: MenuItem): boolean {
     const role = this.frontAuthService.tokenPersonalizedData?.role;
 
+    if (!role) return false;
+
+    if (item.excludedRoles && item.excludedRoles.length > 0 && item.excludedRoles.includes(role)) {
+      return false;
+    }
+
     if (!item.allowedRoles || item.allowedRoles.length === 0) {
       return true;
     }
 
-    return !!role && item.allowedRoles.includes(role);
+    return item.allowedRoles.includes(role);
   }
 
   menuItems: MenuItem[] = [
@@ -143,6 +150,7 @@ export class Sidebar implements OnInit, OnDestroy {
       icon: 'pi pi-calendar',
       label: 'Calendar',
       route: 'calendar',
+      excludedRoles: [Roles.MANAGEMENT, Roles.ADMIN],
     },
     {
       icon: 'pi pi-chart-bar',
@@ -172,7 +180,7 @@ export class Sidebar implements OnInit, OnDestroy {
     {
       icon: 'pi pi-microchip-ai',
       label: 'EntropIA',
-      route: 'entropia',
+      route: 'entropai',
     },
   ];
 }

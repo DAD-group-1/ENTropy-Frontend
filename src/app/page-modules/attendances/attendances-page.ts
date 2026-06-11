@@ -14,10 +14,11 @@ import { FrontAuthService, Roles } from '../../shared-modules/service/front-auth
 import { ActivatedRoute } from '@angular/router';
 import { Card } from 'primeng/card';
 import { displayName } from '../../shared-modules/utils';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-attendances-page',
-  imports: [DisplayTable, Card, ProgressSpinner],
+  imports: [DisplayTable, Card, ProgressSpinner, NgTemplateOutlet],
   templateUrl: './attendances-page.html',
   styleUrl: './attendances-page.css',
 })

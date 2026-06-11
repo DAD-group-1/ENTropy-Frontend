@@ -53,6 +53,7 @@ export class DisplayTable implements OnInit {
   @Input({ required: true }) headers!: WritableSignal<TableColumn[]>;
   @Input({ required: true }) rows!: WritableSignal<TableRow[]>;
   @Input({ required: true }) totalRecords!: WritableSignal<number>;
+  @Input() isHomepage = false;
 
   @Output() lazyLoad = new EventEmitter<TableLazyLoadEvent>();
 

@@ -1,14 +1,45 @@
 @switch (userRole) {
-  @case (Roles.INSTRUCTOR) {
-    Instructor lala
-  }
   @case (Roles.MANAGEMENT) {
-    Management lala
+    <app-dashboard-page [userRole]="userRole"></app-dashboard-page>
   }
   @case (Roles.ADMIN) {
-    Admin lala
+    <app-dashboard-page [userRole]="userRole"></app-dashboard-page>
   }
   @default {
-    Student lala
+    <div class="student-instructor-content">
+      <app-calendar-page [isHomepage]="true"></app-calendar-page>
+
+      <div class="attendances-grades-container">
+        <!-- Attendances -->
+        <div class="category-container">
+          <div class="flex-container">
+            <h2 class="title">
+              Attendances
+            </h2>
+
+            <button class="pi pi-external-link cursor-pointer"
+                    routerLink="/attendances">
+            </button>
+          </div>
+
+          <app-attendances-page [isHomepage]="true"></app-attendances-page>
+        </div>
+
+        <!-- Grades -->
+        <div class="category-container">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="title">
+              Grades
+            </h2>
+
+            <button class="pi pi-external-link cursor-pointer"
+                    routerLink="/grades">
+            </button>
+          </div>
+
+          <app-grades-page [isHomepage]="true"></app-grades-page>
+        </div>
+      </div>
+    </div>
   }
 }

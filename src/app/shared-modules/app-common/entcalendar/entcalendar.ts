@@ -9,7 +9,6 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import { DialogModule } from 'primeng/dialog';
 import { PersonalDatePipe } from '../../utils';
-import { environment } from '../../../../environments/environment';
 
 interface EventDataAdditions {
   id?: string;
@@ -37,6 +36,7 @@ export class ENTCalendar implements OnInit {
 
   @Input({ required: true }) public calendarEvents: CalendarEvent[] = [];
   @Input() public onRangeChange?: (start: Date, end: Date) => void;
+  @Input() public isHomepage = false;
 
   public clickedEvent: WritableSignal<EventInput | null> = signal(null);
   public showModal: WritableSignal<boolean> = signal(false);
@@ -81,11 +81,13 @@ export class ENTCalendar implements OnInit {
       headerToolbar: {
         left: 'title',
         center: 'prev,next today',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay',
+        right: this.isHomepage
+          ? 'timeGridWeek,timeGridDay'
+          : 'dayGridMonth,timeGridWeek,timeGridDay',
       },
       nowIndicator: true,
       stickyHeaderDates: false,
-      height: '100%',
+      height: this.isHomepage ? '750px' : 'flex',
       slotMinTime: '08:00:00',
       slotMaxTime: '18:00:00',
       windowResize: () => {

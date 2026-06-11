@@ -1,5 +1,5 @@
 <app-entcalendar [hidden]="loading()" [calendarEvents]="calendarEvents()"
-                 [onRangeChange]="onRangeChange.bind(this)" />
+                 [onRangeChange]="onRangeChange.bind(this)" [isHomepage]="isHomepage"/>
 
 @if (loading()) {
   <div class="center-loading">

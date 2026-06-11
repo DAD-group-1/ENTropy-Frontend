@@ -5,9 +5,6 @@ import {
   TableRow,
 } from '../../shared-modules/app-common/display-table/display-table';
 import {
-  AttendanceResponseDto,
-  AttendanceService,
-  EnrollmentService,
   GradeResponseDto, GradeService,
 } from '../../core/data-services';
 import { FrontAuthService, Roles } from '../../shared-modules/service/front-auth.service';
@@ -16,10 +13,11 @@ import { displayName } from '../../shared-modules/utils';
 import { TableLazyLoadEvent } from 'primeng/table';
 import { Card } from 'primeng/card';
 import { ProgressSpinner } from 'primeng/progressspinner';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-grades-page',
-  imports: [DisplayTable, Card, ProgressSpinner],
+  imports: [DisplayTable, Card, ProgressSpinner, NgTemplateOutlet],
   templateUrl: './grades-page.html',
   styleUrl: './grades-page.css',
 })
@@ -108,7 +106,7 @@ export class GradesPage {
         id: grade.enrollment.student_id,
         student_name: displayName(
           grade.enrollment.student.user.first_name,
-          grade.enrollment.student.user.last_name
+          grade.enrollment.student.user.last_name,
         ),
       };
     }

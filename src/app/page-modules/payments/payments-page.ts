@@ -11,12 +11,13 @@ import { FrontAuthService, Roles } from '../../shared-modules/service/front-auth
 import { ActivatedRoute } from '@angular/router';
 import { Card } from 'primeng/card';
 import { displayName } from '../../shared-modules/utils';
+import { NgTemplateOutlet } from '@angular/common';
 
 class OnInit {}
 
 @Component({
   selector: 'app-payments-page',
-  imports: [DisplayTable, ProgressSpinner, Card],
+  imports: [DisplayTable, ProgressSpinner, Card, NgTemplateOutlet],
   templateUrl: './payments-page.html',
   styleUrl: './payments-page.css',
 })
