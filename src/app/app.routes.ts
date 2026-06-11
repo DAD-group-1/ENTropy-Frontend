@@ -17,6 +17,7 @@ import { ErrorPage } from './page-modules/error/error-page';
 import { GcuPage } from './page-modules/gcu/gcu-page';
 import { LegalMentionsPage } from './page-modules/legal-mentions/legal-mentions-page';
 import { AboutUsPage } from './page-modules/about-us/about-us-page';
+import { ChatbotPage } from './page-modules/chatbot/chatbot-page';
 
 export const routes: Routes = [
   {
@@ -108,17 +109,12 @@ export const routes: Routes = [
         path: 'resources',
         component: ResourcesPage,
       },
+
+      {
+        path: 'entropai',
+        component: ChatbotPage,
+      },
     ],
-  },
-
-  {
-    path: 'forbidden',
-    component: ForbiddenPage,
-  },
-
-  {
-    path: 'error',
-    component: ErrorPage,
   },
 
   {
@@ -132,6 +128,16 @@ export const routes: Routes = [
   {
     path: 'about-us',
     component: AboutUsPage,
+  },
+
+  {
+    path: 'forbidden',
+    component: ForbiddenPage,
+  },
+
+  {
+    path: 'error',
+    component: ErrorPage,
   },
 
   {

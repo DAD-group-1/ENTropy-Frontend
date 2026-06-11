@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+:host .chat-page {
+  @apply flex flex-col h-full max-w-4xl mx-auto p-6;
+
+  .chat-header {
+    @apply mb-6 text-center;
+  }
+
+  .chat-header h1 {
+    @apply text-3xl font-bold text-slate-900;
+  }
+
+  .chat-header p {
+    @apply text-slate-500;
+  }
+
+  .chat-window {
+    @apply flex-1 bg-white border border-slate-200 rounded-xl p-4 overflow-y-auto;
+  }
+
+  .messages {
+    @apply flex flex-col gap-3;
+  }
+
+  .message {
+    @apply flex;
+  }
+
+  .message.user {
+    @apply justify-end;
+  }
+
+  .bubble {
+    @apply max-w-[75%] px-4 py-2 rounded-xl bg-slate-100 text-slate-800 whitespace-pre-line;
+  }
+
+  .message.user .bubble {
+    @apply text-white;
+    background: var(--secondary-color, #1f2937);
+  }
+
+  .typing {
+    @apply italic text-slate-500;
+  }
+
+  .chat-input {
+    @apply mt-4 flex gap-2;
+  }
+
+  .chat-input input {
+    @apply flex-1 border bg-white border-slate-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-blue-800;
+  }
+}
+

@@ -169,10 +169,10 @@ export class Sidebar implements OnInit, OnDestroy {
       label: 'Resources',
       route: 'resources',
     },
-    // {
-    //   icon: 'pi pi-info-circle',
-    //   label: 'Informations',
-    //   route: 'informations',
-    // },
+    {
+      icon: 'pi pi-microchip-ai',
+      label: 'ENTropAI',
+      route: 'entropai',
+    },
   ];
 }

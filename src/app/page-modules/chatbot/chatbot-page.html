@@ -1,0 +1,37 @@
+<section class="chat-page">
+  <div class="chat-header">
+    <h1>Entropy AI Assistant</h1>
+    <p>Your academic support assistant for Novacampus Alliance</p>
+  </div>
+
+  <div class="chat-window">
+    <div class="messages">
+      @for (msg of messages(); track msg.id) {
+        <div class="message" [class.user]="msg.role === 'user'">
+          <div class="bubble">
+            {{ msg.content }}
+          </div>
+        </div>
+      }
+
+      @if (loading()) {
+        <div class="message bot">
+          <div class="bubble typing">Typing...</div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="chat-input">
+    <input
+      type="text"
+      [(ngModel)]="input"
+      (keydown.enter)="sendMessage()"
+      placeholder="Ask something..."
+    />
+
+    <button (click)="sendMessage()" pButton type="button">
+      Send
+    </button>
+  </div>
+</section>
