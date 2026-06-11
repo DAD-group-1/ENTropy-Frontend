@@ -1,0 +1,71 @@
+<div class="dashboard-container">
+  <h1 class="dashboard-title">Dashboard</h1>
+
+  <div class="dashboard-grid">
+    <!-- Students -->
+    <div class="dashboard-card students">
+      <h2>Students</h2>
+
+      @if (!studentLoading()) {
+        <p class="value">{{ studentTotal() }}</p>
+      } @else {
+        <p-skeleton width="4rem" height="2rem"></p-skeleton>
+      }
+    </div>
+
+    <!-- Instructors -->
+    <div class="dashboard-card instructors">
+      <h2>Instructors</h2>
+
+      @if (!instructorLoading()) {
+        <p class="value">{{ instructorTotal() }}</p>
+      } @else {
+        <p-skeleton width="4rem" height="2rem"></p-skeleton>
+      }
+    </div>
+
+    <!-- Enrollments -->
+    <div class="dashboard-card enrollments">
+      <h2>Enrollments</h2>
+
+      @if (!enrollmentLoading()) {
+        <p class="value">{{ enrollmentTotal() }}</p>
+      } @else {
+        <p-skeleton width="4rem" height="2rem"></p-skeleton>
+      }
+    </div>
+
+    <!-- Payments -->
+    <div class="dashboard-card payments">
+      <h2>Payments</h2>
+
+      @if (!paymentLoading()) {
+        <p class="value">{{ paymentTotal() }}</p>
+      } @else {
+        <p-skeleton width="4rem" height="2rem"></p-skeleton>
+      }
+    </div>
+
+    <!-- Courses -->
+    <div class="dashboard-card courses">
+      <h2>Courses</h2>
+
+      @if (!courseLoading()) {
+        <p class="value">{{ courseTotal() }}</p>
+      } @else {
+        <p-skeleton width="4rem" height="2rem"></p-skeleton>
+      }
+    </div>
+  </div>
+
+  <!-- Errors -->
+  @if (errors().length > 0) {
+    <div class="error-container">
+      @for (error of errors(); track error) {
+        <div class="error-banner">
+          {{ error }}
+        </div>
+      }
+    </div>
+  }
+</div>

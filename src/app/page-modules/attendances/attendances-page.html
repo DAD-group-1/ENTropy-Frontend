@@ -8,21 +8,29 @@
   @if (isLoaded()) {
     <div class="table-display">
       <app-display-table [headers]="headers" [rows]="rows" [totalRecords]="totalRecords"
-                         (lazyLoad)="onLazyLoad($event)" />
+                         (lazyLoad)="onLazyLoad($event)" [isHomepage]="isHomepage" />
     </div>
   } @else {
     <div class="center-loading">
-      <p-card>
-        <div class="loading-container">
-          <p-progressSpinner
-            [style]="{ width: '50px', height: '50px' }"
-            strokeWidth="4"
-            animationDuration=".5s"
-            aria-label="Loading spinner indicating that we are loading the data"
-          ></p-progressSpinner>
-          <p class="loading-text">Loading...</p>
-        </div>
-      </p-card>
+      @if (!isHomepage) {
+        <p-card>
+          <ng-container *ngTemplateOutlet="loader"></ng-container>
+        </p-card>
+      } @else {
+        <ng-container *ngTemplateOutlet="loader"></ng-container>
+      }
     </div>
+
+    <ng-template #loader>
+      <div class="loading-container">
+        <p-progressSpinner
+          [style]="{ width: '50px', height: '50px' }"
+          strokeWidth="4"
+          animationDuration=".5s">
+        </p-progressSpinner>
+
+        <p class="loading-text">Loading...</p>
+      </div>
+    </ng-template>
   }
 </div>

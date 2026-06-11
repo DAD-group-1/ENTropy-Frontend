@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, Input, signal } from '@angular/core';
 import {
   CalendarEvent,
   ENTCalendar,
@@ -27,6 +27,8 @@ export class CalendarPage {
   private readonly frontAuthService = inject(FrontAuthService);
   private readonly schedulesService = inject(ScheduleService);
   private readonly studentService = inject(StudentService);
+
+  @Input() isHomepage = false;
 
   //TODO: Get it from the Authorization service
   public isInstructor = false;

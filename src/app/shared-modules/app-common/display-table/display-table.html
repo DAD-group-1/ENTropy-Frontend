@@ -4,7 +4,7 @@
          [rows]="20"
          [rowHover]="true"
          [scrollable]="true"
-         scrollHeight="flex"
+         [scrollHeight]="isHomepage ? '250px' : 'flex'"
          [globalFilterFields]="globalFilterFields"
          [sortField]="defaultSortField?.key ?? ''"
          [sortOrder]="defaultSortField?.sort?.sortOrder ?? 1"
@@ -12,20 +12,22 @@
          [lazy]="true"
          (onLazyLoad)="lazyLoad.emit($event)"
 >
-  <ng-template #caption>
-    <div class="flex">
-      <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt)" />
+  @if (!isHomepage) {
+    <ng-template #caption>
+      <div class="flex">
+        <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt)" />
 
-      <p-iconfield iconPosition="left" class="ml-auto">
-        <p-inputicon>
-          <i class="pi pi-search"></i>
-        </p-inputicon>
-        <input #searchInput pInputText type="text" [(ngModel)]="searchValue"
-               (input)="dt.filterGlobal(searchInput.value, 'contains')"
-               placeholder="Search keyword" />
-      </p-iconfield>
-    </div>
-  </ng-template>
+        <p-iconfield iconPosition="left" class="ml-auto">
+          <p-inputicon>
+            <i class="pi pi-search"></i>
+          </p-inputicon>
+          <input #searchInput pInputText type="text" [(ngModel)]="searchValue"
+                 (input)="dt.filterGlobal(searchInput.value, 'contains')"
+                 placeholder="Search keyword" />
+        </p-iconfield>
+      </div>
+    </ng-template>
+  }
 
   <ng-template #header>
     <tr>

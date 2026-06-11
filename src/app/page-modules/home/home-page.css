@@ -1,2 +1,23 @@
 @import "tailwindcss";
 
+:host {
+  .student-instructor-content {
+    @apply min-h-0 grid grid-cols-1 lg:grid-cols-2 gap-6;
+
+    .attendances-grades-container {
+      @apply h-full grid grid-cols-1 lg:grid-rows-2 gap-6;
+
+      .category-container {
+        @apply bg-white rounded-xl border border-slate-200 p-4 overflow-hidden;
+
+        .flex-container {
+          @apply flex justify-between items-center mb-3;
+
+          .title {
+            @apply text-lg font-semibold text-slate-800;
+          }
+        }
+      }
+    }
+  }
+}
