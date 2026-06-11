@@ -1,8 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { ButtonDirective } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { AgentService } from '../../core/data-services';
 import { finalize } from 'rxjs/operators';
+import { FrontMarkdownService } from '../../shared-modules/service/front-markdown.service';
 
 interface ChatMessage {
   id: number;
@@ -17,7 +18,19 @@ interface ChatMessage {
   styleUrl: './chatbot-page.css',
 })
 export class ChatbotPage {
-  private agentService = inject(AgentService);
+  constructor() {
+    effect(() => {
+      this.messages();
+
+      setTimeout(() => this.scrollToBottom());
+    });
+  }
+
+  @ViewChild('chatWindow')
+  private readonly chatWindow!: ElementRef<HTMLDivElement>;
+
+  private readonly agentService = inject(AgentService);
+  protected readonly frontMarkdownService = inject(FrontMarkdownService);
 
   private initialCount = 1;
 
@@ -25,8 +38,7 @@ export class ChatbotPage {
     {
       id: this.initialCount,
       role: 'assistant',
-      content: `Hello! I am Entropy AI, your academic assistant for Novacampus Alliance.\n\nI can help you with:\n- Course schedules and academic information\n- Grades and attendance tracking\n- Administrative procedures\n- Campus information\n- General questions about the ENT platform\n\nHow can I assist you today?`,
-    },
+      content: '## Hello 👋\nI am **EntropIA**, your academic assistant for Novacampus Alliance.\nI can help you with:\r- Course schedules and academic information\n- Grades and attendance tracking\n- Administrative procedures\n- Campus information\n- General questions about the ENT platform\n\nHow can I assist you today?'},
   ]);
 
   input = '';
@@ -35,6 +47,8 @@ export class ChatbotPage {
   private idCounter = this.initialCount;
 
   sendMessage() {
+    if (this.loading()) return;
+
     const text = this.input.trim();
     if (!text) return;
 
@@ -49,14 +63,15 @@ export class ChatbotPage {
     this.input = '';
     this.loading.set(true);
 
-    this.agentService.agentChat({ agentRequest: {message: text}})
+    this.agentService
+      .agentChat({ agentRequest: { message: text } })
       .pipe(
         finalize(() => {
           this.loading.set(false);
-        }))
+        }),
+      )
       .subscribe({
         next: (res) => {
-          console.log(res);
           const botMsg: ChatMessage = {
             id: this.idCounter++,
             role: 'assistant',
@@ -76,5 +91,16 @@ export class ChatbotPage {
           ]);
         },
       });
+  }
+
+  private scrollToBottom() {
+    const el = this.chatWindow?.nativeElement;
+
+    if (!el) return;
+
+    el.scrollTo({
+      top: el.scrollHeight,
+      behavior: 'smooth',
+    });
   }
 }

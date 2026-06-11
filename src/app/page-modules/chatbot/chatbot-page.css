@@ -32,7 +32,7 @@
   }
 
   .bubble {
-    @apply max-w-[75%] px-4 py-2 rounded-xl bg-slate-100 text-slate-800 whitespace-pre-line;
+    @apply max-w-[75%] px-4 py-2 rounded-xl bg-slate-100 text-slate-800;
   }
 
   .message.user .bubble {
