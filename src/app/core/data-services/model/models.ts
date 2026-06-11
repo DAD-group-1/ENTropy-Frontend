@@ -1,3 +1,4 @@
+export * from './agentRequest';
 export * from './assignRoleRequestDto';
 export * from './attendanceCreateDefaultResponse';
 export * from './attendanceFindAllDefaultResponse';

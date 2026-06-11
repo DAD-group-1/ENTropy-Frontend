@@ -2,6 +2,7 @@
 README.md
 api.base.service.ts
 api.module.ts
+api/agent.service.ts
 api/api.ts
 api/attendance.service.ts
 api/authentication.service.ts
@@ -25,6 +26,7 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/agentRequest.ts
 model/assignRoleRequestDto.ts
 model/attendanceCreateDefaultResponse.ts
 model/attendanceFindAllDefaultResponse.ts

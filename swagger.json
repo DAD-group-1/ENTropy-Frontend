@@ -2876,7 +2876,7 @@
             "in": "query",
             "schema": {
               "format": "date",
-              "example": "2026-06-10",
+              "example": "2026-06-11",
               "type": "string"
             }
           },
@@ -2886,7 +2886,7 @@
             "in": "query",
             "schema": {
               "format": "date",
-              "example": "2026-06-10",
+              "example": "2026-06-11",
               "type": "string"
             }
           }
@@ -2947,7 +2947,7 @@
             "in": "query",
             "schema": {
               "format": "date",
-              "example": "2026-06-10",
+              "example": "2026-06-11",
               "type": "string"
             }
           },
@@ -2957,7 +2957,7 @@
             "in": "query",
             "schema": {
               "format": "date",
-              "example": "2026-06-10",
+              "example": "2026-06-11",
               "type": "string"
             }
           }
@@ -4390,6 +4390,35 @@
           "Notifications"
         ]
       }
+    },
+    "/api/agent/chat": {
+      "post": {
+        "operationId": "Agent_chat",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Agent"
+        ]
+      }
     }
   },
   "info": {
@@ -4767,9 +4796,6 @@
           "id": {
             "type": "number"
           },
-          "event_id": {
-            "type": "number"
-          },
           "course_id": {
             "type": "number"
           },
@@ -4816,7 +4842,6 @@
         },
         "required": [
           "id",
-          "event_id",
           "course_id",
           "instructor_id",
           "room_id",
@@ -6171,10 +6196,6 @@
       "CreateScheduleRequestDto": {
         "type": "object",
         "properties": {
-          "event_id": {
-            "type": "number",
-            "description": "The ID of the event"
-          },
           "course_id": {
             "type": "number",
             "description": "The ID of the course"
@@ -6212,7 +6233,6 @@
           }
         },
         "required": [
-          "event_id",
           "course_id",
           "instructor_id",
           "room_id",
@@ -6255,10 +6275,6 @@
       "UpdateScheduleDto": {
         "type": "object",
         "properties": {
-          "event_id": {
-            "type": "number",
-            "description": "The ID of the event"
-          },
           "course_id": {
             "type": "number",
             "description": "The ID of the course"
@@ -7061,6 +7077,17 @@
         "properties": {
 
         }
+      },
+      "AgentRequest": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ]
       }
     }
   }
