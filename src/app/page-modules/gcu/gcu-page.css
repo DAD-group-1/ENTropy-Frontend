@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+:host .gcu-page {
+  @apply min-h-full;
+
+
+  .hero {
+    @apply text-center my-12;
+  }
+
+  .hero h1 {
+    @apply text-5xl font-bold text-slate-900 mb-3;
+  }
+
+  .hero p {
+    @apply text-lg text-slate-500;
+  }
+
+  .content {
+    @apply max-w-5xl mx-auto space-y-6;
+  }
+
+  .card {
+    @apply bg-white border border-slate-200 rounded-xl p-8 shadow-sm;
+  }
+
+  .card h2 {
+    @apply text-xl font-bold mb-4;
+    color: var(--secondary-color, #1f2937);
+  }
+
+  .card p {
+    @apply text-slate-700 leading-7;
+  }
+
+  .card ul {
+    @apply mt-4 space-y-2 text-slate-700 list-disc list-inside;
+  }
+}
+

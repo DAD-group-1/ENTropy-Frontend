@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authCanMatchGuard, authCanActivateGuard } from './guards/auth/auth-guard';
 import { roleGuard } from './guards/roles/role-guard';
+import { Roles } from './shared-modules/service/front-auth.service';
 import { HomePage } from './page-modules/home/home-page';
 import { LoginPage } from './page-modules/login/login-page';
 import { CalendarPage } from './page-modules/calendar/calendar-page';
@@ -10,11 +11,12 @@ import { ProfilePage } from './page-modules/profile/profile-page';
 import { NotFoundPage } from './page-modules/not-found/not-found-page';
 import { ForbiddenPage } from './page-modules/forbidden/forbidden-page';
 import { NotificationsPage } from './page-modules/notifications/notifications-page';
-
-import { Roles } from './shared-modules/service/front-auth.service';
 import { ResourcesPage } from './page-modules/resources/resources-page';
 import { PaymentsPage } from './page-modules/payments/payments-page';
 import { ErrorPage } from './page-modules/error/error-page';
+import { GcuPage } from './page-modules/gcu/gcu-page';
+import { LegalMentionsPage } from './page-modules/legal-mentions/legal-mentions-page';
+import { AboutUsPage } from './page-modules/about-us/about-us-page';
 
 export const routes: Routes = [
   {
@@ -117,6 +119,19 @@ export const routes: Routes = [
   {
     path: 'error',
     component: ErrorPage,
+  },
+
+  {
+    path: 'gcu',
+    component: GcuPage,
+  },
+  {
+    path: 'legal-mentions',
+    component: LegalMentionsPage,
+  },
+  {
+    path: 'about-us',
+    component: AboutUsPage,
   },
 
   {
