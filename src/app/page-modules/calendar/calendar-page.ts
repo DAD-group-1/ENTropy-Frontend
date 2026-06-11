@@ -85,7 +85,6 @@ export class CalendarPage {
 
     request$?.subscribe({
       next: (result: ScheduleFindByDateRangeDefaultResponse) => {
-        console.log(result);
         this.calendarEvents.set((result.data ?? []).map(this.scheduleToCalendarEvent));
         this.loading.set(false);
       },

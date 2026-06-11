@@ -4,13 +4,19 @@
     <p>Your academic support assistant for Novacampus Alliance</p>
   </div>
 
-  <div class="chat-window">
+  <div class="chat-window" #chatWindow>
     <div class="messages">
       @for (msg of messages(); track msg.id) {
         <div class="message" [class.user]="msg.role === 'user'">
-          <div class="bubble">
-            {{ msg.content }}
-          </div>
+          @if (msg.role === 'assistant') {
+            <div class="bubble prose prose-sm"
+                 [innerHTML]="frontMarkdownService.renderMarkdown(msg.content)">
+            </div>
+          } @else {
+            <div class="bubble whitespace-pre-wrap">
+              {{ msg.content }}
+            </div>
+          }
         </div>
       }
 
@@ -26,6 +32,7 @@
     <input
       type="text"
       [(ngModel)]="input"
+      [disabled]="loading()"
       (keydown.enter)="sendMessage()"
       placeholder="Ask something..."
     />

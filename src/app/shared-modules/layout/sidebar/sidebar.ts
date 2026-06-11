@@ -171,8 +171,8 @@ export class Sidebar implements OnInit, OnDestroy {
     },
     {
       icon: 'pi pi-microchip-ai',
-      label: 'ENTropAI',
-      route: 'entropai',
+      label: 'EntropIA',
+      route: 'entropia',
     },
   ];
 }
