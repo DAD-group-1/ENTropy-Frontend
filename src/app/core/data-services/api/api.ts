@@ -1,3 +1,5 @@
+export * from './agent.service';
+import { AgentService } from './agent.service';
 export * from './attendance.service';
 import { AttendanceService } from './attendance.service';
 export * from './authentication.service';
@@ -34,4 +36,4 @@ export * from './user.service';
 import { UserService } from './user.service';
 export * from './userRole.service';
 import { UserRoleService } from './userRole.service';
-export const APIS = [AttendanceService, AuthenticationService, AuthorizationService, BuildingService, CampusService, CourseService, EnrollmentService, GradeService, InstructorService, NotificationsService, PaymentService, PaymentMethodService, RoomService, RoomTypeService, ScheduleService, StudentService, UserService, UserRoleService];
+export const APIS = [AgentService, AttendanceService, AuthenticationService, AuthorizationService, BuildingService, CampusService, CourseService, EnrollmentService, GradeService, InstructorService, NotificationsService, PaymentService, PaymentMethodService, RoomService, RoomTypeService, ScheduleService, StudentService, UserService, UserRoleService];

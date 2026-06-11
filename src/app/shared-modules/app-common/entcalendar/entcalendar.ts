@@ -26,7 +26,6 @@ export interface CalendarEvent extends EventDataAdditions {
 
 @Component({
   selector: 'app-entcalendar',
-  standalone: true,
   imports: [CommonModule, FormsModule, FullCalendarModule, DialogModule, PersonalDatePipe],
   templateUrl: './entcalendar.html',
   styleUrl: './entcalendar.css',
@@ -78,7 +77,7 @@ export class ENTCalendar implements OnInit {
       plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin],
       initialView: this.getInitialView(),
       weekends: false,
-      timeZone: environment.timezone,
+      timeZone: 'Europe/Paris',
       headerToolbar: {
         left: 'title',
         center: 'prev,next today',

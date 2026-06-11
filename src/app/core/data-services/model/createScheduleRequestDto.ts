@@ -11,10 +11,6 @@
 
 export interface CreateScheduleRequestDto { 
     /**
-     * The ID of the event
-     */
-    event_id: number;
-    /**
      * The ID of the course
      */
     course_id: number;

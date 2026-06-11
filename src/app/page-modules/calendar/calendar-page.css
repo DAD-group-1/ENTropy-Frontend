@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
-.calendar-page {
-  @apply w-full min-h-full overflow-y-auto h-1 p-4 shadow-xl rounded-2xl border-0 bg-clip-border bg-white;
+:host {
+  @apply relative block;
+
+  .center-loading {
+    @apply absolute inset-0 flex items-center justify-center;
+
+    .loading-container {
+      @apply flex flex-col justify-center gap-4;
+
+      .loading-text {
+        @apply text-xl;
+      }
+    }
+  }
 }

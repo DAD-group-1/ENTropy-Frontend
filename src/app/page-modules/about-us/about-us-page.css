@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:host .about-us {
+  @apply min-h-full text-slate-800 p-8;
+
+  .hero {
+    @apply text-center my-12;
+  }
+
+  .hero h1 {
+    @apply text-5xl font-bold mb-4 text-slate-900;
+  }
+
+  .tagline {
+    @apply text-xl text-slate-600;
+  }
+
+  .content {
+    @apply max-w-6xl mx-auto grid gap-6 md:grid-cols-2;
+  }
+
+  .card {
+    @apply bg-white border border-slate-200 rounded-2xl p-6 shadow-sm transition-shadow hover:shadow-md;
+  }
+
+  .card h2 {
+    @apply text-2xl font-semibold mb-4;
+    color: var(--secondary-color, #1f2937);
+  }
+
+  .card p {
+    @apply text-slate-600 leading-relaxed mb-4;
+  }
+
+  .card ul {
+    @apply list-disc list-inside text-slate-600 space-y-2;
+  }
+}
+
