@@ -13,10 +13,12 @@ import { FrontAuthService, Roles } from '../../shared-modules/service/front-auth
 import { FrontNavigationService } from '../../shared-modules/service/front-navigation.service';
 import { Observable, of, switchMap } from 'rxjs';
 import { displayName } from '../../shared-modules/utils';
+import { Card } from 'primeng/card';
+import { ProgressSpinner } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-calendar-page',
-  imports: [ENTCalendar],
+  imports: [ENTCalendar, Card, ProgressSpinner],
   templateUrl: './calendar-page.html',
   styleUrl: './calendar-page.css',
 })
@@ -105,7 +107,10 @@ export class CalendarPage {
       start: schedule.start_date,
       end: schedule.end_date,
       room: schedule.room.name,
-      instructor: displayName(schedule.instructor.user.first_name, schedule.instructor.user.last_name),
+      instructor: displayName(
+        schedule.instructor.user.first_name,
+        schedule.instructor.user.last_name,
+      ),
     };
   }
 }

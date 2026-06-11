@@ -1,4 +1,18 @@
-<!--<section class="calendar-page">-->
-<app-entcalendar [calendarEvents]="calendarEvents()"
-                 [onRangeChange]="onRangeChange.bind(this)"/>
-<!--</section>-->
+<app-entcalendar [hidden]="loading()" [calendarEvents]="calendarEvents()"
+                 [onRangeChange]="onRangeChange.bind(this)" />
+
+@if (loading()) {
+  <div class="center-loading">
+    <p-card>
+      <div class="loading-container">
+        <p-progressSpinner
+          [style]="{ width: '50px', height: '50px' }"
+          strokeWidth="4"
+          animationDuration=".5s"
+          aria-label="Loading spinner indicating that we are loading the data"
+        ></p-progressSpinner>
+        <p class="loading-text">Loading...</p>
+      </div>
+    </p-card>
+  </div>
+}

@@ -78,7 +78,7 @@ export class ENTCalendar implements OnInit {
       plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin],
       initialView: this.getInitialView(),
       weekends: false,
-      timeZone: environment.timezone,
+      timeZone: 'Europe/Paris',
       headerToolbar: {
         left: 'title',
         center: 'prev,next today',
