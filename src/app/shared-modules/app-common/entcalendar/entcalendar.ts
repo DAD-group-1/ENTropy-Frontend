@@ -26,7 +26,6 @@ export interface CalendarEvent extends EventDataAdditions {
 
 @Component({
   selector: 'app-entcalendar',
-  standalone: true,
   imports: [CommonModule, FormsModule, FullCalendarModule, DialogModule, PersonalDatePipe],
   templateUrl: './entcalendar.html',
   styleUrl: './entcalendar.css',

@@ -18,7 +18,6 @@ export type DateFormat =
 
 @Pipe({
   name: 'personalDate',
-  standalone: true,
 })
 export class PersonalDatePipe implements PipeTransform {
   private datePipe = new DatePipe('en-US');
