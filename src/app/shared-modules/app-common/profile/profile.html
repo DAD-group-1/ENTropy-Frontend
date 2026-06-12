@@ -178,12 +178,6 @@
   [dismissableMask]="true"
   [draggable]="false"
 >
-  @if (errorMessage()) {
-    <div class="error-banner">
-      {{ errorMessage() }}
-    </div>
-  }
-
   <form [formGroup]="notificationForm" class="form-container">
     <!-- Title -->
     <div class="field">

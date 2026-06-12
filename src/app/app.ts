@@ -7,10 +7,11 @@ import { Sidebar } from './shared-modules/layout/sidebar/sidebar';
 import { FrontLayoutService } from './shared-modules/service/front-layout.service';
 import { FrontWebsocketService } from './shared-modules/service/front-websocket.service';
 import { filter } from 'rxjs/operators';
+import { Toast } from 'primeng/toast';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Sidebar],
+  imports: [RouterOutlet, Header, Sidebar, Toast],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

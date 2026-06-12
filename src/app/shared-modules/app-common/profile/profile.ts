@@ -10,6 +10,7 @@ import { ButtonDirective } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
 import { Textarea } from 'primeng/textarea';
 import { CreateNotificationDto, NotificationsService } from '../../../core/data-services';
+import { FrontToastService } from '../../service/front-toast.service';
 
 export interface ProfileData {
   firstname: string;
@@ -58,6 +59,7 @@ export class Profile implements OnChanges {
   public readonly fb = inject(FormBuilder);
   public readonly frontAuthService = inject(FrontAuthService);
   public readonly notificationsService = inject(NotificationsService);
+  private readonly frontToastService = inject(FrontToastService);
 
   public Roles = Roles;
 
@@ -69,7 +71,6 @@ export class Profile implements OnChanges {
   };
 
   public showModal: WritableSignal<boolean> = signal(false);
-  public errorMessage: WritableSignal<string | null> = signal(null);
 
   notificationForm = this.fb.group({
     user_id: [this.userId, Validators.required],
@@ -103,20 +104,17 @@ export class Profile implements OnChanges {
 
     this.notificationsService.notificationsCreate({ createNotificationDto: payload }).subscribe({
       next: () => {
-        this.errorMessage.set(null);
         this.showModal.set(false);
         this.notificationForm.reset();
         this.notificationForm.patchValue({
           user_id: this.userId,
         });
+        this.frontToastService.success('Notification sent successfully');
       },
 
       error: (err) => {
         console.error(err);
-
-        const message = err?.error?.message || err?.message || 'Failed to send notification';
-
-        this.errorMessage.set(message);
+        this.frontToastService.error('An error occured', err);
       },
     });
   }

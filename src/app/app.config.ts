@@ -15,6 +15,7 @@ import { JwtInterceptor } from './core/interceptors/jwt-interceptor';
 import { FrontAuthService } from './shared-modules/service/front-auth.service';
 
 import { environment } from '../environments/environment';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,6 +34,7 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
+    MessageService,
     provideApi(environment.apiUrl),
     provideAppInitializer(initAuth),
     provideHttpClient(withInterceptors([JwtInterceptor])),
