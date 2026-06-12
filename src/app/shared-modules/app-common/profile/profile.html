@@ -25,10 +25,24 @@
       </section>
       <section class="buttons">
         @switch (profileType()) {
+          @case (Roles.ADMIN) {
+
+          }
+          @case (Roles.MANAGEMENT) {
+
+          }
           @case (Roles.INSTRUCTOR) {
 
           }
           @default {
+            @if (frontAuthService.tokenPersonalizedData &&
+            !isMyProfile &&
+            frontAuthService.tokenPersonalizedData.role !== Roles.STUDENT) {
+              <button class="p-button p-button-outlined" (click)="showModal.set(true);">
+                Add notification
+              </button>
+            }
+
             <button class="p-button p-button-outlined"
                     [routerLink]="isMyProfile ? ['/grades'] : ['/grades', userId]">
               See Grades
@@ -153,3 +167,49 @@
     </div>
   </p-card>
 </section>
+
+<p-dialog
+  header="Add notification for this user"
+  [modal]="true"
+  [visible]="showModal()"
+  (visibleChange)="showModal.set($event)"
+  [style]="{ width: '50rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [dismissableMask]="true"
+  [draggable]="false"
+>
+  <form [formGroup]="notificationForm" class="form-container">
+    <!-- Title -->
+    <div class="field">
+      <label for="title">Title *</label>
+      <input id="title" type="text" pInputText formControlName="title" class="p-inputtext p-component" />
+    </div>
+
+    <!-- Message -->
+    <div class="field">
+      <label for="message">Message *</label>
+      <textarea rows="4" pTextarea formControlName="message" class="p-textarea p-component"></textarea>
+      @if (notificationForm.get('message')?.invalid && notificationForm.get('message')?.touched) {
+        <small class="error">Message is required</small>
+      }
+    </div>
+
+    <!-- Target URL -->
+    <div class="field">
+      <label for="target_url">Target URL (relative to website root) (optionnal)</label>
+      <input type="text" pInputText formControlName="target_url" class="p-inputtext p-component" />
+    </div>
+
+    <!-- Button -->
+    <div class="actions">
+      <button
+        pButton
+        type="button"
+        (click)="submitNotification()"
+        [disabled]="notificationForm.invalid"
+      >
+        Add notification to student
+      </button>
+    </div>
+  </form>
+</p-dialog>

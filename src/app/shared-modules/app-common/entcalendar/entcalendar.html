@@ -29,20 +29,16 @@
         <span
           class="inline-flex items-center text-xs px-3 py-1 rounded-full font-medium bg-blue-100 text-blue-700"
         >
-          @if (clickedEvent()?.allDay) {
-            All day
-          } @else {
             <time [attr.datetime]="toDate(clickedEvent()?.start) | personalDate:'HH:mm'">
-              {{ toDate(clickedEvent()?.start) | personalDate:'HH:mm'}}
+              {{ toDate(clickedEvent()?.start) | personalDate:'HH:mm' }}
             </time>
 
-            @if (clickedEvent()?.end) {
+          @if (clickedEvent()?.end) {
             <span aria-hidden="true"> - </span>
-              <time
-                [attr.datetime]="toDate(clickedEvent()?.end) | personalDate:'HH:mm'">
+            <time
+              [attr.datetime]="toDate(clickedEvent()?.end) | personalDate:'HH:mm'">
               {{ toDate(clickedEvent()?.end) | personalDate:'HH:mm' }}
             </time>
-            }
           }
         </span>
       </p>

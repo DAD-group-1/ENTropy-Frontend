@@ -18,8 +18,4 @@ export class HomePage {
   public Roles = Roles;
 
   userRole = this.frontAuthService.tokenPersonalizedData!.role;
-
-  ngOnInit() {
-    console.log(this.userRole);
-  }
 }

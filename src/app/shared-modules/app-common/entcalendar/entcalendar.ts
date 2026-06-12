@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, signal, ViewChild, WritableSignal } from '@angular/core';
+import { Component, inject, Input, OnInit, signal, ViewChild, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
@@ -9,6 +9,9 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import { DialogModule } from 'primeng/dialog';
 import { PersonalDatePipe } from '../../utils';
+import { FrontAuthService, Roles } from '../../service/front-auth.service';
+import { ScheduleService, ScheduleUpdateRequestParams } from '../../../core/data-services';
+import { FrontToastService } from '../../service/front-toast.service';
 
 interface EventDataAdditions {
   id?: string;
@@ -37,6 +40,10 @@ export class ENTCalendar implements OnInit {
   @Input({ required: true }) public calendarEvents: CalendarEvent[] = [];
   @Input() public onRangeChange?: (start: Date, end: Date) => void;
   @Input() public isHomepage = false;
+
+  private readonly frontAuthService = inject(FrontAuthService);
+  private readonly scheduleService = inject(ScheduleService);
+  private readonly frontToastService = inject(FrontToastService);
 
   public clickedEvent: WritableSignal<EventInput | null> = signal(null);
   public showModal: WritableSignal<boolean> = signal(false);
@@ -73,6 +80,9 @@ export class ENTCalendar implements OnInit {
   public calendarOptions!: CalendarOptions;
 
   ngOnInit() {
+    const role = this.frontAuthService.tokenPersonalizedData?.role;
+    const canEdit = !!(role && (role != Roles.STUDENT) && !this.isHomepage);
+
     this.calendarOptions = {
       plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin],
       initialView: this.getInitialView(),
@@ -85,9 +95,10 @@ export class ENTCalendar implements OnInit {
           ? 'timeGridWeek,timeGridDay'
           : 'dayGridMonth,timeGridWeek,timeGridDay',
       },
+      allDaySlot: false,
       nowIndicator: true,
       stickyHeaderDates: false,
-      height: this.isHomepage ? '750px' : 'flex',
+      height: this.isHomepage ? '750px' : '100%',
       slotMinTime: '08:00:00',
       slotMaxTime: '18:00:00',
       windowResize: () => {
@@ -101,6 +112,29 @@ export class ENTCalendar implements OnInit {
       },
       datesSet: (arg) => {
         this.onRangeChange?.(arg.start, arg.end);
+      },
+      editable: canEdit,
+      eventResizableFromStart: canEdit,
+      eventChange: (info) => {
+        if (!canEdit) return;
+
+        const event = info.event;
+        const data: ScheduleUpdateRequestParams = {
+          id: event.id,
+          updateScheduleDto: {
+            start_date: event.start?.toISOString(),
+            end_date: event.end?.toISOString(),
+          },
+        };
+
+        this.scheduleService.scheduleUpdate(data).subscribe({
+          next: () => {
+            this.frontToastService.success('Schedule modified successfully');
+          },
+          error: (error) => {
+            this.frontToastService.error('An error occured', error);
+          },
+        });
       },
     };
   }

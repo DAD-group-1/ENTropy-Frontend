@@ -30,13 +30,13 @@ export class CalendarPage {
 
   @Input() isHomepage = false;
 
-  //TODO: Get it from the Authorization service
-  public isInstructor = false;
   public loading = signal(true);
+  private startDate!: Date;
+  private endDate!: Date;
 
   public calendarEvents = signal<CalendarEvent[]>([]);
 
-  loadSchedule(startDate: Date, endDate: Date) {
+  loadSchedule(startDate?: Date, endDate?: Date) {
     const role = this.frontAuthService.tokenPersonalizedData?.role;
 
     if (!role) {
@@ -44,8 +44,16 @@ export class CalendarPage {
       return;
     }
 
-    const startDateRequest = startDate.toISOString();
-    const endDateRequest = endDate.toISOString();
+    if (startDate) this.startDate = startDate;
+    if (endDate) this.endDate = endDate;
+
+    if (!this.startDate || !this.endDate) {
+      this.frontNavigationService.navigate('/error');
+      return;
+    }
+
+    const startDateRequest = this.startDate.toISOString();
+    const endDateRequest = this.endDate.toISOString();
     const dateObj = {
       startDate: startDateRequest,
       endDate: endDateRequest,
